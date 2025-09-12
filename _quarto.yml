@@ -3,7 +3,7 @@ project:
   output-dir: docs
 
 website:
-  title: "STA 9750 Submission Material"
+  title: "Introduction"
   description:
     Course Projects for STA 9750 at Baruch College
   site-url: "https://chentenchi.github.io/STA9750-2025-FALL/"
@@ -13,7 +13,7 @@ website:
     
 format:
   html:
-    theme: <THEME>
+    theme: slate
     toc: false
 
 editor:
