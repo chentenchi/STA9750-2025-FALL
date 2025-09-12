@@ -1,5 +1,5 @@
 ---
-title: Introduction
+title: "Introduction"
 ---
 Hi my name is Tenchi Chen, I'm a current Baruch graduate student that will be graduating in May 2026. I have a background in HR and I'm currently working on transitioning into a more data driven role. Feel free to connect with me on Linkedin if you want to learn more at https://www.linkedin.com/in/tenchi/ . Project portfolio and resume are available by request! 
 ```{r}
