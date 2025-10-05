@@ -1,9 +1,226 @@
 [
   {
+    "objectID": "mp01.html",
+    "href": "mp01.html",
+    "title": "mp01",
+    "section": "",
+    "text": "Code\n# (Starter code — unchanged)\nif(!dir.exists(file.path(\"data\", \"mp01\"))){\n    dir.create(file.path(\"data\", \"mp01\"), showWarnings=FALSE, recursive=TRUE)\n}\n\nGLOBAL_TOP_10_FILENAME &lt;- file.path(\"data\", \"mp01\", \"global_top10_alltime.csv\")\n\nif(!file.exists(GLOBAL_TOP_10_FILENAME)){\n    download.file(\"https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv\", \n                  destfile=GLOBAL_TOP_10_FILENAME)\n}\n\nCOUNTRY_TOP_10_FILENAME &lt;- file.path(\"data\", \"mp01\", \"country_top10_alltime.csv\")\n\nif(!file.exists(COUNTRY_TOP_10_FILENAME)){\n    download.file(\"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv\", \n                  destfile=COUNTRY_TOP_10_FILENAME)\n}"
+  },
+  {
+    "objectID": "mp01.html#acquire-data",
+    "href": "mp01.html#acquire-data",
+    "title": "mp01",
+    "section": "",
+    "text": "Code\n# (Starter code — unchanged)\nif(!dir.exists(file.path(\"data\", \"mp01\"))){\n    dir.create(file.path(\"data\", \"mp01\"), showWarnings=FALSE, recursive=TRUE)\n}\n\nGLOBAL_TOP_10_FILENAME &lt;- file.path(\"data\", \"mp01\", \"global_top10_alltime.csv\")\n\nif(!file.exists(GLOBAL_TOP_10_FILENAME)){\n    download.file(\"https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv\", \n                  destfile=GLOBAL_TOP_10_FILENAME)\n}\n\nCOUNTRY_TOP_10_FILENAME &lt;- file.path(\"data\", \"mp01\", \"country_top10_alltime.csv\")\n\nif(!file.exists(COUNTRY_TOP_10_FILENAME)){\n    download.file(\"https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv\", \n                  destfile=COUNTRY_TOP_10_FILENAME)\n}"
+  },
+  {
+    "objectID": "mp01.html#data-import-and-preparation",
+    "href": "mp01.html#data-import-and-preparation",
+    "title": "mp01",
+    "section": "Data Import and Preparation",
+    "text": "Data Import and Preparation\n\n\nCode\nif (!require(\"tidyverse\")) install.packages(\"tidyverse\")\n\n\nLoading required package: tidyverse\n\n\n── Attaching core tidyverse packages ──────────────────────── tidyverse 2.0.0 ──\n✔ dplyr     1.1.4     ✔ readr     2.1.5\n✔ forcats   1.0.0     ✔ stringr   1.5.1\n✔ ggplot2   3.5.2     ✔ tibble    3.3.0\n✔ lubridate 1.9.4     ✔ tidyr     1.3.1\n✔ purrr     1.1.0     \n── Conflicts ────────────────────────────────────────── tidyverse_conflicts() ──\n✖ dplyr::filter() masks stats::filter()\n✖ dplyr::lag()    masks stats::lag()\nℹ Use the conflicted package (&lt;http://conflicted.r-lib.org/&gt;) to force all conflicts to become errors\n\n\nCode\nlibrary(readr)\nlibrary(dplyr)\n\n\n\n\nCode\nGLOBAL_TOP_10  &lt;- read_tsv(GLOBAL_TOP_10_FILENAME, show_col_types = FALSE)\nCOUNTRY_TOP_10 &lt;- read_tsv(COUNTRY_TOP_10_FILENAME, show_col_types = FALSE)\n\nstr(GLOBAL_TOP_10)\n\n\nspc_tbl_ [8,880 × 9] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ week                      : Date[1:8880], format: \"2025-09-28\" \"2025-09-28\" ...\n $ category                  : chr [1:8880] \"Films (English)\" \"Films (English)\" \"Films (English)\" \"Films (English)\" ...\n $ weekly_rank               : num [1:8880] 1 2 3 4 5 6 7 8 9 10 ...\n $ show_title                : chr [1:8880] \"KPop Demon Hunters\" \"Ruth & Boaz\" \"The Wrong Paris\" \"Man on Fire\" ...\n $ season_title              : chr [1:8880] \"N/A\" \"N/A\" \"N/A\" \"N/A\" ...\n $ weekly_hours_viewed       : num [1:8880] 32200000 15900000 13500000 15700000 11200000 8400000 6800000 6200000 4900000 8400000 ...\n $ runtime                   : num [1:8880] 1.67 1.55 1.78 2.43 1.83 ...\n $ weekly_views              : num [1:8880] 19300000 10300000 7600000 6500000 6100000 4900000 3600000 3200000 3200000 2800000 ...\n $ cumulative_weeks_in_top_10: num [1:8880] 15 1 3 5 2 1 1 1 1 3 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   week = col_date(format = \"\"),\n  ..   category = col_character(),\n  ..   weekly_rank = col_double(),\n  ..   show_title = col_character(),\n  ..   season_title = col_character(),\n  ..   weekly_hours_viewed = col_double(),\n  ..   runtime = col_double(),\n  ..   weekly_views = col_double(),\n  ..   cumulative_weeks_in_top_10 = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\n\nCode\ndplyr::glimpse(GLOBAL_TOP_10)\n\n\nRows: 8,880\nColumns: 9\n$ week                       &lt;date&gt; 2025-09-28, 2025-09-28, 2025-09-28, 2025-0…\n$ category                   &lt;chr&gt; \"Films (English)\", \"Films (English)\", \"Film…\n$ weekly_rank                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, …\n$ show_title                 &lt;chr&gt; \"KPop Demon Hunters\", \"Ruth & Boaz\", \"The W…\n$ season_title               &lt;chr&gt; \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"…\n$ weekly_hours_viewed        &lt;dbl&gt; 32200000, 15900000, 13500000, 15700000, 112…\n$ runtime                    &lt;dbl&gt; 1.6667, 1.5500, 1.7833, 2.4333, 1.8333, 1.7…\n$ weekly_views               &lt;dbl&gt; 19300000, 10300000, 7600000, 6500000, 61000…\n$ cumulative_weeks_in_top_10 &lt;dbl&gt; 15, 1, 3, 5, 2, 1, 1, 1, 1, 3, 2, 1, 1, 2, …\n\n\nCode\nstr(COUNTRY_TOP_10)\n\n\nspc_tbl_ [413,620 × 8] (S3: spec_tbl_df/tbl_df/tbl/data.frame)\n $ country_name              : chr [1:413620] \"Argentina\" \"Argentina\" \"Argentina\" \"Argentina\" ...\n $ country_iso2              : chr [1:413620] \"AR\" \"AR\" \"AR\" \"AR\" ...\n $ week                      : Date[1:413620], format: \"2025-09-28\" \"2025-09-28\" ...\n $ category                  : chr [1:413620] \"Films\" \"Films\" \"Films\" \"Films\" ...\n $ weekly_rank               : num [1:413620] 1 2 3 4 5 6 7 8 9 10 ...\n $ show_title                : chr [1:413620] \"Sonic the Hedgehog 3\" \"KPop Demon Hunters\" \"French Lover\" \"She Said Maybe\" ...\n $ season_title              : chr [1:413620] \"N/A\" \"N/A\" \"N/A\" \"N/A\" ...\n $ cumulative_weeks_in_top_10: num [1:413620] 2 15 1 2 1 1 2 5 1 2 ...\n - attr(*, \"spec\")=\n  .. cols(\n  ..   country_name = col_character(),\n  ..   country_iso2 = col_character(),\n  ..   week = col_date(format = \"\"),\n  ..   category = col_character(),\n  ..   weekly_rank = col_double(),\n  ..   show_title = col_character(),\n  ..   season_title = col_character(),\n  ..   cumulative_weeks_in_top_10 = col_double()\n  .. )\n - attr(*, \"problems\")=&lt;externalptr&gt; \n\n\nCode\ndplyr::glimpse(COUNTRY_TOP_10)\n\n\nRows: 413,620\nColumns: 8\n$ country_name               &lt;chr&gt; \"Argentina\", \"Argentina\", \"Argentina\", \"Arg…\n$ country_iso2               &lt;chr&gt; \"AR\", \"AR\", \"AR\", \"AR\", \"AR\", \"AR\", \"AR\", \"…\n$ week                       &lt;date&gt; 2025-09-28, 2025-09-28, 2025-09-28, 2025-0…\n$ category                   &lt;chr&gt; \"Films\", \"Films\", \"Films\", \"Films\", \"Films\"…\n$ weekly_rank                &lt;dbl&gt; 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 1, 2, 3, 4, …\n$ show_title                 &lt;chr&gt; \"Sonic the Hedgehog 3\", \"KPop Demon Hunters…\n$ season_title               &lt;chr&gt; \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"N/A\", \"…\n$ cumulative_weeks_in_top_10 &lt;dbl&gt; 2, 15, 1, 2, 1, 1, 2, 5, 1, 2, 2, 1, 1, 1, …\n\n\nCode\nGLOBAL_TOP_10  &lt;- GLOBAL_TOP_10  |&gt; mutate(week = as.Date(week))\nCOUNTRY_TOP_10 &lt;- COUNTRY_TOP_10 |&gt; mutate(week = as.Date(week))\n\nsummary(GLOBAL_TOP_10$week)\n\n\n        Min.      1st Qu.       Median         Mean      3rd Qu.         Max. \n\"2021-07-04\" \"2022-07-24\" \"2023-08-16\" \"2023-08-16\" \"2024-09-08\" \"2025-09-28\" \n\n\nCode\nsummary(COUNTRY_TOP_10$week)\n\n\n        Min.      1st Qu.       Median         Mean      3rd Qu.         Max. \n\"2021-07-04\" \"2022-07-24\" \"2023-08-13\" \"2023-08-15\" \"2024-09-08\" \"2025-09-28\""
+  },
+  {
+    "objectID": "mp01.html#task-2---data-cleaning",
+    "href": "mp01.html#task-2---data-cleaning",
+    "title": "mp01",
+    "section": "Task 2 - Data Cleaning",
+    "text": "Task 2 - Data Cleaning\n\n\nCode\n# Convert literal \"N/A\" strings in season_title to real NA\nGLOBAL_TOP_10 &lt;- GLOBAL_TOP_10 |&gt;\n  mutate(season_title = if_else(season_title == \"N/A\",\n                                NA_character_,\n                                season_title))\n\n# quick confirmation\nGLOBAL_TOP_10 |&gt;\n  summarise(\n    n_rows = n(),\n    na_season_title = sum(is.na(season_title))\n  )\n\n\n# A tibble: 1 × 2\n  n_rows na_season_title\n   &lt;int&gt;           &lt;int&gt;\n1   8880            4562"
+  },
+  {
+    "objectID": "mp01.html#task-3---data-import-tweak",
+    "href": "mp01.html#task-3---data-import-tweak",
+    "title": "mp01",
+    "section": "Task 3 - Data Import Tweak",
+    "text": "Task 3 - Data Import Tweak\n\n\nCode\nCOUNTRY_TOP_10 &lt;- read_tsv(\n  COUNTRY_TOP_10_FILENAME,\n  show_col_types = FALSE,\n  na = c(\"N/A\")   # treat the literal string \"N/A\" as missing\n)\n\n# quick confirmation\nCOUNTRY_TOP_10 |&gt;\n  summarise(\n    n_rows = n(),\n    na_season_title = sum(is.na(season_title))\n  )\n\n\n# A tibble: 1 × 2\n  n_rows na_season_title\n   &lt;int&gt;           &lt;int&gt;\n1 413620          210931"
+  },
+  {
+    "objectID": "mp01.html#dark-mode-fix",
+    "href": "mp01.html#dark-mode-fix",
+    "title": "mp01",
+    "section": "Dark Mode Fix",
+    "text": "Dark Mode Fix"
+  },
+  {
+    "objectID": "mp01.html#dark-mode-css-fix",
+    "href": "mp01.html#dark-mode-css-fix",
+    "title": "mp01",
+    "section": "Dark Mode CSS Fix",
+    "text": "Dark Mode CSS Fix\n\n\nCode\n:root[data-bs-theme=\"dark\"] table.dataTable,\n:root[data-bs-theme=\"dark\"] .dataTables_wrapper .dataTables_info,\n:root[data-bs-theme=\"dark\"] .dataTables_wrapper .dataTables_length label,\n:root[data-bs-theme=\"dark\"] .dataTables_wrapper .dataTables_filter label {\n  color: #e6e6e6 !important;\n}\n:root[data-bs-theme=\"dark\"] table.dataTable thead th {\n  color: #f1f5f9 !important;\n}"
+  },
+  {
+    "objectID": "mp01.html#initial-data-exploration",
+    "href": "mp01.html#initial-data-exploration",
+    "title": "mp01",
+    "section": "Initial Data Exploration",
+    "text": "Initial Data Exploration\n\n\nCode\n# Install once if needed\nif (!require(\"DT\")) install.packages(\"DT\")\nlibrary(DT)\n\n# Show a small interactive preview of the global data\ntbl &lt;- GLOBAL_TOP_10 |&gt;\n  head(n = 20) |&gt;\n  datatable_dark()\n\n# (optional) also preview the country-level data\ntbl_country &lt;- COUNTRY_TOP_10 |&gt;\n  head(n = 20) |&gt;\n  datatable_dark()"
+  },
+  {
+    "objectID": "mp01.html#cleaned-preview-table",
+    "href": "mp01.html#cleaned-preview-table",
+    "title": "mp01",
+    "section": "Cleaned Preview Table",
+    "text": "Cleaned Preview Table\n\n\nCode\n# header formatting helper\nif (!require(\"stringr\")) install.packages(\"stringr\")\nlibrary(stringr)\n\nformat_titles &lt;- function(df){\n  colnames(df) &lt;- colnames(df) |&gt;\n    str_replace_all(\"_\", \" \") |&gt;\n    str_to_title()\n  df\n}\n\n# Build the pretty table from GLOBAL_TOP_10\ntbl &lt;- GLOBAL_TOP_10 |&gt;\n  format_titles() |&gt;\n  head(n = 20) |&gt;\n  datatable_dark()\n\n# Round / format the numeric columns if present\nnum_cols &lt;- intersect(c(\"Weekly Hours Viewed\", \"Weekly Views\"), colnames(tbl$x$data))\nDT::formatRound(tbl, columns = num_cols, digits = 0)"
+  },
+  {
+    "objectID": "mp01.html#film-only-preview",
+    "href": "mp01.html#film-only-preview",
+    "title": "mp01",
+    "section": "Film-only Preview",
+    "text": "Film-only Preview\n\n\nCode\n# Build the table while dropping `season_title`\ntbl2 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::select(-season_title) |&gt;\n  format_titles() |&gt;\n  head(n = 20) |&gt;\n  datatable_dark()\n\n# Format big numbers if present\nnum_cols &lt;- intersect(c(\"Weekly Hours Viewed\", \"Weekly Views\"), colnames(tbl2$x$data))\nDT::formatRound(tbl2, columns = num_cols, digits = 0)"
+  },
+  {
+    "objectID": "mp01.html#runtime-in-minutes",
+    "href": "mp01.html#runtime-in-minutes",
+    "title": "mp01",
+    "section": "Runtime in Minutes",
+    "text": "Runtime in Minutes\n\n\nCode\n# If your dataset has a 'runtime' (in hours), convert to minutes and show a tidy preview\nif (\"runtime\" %in% names(GLOBAL_TOP_10)) {\n  tbl3 &lt;- GLOBAL_TOP_10 |&gt;\n    dplyr::mutate(`runtime_(minutes)` = round(60 * runtime)) |&gt;\n    dplyr::select(-season_title, -runtime) |&gt;\n    format_titles() |&gt;\n    head(n = 20) |&gt;\n    datatable_dark()\n\n  # Format big numeric columns if present\n  num_cols &lt;- intersect(c(\"Weekly Hours Viewed\", \"Weekly Views\"), colnames(tbl3$x$data))\n  DT::formatRound(tbl3, columns = num_cols, digits = 0)\n} else {\n  message(\"No 'runtime' column found in GLOBAL_TOP_10; skipping this view.\")\n}"
+  },
+  {
+    "objectID": "mp01.html#question-setup",
+    "href": "mp01.html#question-setup",
+    "title": "mp01",
+    "section": "Question Setup",
+    "text": "Question Setup\n\n\nCode\n# Figure out which column holds the country name\ncountry_col &lt;- intersect(names(COUNTRY_TOP_10), c(\"country\", \"country_name\"))[1]\nstopifnot(!is.na(country_col))  # fail early if neither exists"
+  },
+  {
+    "objectID": "mp01.html#q1-countries-with-top-10-data-proxy-for-operates-in",
+    "href": "mp01.html#q1-countries-with-top-10-data-proxy-for-operates-in",
+    "title": "mp01",
+    "section": "Q1 — Countries with Top-10 data (proxy for “operates in”)",
+    "text": "Q1 — Countries with Top-10 data (proxy for “operates in”)\n\n\nCode\nn_countries &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::summarise(n_countries = dplyr::n_distinct(.data[[country_col]])) |&gt;\n  dplyr::pull(n_countries)\nn_countries\n\n\n[1] 94"
+  },
+  {
+    "objectID": "mp01.html#q2-non-english-films-most-cumulative-weeks-in-global-top-10",
+    "href": "mp01.html#q2-non-english-films-most-cumulative-weeks-in-global-top-10",
+    "title": "mp01",
+    "section": "Q2 — Non-English Films: most cumulative weeks in global Top 10",
+    "text": "Q2 — Non-English Films: most cumulative weeks in global Top 10\n\n\nCode\nq2 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::filter(category == \"Films (Non-English)\") |&gt;\n  dplyr::group_by(show_title) |&gt;\n  dplyr::summarise(weeks = dplyr::n_distinct(week), .groups = \"drop\") |&gt;\n  dplyr::arrange(dplyr::desc(weeks))\nq2 |&gt; dplyr::slice_max(weeks, n = 1)\n\n\n# A tibble: 1 × 2\n  show_title                     weeks\n  &lt;chr&gt;                          &lt;int&gt;\n1 All Quiet on the Western Front    23"
+  },
+  {
+    "objectID": "mp01.html#q3-longest-film-any-language-to-appear-in-global-top-10",
+    "href": "mp01.html#q3-longest-film-any-language-to-appear-in-global-top-10",
+    "title": "mp01",
+    "section": "Q3 — Longest film (any language) to appear in global Top 10",
+    "text": "Q3 — Longest film (any language) to appear in global Top 10\n\n\nCode\nq3 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::filter(stringr::str_starts(category, \"Films\"),\n                !is.na(runtime)) |&gt;\n  dplyr::mutate(runtime_minutes = round(60 * runtime)) |&gt;\n  dplyr::arrange(dplyr::desc(runtime_minutes))\nq3 |&gt; dplyr::slice_head(n = 1) |&gt;\n  dplyr::select(show_title, runtime_minutes)\n\n\n# A tibble: 1 × 2\n  show_title                            runtime_minutes\n  &lt;chr&gt;                                           &lt;dbl&gt;\n1 Pushpa 2: The Rule (Reloaded Version)             224"
+  },
+  {
+    "objectID": "mp01.html#q4-most-total-hours-viewed-by-category-program-show_title",
+    "href": "mp01.html#q4-most-total-hours-viewed-by-category-program-show_title",
+    "title": "mp01",
+    "section": "Q4 — Most total hours viewed by category (program = show_title)",
+    "text": "Q4 — Most total hours viewed by category (program = show_title)\n\n\nCode\nq4 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::group_by(category, show_title) |&gt;\n  dplyr::summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE),\n                   .groups = \"drop_last\") |&gt;\n  dplyr::slice_max(total_hours, n = 1, with_ties = FALSE) |&gt;\n  dplyr::ungroup() |&gt;\n  dplyr::arrange(category)\nq4\n\n\n# A tibble: 4 × 3\n  category            show_title          total_hours\n  &lt;chr&gt;               &lt;chr&gt;                     &lt;dbl&gt;\n1 Films (English)     KPop Demon Hunters    591300000\n2 Films (Non-English) Society of the Snow   235900000\n3 TV (English)        Stranger Things      2967980000\n4 TV (Non-English)    Squid Game           5048300000"
+  },
+  {
+    "objectID": "mp01.html#q5-longest-top-10-run-for-a-tv-show-in-any-one-country",
+    "href": "mp01.html#q5-longest-top-10-run-for-a-tv-show-in-any-one-country",
+    "title": "mp01",
+    "section": "Q5 — Longest Top-10 run for a TV show in any one country",
+    "text": "Q5 — Longest Top-10 run for a TV show in any one country\n\n\nCode\nq5 &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::filter(stringr::str_starts(category, \"TV\")) |&gt;\n  dplyr::group_by(.data[[country_col]], show_title) |&gt;\n  dplyr::summarise(weeks = dplyr::n_distinct(week), .groups = \"drop\") |&gt;\n  dplyr::arrange(dplyr::desc(weeks))\nq5 |&gt; dplyr::slice_head(n = 1)\n\n\n# A tibble: 1 × 3\n  country_name show_title  weeks\n  &lt;chr&gt;        &lt;chr&gt;       &lt;int&gt;\n1 Pakistan     Money Heist   128"
+  },
+  {
+    "objectID": "mp01.html#q6-country-with-200-weeks-of-history-and-last-week-available",
+    "href": "mp01.html#q6-country-with-200-weeks-of-history-and-last-week-available",
+    "title": "mp01",
+    "section": "Q6 — Country with < 200 weeks of history and last week available",
+    "text": "Q6 — Country with &lt; 200 weeks of history and last week available\n\n\nCode\nq6_country &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::summarise(n_weeks = dplyr::n_distinct(week), .by = .data[[country_col]]) |&gt;\n  dplyr::arrange(n_weeks) |&gt;\n  dplyr::slice_head(n = 1)\n\n\nWarning: Use of .data in tidyselect expressions was deprecated in tidyselect 1.2.0.\nℹ Please use `all_of(var)` (or `any_of(var)`) instead of `.data[[var]]`\n\n\nCode\nq6_last_week &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::filter(.data[[country_col]] == q6_country[[country_col]][1]) |&gt;\n  dplyr::summarise(last_week = max(week, na.rm = TRUE))\n\ndplyr::bind_cols(q6_country, q6_last_week)\n\n\n# A tibble: 1 × 3\n  country_name n_weeks last_week \n  &lt;chr&gt;          &lt;int&gt; &lt;date&gt;    \n1 Russia            35 2022-02-27"
+  },
+  {
+    "objectID": "mp01.html#q7-squid-game-total-hours-across-all-seasons-global",
+    "href": "mp01.html#q7-squid-game-total-hours-across-all-seasons-global",
+    "title": "mp01",
+    "section": "Q7 — Squid Game: total hours across all seasons (global)",
+    "text": "Q7 — Squid Game: total hours across all seasons (global)\n\n\nCode\nq7 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::filter(stringr::str_starts(category, \"TV\"),\n                show_title == \"Squid Game\") |&gt;\n  dplyr::summarise(total_hours = sum(weekly_hours_viewed, na.rm = TRUE))\nq7\n\n\n# A tibble: 1 × 1\n  total_hours\n        &lt;dbl&gt;\n1  5048300000"
+  },
+  {
+    "objectID": "mp01.html#q8-red-notice-approx.-views-in-2021",
+    "href": "mp01.html#q8-red-notice-approx.-views-in-2021",
+    "title": "mp01",
+    "section": "Q8 — Red Notice approx. views in 2021",
+    "text": "Q8 — Red Notice approx. views in 2021\n\n\nCode\nq8 &lt;- GLOBAL_TOP_10 |&gt;\n  dplyr::filter(show_title == \"Red Notice\",\n                lubridate::year(week) == 2021) |&gt;\n  dplyr::mutate(runtime_minutes = round(60 * runtime)) |&gt;\n  dplyr::summarise(\n    total_hours_2021 = sum(weekly_hours_viewed, na.rm = TRUE),\n    runtime_minutes  = dplyr::first(runtime_minutes)\n  ) |&gt;\n  dplyr::mutate(approx_views_2021 = (total_hours_2021 * 60) / runtime_minutes)\nq8\n\n\n# A tibble: 1 × 3\n  total_hours_2021 runtime_minutes approx_views_2021\n             &lt;dbl&gt;           &lt;dbl&gt;             &lt;dbl&gt;\n1        396740000              NA                NA"
+  },
+  {
+    "objectID": "mp01.html#q9-films-that-later-reached-1-in-us-but-did-not-debut-at-1",
+    "href": "mp01.html#q9-films-that-later-reached-1-in-us-but-did-not-debut-at-1",
+    "title": "mp01",
+    "section": "Q9 — Films that later reached #1 in US but did not debut at #1",
+    "text": "Q9 — Films that later reached #1 in US but did not debut at #1\n\n\nCode\nus_name &lt;- \"United States\"\n\nus_films &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::filter(.data[[country_col]] == us_name,\n                stringr::str_starts(category, \"Films\")) |&gt;\n  dplyr::arrange(show_title, week)\n\ndebut_us &lt;- us_films |&gt;\n  dplyr::slice_min(week, by = show_title, with_ties = FALSE) |&gt;\n  dplyr::select(show_title, debut_rank = weekly_rank)\n\nmin_us &lt;- us_films |&gt;\n  dplyr::summarise(min_rank = min(weekly_rank, na.rm = TRUE), .by = show_title)\n\nq9 &lt;- debut_us |&gt;\n  dplyr::inner_join(min_us, by = \"show_title\") |&gt;\n  dplyr::filter(debut_rank != 1, min_rank == 1)\n\nq9_most_recent &lt;- us_films |&gt;\n  dplyr::filter(show_title %in% q9$show_title, weekly_rank == 1) |&gt;\n  dplyr::slice_max(week, by = show_title, with_ties = FALSE) |&gt;\n  dplyr::slice_max(week, n = 1)\n\nlist(\n  count = nrow(q9),\n  examples = q9 |&gt; dplyr::arrange(show_title),\n  most_recent = q9_most_recent |&gt; dplyr::select(show_title, week)\n)\n\n\n$count\n[1] 45\n\n$examples\n# A tibble: 45 × 3\n   show_title      debut_rank min_rank\n   &lt;chr&gt;                &lt;dbl&gt;    &lt;dbl&gt;\n 1 Aftermath                4        1\n 2 American Made            9        1\n 3 Blood Red Sky            5        1\n 4 Bullet Train             2        1\n 5 Day Shift                2        1\n 6 Despicable Me 2          2        1\n 7 Despicable Me 4          2        1\n 8 Dog Gone                 4        1\n 9 Don't Move               3        1\n10 End of the Road          2        1\n# ℹ 35 more rows\n\n$most_recent\n# A tibble: 1 × 2\n  show_title         week      \n  &lt;chr&gt;              &lt;date&gt;    \n1 KPop Demon Hunters 2025-09-28"
+  },
+  {
+    "objectID": "mp01.html#q10-tv-showseason-with-widest-top-10-debut-most-countries",
+    "href": "mp01.html#q10-tv-showseason-with-widest-top-10-debut-most-countries",
+    "title": "mp01",
+    "section": "Q10 — TV show/season with widest Top-10 debut (most countries)",
+    "text": "Q10 — TV show/season with widest Top-10 debut (most countries)\n\n\nCode\n# Define each title's debut week per country\ndebut_by_country &lt;- COUNTRY_TOP_10 |&gt;\n  dplyr::filter(stringr::str_starts(category, \"TV\")) |&gt;\n  dplyr::group_by(.data[[country_col]], show_title, season_title) |&gt;\n  dplyr::summarise(debut_week = min(week), .groups = \"drop\")\n\nq10 &lt;- debut_by_country |&gt;\n  dplyr::count(show_title, season_title, name = \"n_countries\") |&gt;\n  dplyr::arrange(dplyr::desc(n_countries))\n\nq10 |&gt; dplyr::slice_head(n = 1)\n\n\n# A tibble: 1 × 3\n  show_title         season_title                 n_countries\n  &lt;chr&gt;              &lt;chr&gt;                              &lt;int&gt;\n1 All of Us Are Dead All of Us Are Dead: Season 1          94"
+  },
+  {
+    "objectID": "mp01.html#column-helpers",
+    "href": "mp01.html#column-helpers",
+    "title": "mp01",
+    "section": "Column helpers",
+    "text": "Column helpers\n\n\nCode\n## Column name check (just to see exact spellings)\nnames(GLOBAL_TOP_10)\n\n\n[1] \"week\"                       \"category\"                  \n[3] \"weekly_rank\"                \"show_title\"                \n[5] \"season_title\"               \"weekly_hours_viewed\"       \n[7] \"runtime\"                    \"weekly_views\"              \n[9] \"cumulative_weeks_in_top_10\"\n\n\nCode\nnames(COUNTRY_TOP_10)\n\n\n[1] \"country_name\"               \"country_iso2\"              \n[3] \"week\"                       \"category\"                  \n[5] \"weekly_rank\"                \"show_title\"                \n[7] \"season_title\"               \"cumulative_weeks_in_top_10\"\n\n\n\n\nCode\nhours_col_g &lt;- \"weekly_hours_viewed\"   # GLOBAL_TOP_10 hours column\ncountry_col &lt;- \"country_name\"          # COUNTRY_TOP_10 country column\n\n# quick sanity\nstopifnot(hours_col_g %in% names(GLOBAL_TOP_10))\nstopifnot(country_col  %in% names(COUNTRY_TOP_10))"
+  },
+  {
+    "objectID": "mp01.html#stranger-things",
+    "href": "mp01.html#stranger-things",
+    "title": "mp01",
+    "section": "Stranger Things",
+    "text": "Stranger Things\n\n\nCode\nlibrary(dplyr); library(ggplot2); library(scales)\n\n\n\nAttaching package: 'scales'\n\n\nThe following object is masked from 'package:purrr':\n\n    discard\n\n\nThe following object is masked from 'package:readr':\n\n    col_factor\n\n\nCode\nst_global &lt;- GLOBAL_TOP_10 %&gt;%\n  filter(grepl(\"^TV\", category), show_title == \"Stranger Things\")\n\nst_by_season &lt;- st_global %&gt;%\n  group_by(season_title) %&gt;%\n  summarise(\n    weeks = n_distinct(week),\n    hours = sum(.data[[hours_col_g]], na.rm = TRUE),\n    .groups = \"drop\"\n  ) %&gt;%\n  arrange(season_title)\n\nst_total_hours   &lt;- sum(st_by_season$hours, na.rm = TRUE)\nst_longest_season &lt;- st_by_season %&gt;% slice_max(weeks, n = 1)\n\nst_countries &lt;- COUNTRY_TOP_10 %&gt;%\n  filter(grepl(\"^TV\", category), show_title == \"Stranger Things\") %&gt;%\n  summarise(n_countries = n_distinct(.data[[country_col]])) %&gt;%\n  pull(n_countries)\n\n# Charts\nggplot(st_by_season, aes(x = season_title, y = hours)) +\n  geom_col() +\n  labs(title = \"Stranger Things — Total Global Hours by Season\",\n       x = \"Season\", y = \"Hours\") +\n  scale_y_continuous(labels = label_comma())\n\n\n\n\n\n\n\n\n\nCode\nst_weekly &lt;- st_global %&gt;%\n  group_by(week) %&gt;%\n  summarise(hours = sum(.data[[hours_col_g]], na.rm = TRUE), .groups = \"drop\") %&gt;%\n  arrange(week) %&gt;%\n  mutate(cum_hours = cumsum(hours))\n\nggplot(st_weekly, aes(x = week, y = cum_hours)) +\n  geom_line() +\n  labs(title = \"Stranger Things — Cumulative Global Hours\",\n       x = \"Week\", y = \"Cumulative Hours\") +\n  scale_y_continuous(labels = label_comma())"
+  },
+  {
+    "objectID": "mp01.html#india-commercial-success",
+    "href": "mp01.html#india-commercial-success",
+    "title": "mp01",
+    "section": "India Commercial Success",
+    "text": "India Commercial Success\n\n\nCode\n# packages\nsuppressPackageStartupMessages({\n  library(dplyr)\n  library(ggplot2)\n})\nindia &lt;- COUNTRY_TOP_10 %&gt;%\n  filter(.data[[country_col]] == \"India\") %&gt;%\n  arrange(week)\n\n## 1) #1 winners: which titles spent the most weeks at #1?\nindia_no1 &lt;- india %&gt;%\n  group_by(week) %&gt;%\n  slice_min(weekly_rank, with_ties = FALSE) %&gt;%    # one #1 per week\n  ungroup()\n\nno1_by_title &lt;- india_no1 %&gt;%\n  count(show_title, name = \"weeks_at_no1\") %&gt;%\n  arrange(desc(weeks_at_no1)) %&gt;%\n  slice_head(n = 12)\n\nggplot(no1_by_title,\n       aes(x = weeks_at_no1, y = fct_reorder(show_title, weeks_at_no1))) +\n  geom_col() +\n  labs(title = \"India — Weeks at #1 by Title\",\n       x = \"Weeks at #1\", y = \"Title\")\n\n\n\n\n\n\n\n\n\nCode\n## 2) Longest #1 streaks (consecutive weeks at #1)\n# run-length encoding across weeks\nstreaks &lt;- india_no1 %&gt;%\n  mutate(change = show_title != dplyr::lag(show_title, default = first(show_title)),\n         streak_id = cumsum(change)) %&gt;%\n  group_by(streak_id, show_title) %&gt;%\n  summarise(\n    streak_weeks = n(),\n    start = min(week),\n    end   = max(week),\n    .groups = \"drop\"\n  ) %&gt;%\n  arrange(desc(streak_weeks)) %&gt;%\n  slice_head(n = 10)\n\nstreaks  # small table to quote in the PR\n\n\n# A tibble: 10 × 5\n   streak_id show_title          streak_weeks start      end       \n       &lt;int&gt; &lt;chr&gt;                      &lt;int&gt; &lt;date&gt;     &lt;date&gt;    \n 1         0 Haseen Dillruba                4 2021-07-04 2021-07-25\n 2         7 Thalaivii                      4 2021-09-26 2021-10-17\n 3       117 Lucky Baskhar                  4 2024-12-01 2024-12-22\n 4        13 Sooryavanshi                   3 2021-12-05 2021-12-19\n 5        22 Dasvi                          3 2022-04-10 2022-04-24\n 6        25 RRR (Hindi)                    3 2022-05-22 2022-06-05\n 7        69 Lust Stories 2                 3 2023-07-02 2023-07-16\n 8        81 Jawan: Extended Cut            3 2023-11-05 2023-11-19\n 9        92 Dunki                          3 2024-02-18 2024-03-03\n10        95 Fighter                        3 2024-03-24 2024-04-07\n\n\nCode\nggplot(streaks,\n       aes(x = start, xend = end, y = fct_reorder(show_title, streak_weeks), yend = show_title)) +\n  geom_segment(linewidth = 4) +\n  labs(title = \"India — Longest Consecutive #1 Streaks\",\n       x = \"Calendar time\", y = \"Title\")\n\n\n\n\n\n\n\n\n\nCode\n## 3) Rank heatmap for the most persistent titles (by weeks in Top-10)\ntop_titles_by_weeks &lt;- india %&gt;%\n  group_by(show_title) %&gt;%\n  summarise(weeks_in_top10 = n_distinct(week), .groups = \"drop\") %&gt;%\n  arrange(desc(weeks_in_top10)) %&gt;%\n  slice_head(n = 8) %&gt;%\n  pull(show_title)\n\nheat &lt;- india %&gt;%\n  filter(show_title %in% top_titles_by_weeks)\n\nggplot(heat, aes(x = week, y = fct_rev(fct_reorder(show_title, as.numeric(factor(show_title)))),\n                 fill = 11 - weekly_rank)) +\n  geom_tile() +\n  scale_fill_continuous(name = \"Rank (bright = #1)\", breaks = c(10, 6, 2),\n                        labels = c(\"Rank 1\", \"Rank 5\", \"Rank 9\")) +\n  scale_y_discrete(name = \"Title\") +\n  labs(title = \"India — Weekly Rank Heatmap for Top Persistent Titles\", x = \"Week\") +\n  theme(legend.position = \"bottom\")"
+  },
+  {
+    "objectID": "mp01.html#open-topic---squid-games",
+    "href": "mp01.html#open-topic---squid-games",
+    "title": "mp01",
+    "section": "Open Topic - Squid Games",
+    "text": "Open Topic - Squid Games\n\n\nCode\nsuppressPackageStartupMessages({\n  library(dplyr); library(ggplot2); library(forcats); library(scales); library(stringr)\n})\n\ntitle_of_interest &lt;- \"Squid Game\"\n\n## Data slices\nsg_global &lt;- GLOBAL_TOP_10 %&gt;%\n  filter(grepl(\"^TV\", category), show_title == title_of_interest) %&gt;%\n  arrange(week)\n\nsg_country &lt;- COUNTRY_TOP_10 %&gt;%\n  filter(show_title == title_of_interest)\n\n## Headline facts (for inline text)\nsg_total_hours &lt;- sg_global %&gt;%\n  summarise(total = sum(.data[[hours_col_g]], na.rm = TRUE)) %&gt;% pull(total)\n\nsg_weeks_global &lt;- n_distinct(sg_global$week)\n\nsg_country_reach &lt;- sg_country %&gt;%\n  summarise(n_countries = n_distinct(.data[[country_col]])) %&gt;% pull(n_countries)\n\n# By season (hours + weeks) — handy to cite S1/S2/S3 breakdowns if present\nsg_by_season &lt;- sg_global %&gt;%\n  mutate(season_title = if_else(is.na(season_title), \"Unknown/All\", season_title)) %&gt;%\n  group_by(season_title) %&gt;%\n  summarise(\n    weeks = n_distinct(week),\n    hours = sum(.data[[hours_col_g]], na.rm = TRUE),\n    .groups = \"drop\"\n  ) %&gt;% arrange(season_title)\n\nsg_by_season\n\n\n# A tibble: 3 × 3\n  season_title         weeks      hours\n  &lt;chr&gt;                &lt;int&gt;      &lt;dbl&gt;\n1 Squid Game: Season 1    32 2729400000\n2 Squid Game: Season 2    14 1445500000\n3 Squid Game: Season 3     9  873400000\n\n\nCode\n## Visual 1: Top countries by *weeks in Top-10*\nsg_top_countries &lt;- sg_country %&gt;%\n  group_by(.data[[country_col]]) %&gt;%\n  summarise(weeks = n_distinct(week), .groups = \"drop\") %&gt;%\n  slice_max(weeks, n = 12) %&gt;% arrange(weeks)\n\nggplot(sg_top_countries,\n       aes(x = weeks, y = reorder(.data[[country_col]], weeks))) +\n  geom_col() +\n  labs(\n    title = \"Squid Game — Top Countries by Weeks in Top-10\",\n    x = \"Weeks in Top-10\", y = \"Country\"\n  )\n\n\n\n\n\n\n\n\n\nCode\n# top 3 country names for inline copy\nsg_top3 &lt;- sg_top_countries %&gt;%\n  arrange(desc(weeks)) %&gt;% slice_head(n = 3) %&gt;% pull(.data[[country_col]])\n\n## Visual 2: Cumulative global hours over time\nsg_weekly_hours &lt;- sg_global %&gt;%\n  group_by(week) %&gt;%\n  summarise(hours = sum(.data[[hours_col_g]], na.rm = TRUE), .groups = \"drop\") %&gt;%\n  arrange(week) %&gt;%\n  mutate(cum_hours = cumsum(hours))\n\nggplot(sg_weekly_hours, aes(x = week, y = cum_hours)) +\n  geom_line() +\n  labs(\n    title = \"Squid Game — Cumulative Global Hours\",\n    x = \"Week\", y = \"Cumulative Hours\"\n  ) +\n  scale_y_continuous(labels = label_comma())\n\n\n\n\n\n\n\n\n\nCode\n## Visual 3: Longest continuous Top-10 run by country (streak)\n# (any rank 1–10)\nsg_streaks &lt;- sg_country %&gt;%\n  arrange(.data[[country_col]], week) %&gt;%\n  group_by(.data[[country_col]]) %&gt;%\n  mutate(\n    gap = as.integer(week) - as.integer(lag(week)),\n    new_block = if_else(is.na(gap) | gap &gt; 7, 1L, 0L),        # gaps &gt; 1 week break streak\n    block_id = cumsum(coalesce(new_block, 0L))\n  ) %&gt;%\n  group_by(.data[[country_col]], block_id) %&gt;%\n  summarise(\n    streak_weeks = n(), start = min(week), end = max(week),\n    .groups = \"drop\"\n  ) %&gt;%\n  group_by(.data[[country_col]]) %&gt;%\n  slice_max(streak_weeks, n = 1, with_ties = FALSE) %&gt;%\n  ungroup() %&gt;%\n  slice_max(streak_weeks, n = 12) %&gt;%                 # show top 12 longest streaks\n  arrange(streak_weeks)\n\nggplot(sg_streaks,\n       aes(x = streak_weeks, y = reorder(.data[[country_col]], streak_weeks))) +\n  geom_col() +\n  labs(\n    title = \"Squid Game — Longest Continuous Top-10 Run by Country\",\n    x = \"Consecutive Weeks in Top-10\", y = \"Country\"\n  )\n\n\n\n\n\n\n\n\n\nCode\n# pull the single longest streak for inline copy\nsg_longest_streak &lt;- sg_streaks %&gt;% slice_tail(n = 1)"
+  },
+  {
+    "objectID": "mp01.html#stranger-things-paragraph-helper",
+    "href": "mp01.html#stranger-things-paragraph-helper",
+    "title": "mp01",
+    "section": "Stranger Things Paragraph Helper",
+    "text": "Stranger Things Paragraph Helper\n\n\nCode\n# convenience values for the paragraph\nst_top_hours &lt;- st_by_season %&gt;% dplyr::slice_max(hours, n = 1)\nst_top_hours_share &lt;- st_top_hours$hours / st_total_hours\nst_n_seasons &lt;- st_by_season %&gt;% dplyr::filter(!is.na(season_title)) %&gt;% nrow()"
+  },
+  {
+    "objectID": "mp01.html#stranger-things-press-release",
+    "href": "mp01.html#stranger-things-press-release",
+    "title": "mp01",
+    "section": "Stranger Things Press Release",
+    "text": "Stranger Things Press Release\nHeadline: Stranger Things surges worldwide as fans stream 2,967,980,000 hours across 3 seasons.\nWith the final chapter approaching, Stranger Things remains a global phenomenon. Viewers have streamed 2,967,980,000 hours in total, with Stranger Things 4 alone accounting for 63.6% of lifetime viewing. The franchise’s staying power is clear: Stranger Things 4 logged 19 distinct weeks in Netflix’s global Top 10, and the series has charted in 93 countries. Momentum is visible in the rapid climb of cumulative hours following recent releases, underscoring the show’s broad, durable appeal ahead of the upcoming season."
+  },
+  {
+    "objectID": "mp01.html#india-paragraph-helper",
+    "href": "mp01.html#india-paragraph-helper",
+    "title": "mp01",
+    "section": "India Paragraph Helper",
+    "text": "India Paragraph Helper\n\n\nCode\n# ---- India PR helper (combined: data + neat sentences) ----\nsuppressPackageStartupMessages({library(dplyr); library(glue)})\n\nif (!exists(\"country_col\")) country_col &lt;- \"country_name\"\n\nindia &lt;- COUNTRY_TOP_10 %&gt;%\n  filter(.data[[country_col]] == \"India\") %&gt;%\n  arrange(week)\n\n# #1 by week (one per week)\nindia_no1 &lt;- india %&gt;%\n  group_by(week) %&gt;%\n  slice_min(weekly_rank, with_ties = FALSE) %&gt;%\n  ungroup()\n\nno1_by_title &lt;- india_no1 %&gt;%\n  count(show_title, name = \"weeks_at_no1\") %&gt;%\n  arrange(desc(weeks_at_no1))\n\n# Longest consecutive #1 streaks\nstreaks &lt;- india_no1 %&gt;%\n  mutate(change   = show_title != lag(show_title, default = first(show_title)),\n         streak_id = cumsum(change)) %&gt;%\n  group_by(streak_id, show_title) %&gt;%\n  summarise(streak_weeks = n(),\n            start = min(week), end = max(week), .groups = \"drop\") %&gt;%\n  arrange(desc(streak_weeks))\n\n# Top persistent TV titles (weeks in Top-10)\nindia_top_titles &lt;- india %&gt;%\n  group_by(category, show_title) %&gt;%\n  summarise(weeks = n_distinct(week),\n            best_rank = min(weekly_rank, na.rm = TRUE),\n            .groups = \"drop\")\n\nindia_tv_top &lt;- india_top_titles %&gt;%\n  filter(grepl(\"^TV\", category)) %&gt;%\n  slice_max(weeks, n = 10, with_ties = FALSE) %&gt;%\n  arrange(desc(weeks))\n\n# Totals for paragraph\nind_total_no1_weeks &lt;- nrow(india_no1)\n\n# --- Nicely phrased sentences ---\noxford &lt;- function(x){\n  if (length(x) &lt;= 1) return(paste0(x))\n  if (length(x) == 2) return(paste(x, collapse = \" and \"))\n  paste0(paste(x[-length(x)], collapse = \", \"), \", and \", x[length(x)])\n}\n\n# Biggest #1 winner(s)\ntop_no1_weeks  &lt;- max(no1_by_title$weeks_at_no1, na.rm = TRUE)\ntop_no1_titles &lt;- no1_by_title %&gt;% filter(weeks_at_no1 == top_no1_weeks) %&gt;% pull(show_title)\n\nind_no1_sentence &lt;- if (length(top_no1_titles) == 1) {\n  glue(\"The biggest #1 winner was **{top_no1_titles}**, holding the top spot for **{top_no1_weeks}** weeks.\")\n} else {\n  glue(\"The biggest #1 winners were **{oxford(top_no1_titles)}**, each holding the top spot for **{top_no1_weeks}** weeks.\")\n}\n\n# Longest streak(s)\nlong_weeks   &lt;- max(streaks$streak_weeks, na.rm = TRUE)\nlong_streaks &lt;- streaks %&gt;%\n  filter(streak_weeks == long_weeks) %&gt;%\n  mutate(range = glue(\"{start}–{end}\")) %&gt;%\n  arrange(show_title)\n\nif (nrow(long_streaks) == 1) {\n  ind_streak_sentence &lt;- glue(\n    \"The longest consecutive run was **{long_weeks}** weeks by **{long_streaks$show_title}** ({long_streaks$range}).\"\n  )\n} else {\n  shown &lt;- head(long_streaks, 3)\n  bits  &lt;- glue(\"**{shown$show_title}** ({shown$range})\")\n  more  &lt;- if (nrow(long_streaks) &gt; 3) \" (ties omitted)\" else \"\"\n  ind_streak_sentence &lt;- glue(\n    \"The longest consecutive run was **{long_weeks}** weeks, achieved by {oxford(bits)}{more}.\"\n  )\n}\n\n# Persistence sentence\nind_persist_sentence &lt;- glue(\n  \"Beyond weekly leaders, staying power in the Top-10 was dominated by series such as **{oxford(head(india_tv_top$show_title, 3))}**.\"\n)"
+  },
+  {
+    "objectID": "mp01.html#press-release-2-commercial-success-in-india",
+    "href": "mp01.html#press-release-2-commercial-success-in-india",
+    "title": "mp01",
+    "section": "Press Release 2 — Commercial Success in India",
+    "text": "Press Release 2 — Commercial Success in India\nHeadline: Netflix India keeps the hits coming, with consistent #1 winners and long Top-10 runs.\nIndia’s audience continues to show strong engagement on Netflix. Across the period observed, titles captured the #1 spot in the country for 222 distinct weeks. The biggest #1 winners were Haseen Dillruba, Lucky Baskhar, and Thalaivii, each holding the top spot for 4 weeks. The longest consecutive run was 4 weeks, achieved by Haseen Dillruba (2021-07-04–2021-07-25), Lucky Baskhar (2024-12-01–2024-12-22), and Thalaivii (2021-09-26–2021-10-17). Beyond weekly leaders, staying power in the Top-10 was dominated by series such as Squid Game, Money Heist, and The Great Indian Kapil Show."
+  },
+  {
+    "objectID": "mp01.html#squid-games-paragraph-helper",
+    "href": "mp01.html#squid-games-paragraph-helper",
+    "title": "mp01",
+    "section": "Squid Games Paragraph Helper",
+    "text": "Squid Games Paragraph Helper\n\n\nCode\n# ---- Squid Game PR helper (self-contained) ----\nsuppressPackageStartupMessages({library(dplyr); library(glue)})\n\nif (!exists(\"hours_col_g\")) hours_col_g &lt;- \"weekly_hours_viewed\"\nif (!exists(\"country_col\"))  country_col  &lt;- \"country_name\"\n\ntitle_of_interest &lt;- \"Squid Game\"\n\nsg_global &lt;- GLOBAL_TOP_10 %&gt;%\n  filter(grepl(\"^TV\", category), show_title == title_of_interest) %&gt;%\n  arrange(week)\n\nsg_country &lt;- COUNTRY_TOP_10 %&gt;%\n  filter(show_title == title_of_interest)\n\nsg_total_hours   &lt;- sg_global %&gt;%\n  summarise(total = sum(.data[[hours_col_g]], na.rm = TRUE)) %&gt;%\n  pull(total)\n\nsg_weeks_global  &lt;- dplyr::n_distinct(sg_global$week)\nsg_country_reach &lt;- sg_country %&gt;%\n  summarise(n = dplyr::n_distinct(.data[[country_col]])) %&gt;%\n  pull(n)\n\nsg_by_season &lt;- sg_global %&gt;%\n  dplyr::mutate(season_title = ifelse(is.na(season_title), \"Unknown/All\", season_title)) %&gt;%\n  dplyr::group_by(season_title) %&gt;%\n  dplyr::summarise(\n    weeks = dplyr::n_distinct(week),\n    hours = sum(.data[[hours_col_g]], na.rm = TRUE),\n    .groups = \"drop\"\n  )\n\nsg_top_season       &lt;- sg_by_season %&gt;% dplyr::slice_max(hours, n = 1)\nsg_top_season_share &lt;- sg_top_season$hours / sg_total_hours\nsg_n_seasons        &lt;- sg_by_season %&gt;% dplyr::filter(season_title != \"Unknown/All\") %&gt;% nrow()\n\nsg_top3 &lt;- sg_country %&gt;%\n  dplyr::group_by(.data[[country_col]]) %&gt;%\n  dplyr::summarise(weeks = dplyr::n_distinct(week), .groups = \"drop\") %&gt;%\n  dplyr::arrange(dplyr::desc(weeks)) %&gt;%\n  dplyr::slice_head(n = 3) %&gt;%\n  dplyr::pull(.data[[country_col]])\n\nsg_streaks &lt;- sg_country %&gt;%\n  dplyr::arrange(.data[[country_col]], week) %&gt;%\n  dplyr::group_by(.data[[country_col]]) %&gt;%\n  dplyr::mutate(\n    gap       = as.integer(week) - as.integer(dplyr::lag(week)),\n    new_block = ifelse(is.na(gap) | gap &gt; 7, 1L, 0L),\n    block_id  = cumsum(coalesce(new_block, 0L))\n  ) %&gt;%\n  dplyr::group_by(.data[[country_col]], block_id) %&gt;%\n  dplyr::summarise(\n    streak_weeks = dplyr::n(),\n    start = min(week), end = max(week),\n    .groups = \"drop\"\n  ) %&gt;%\n  dplyr::group_by(.data[[country_col]]) %&gt;%\n  dplyr::slice_max(streak_weeks, n = 1, with_ties = FALSE) %&gt;%\n  dplyr::ungroup() %&gt;%\n  dplyr::slice_max(streak_weeks, n = 1, with_ties = TRUE)\n\nsg_longest_one &lt;- sg_streaks %&gt;% dplyr::slice_head(n = 1)\n\n\n\nPress Release 3 — Squid Game extends its global dominance\nHeadline: Squid Game reaches fans worldwide, crossing 5,048,300,000 hours over 42 weeks in Netflix’s global Top-10.\nSquid Game continues to deliver blockbuster engagement on Netflix. To date, viewers have streamed 5,048,300,000 hours across 3 seasons, with Squid Game: Season 1 contributing 54.1% of lifetime viewing. The series has charted in 94 countries and sustained long national runs—its longest continuous Top-10 streak reached 25 weeks (e.g., India, 2021-09-19–2022-03-06). Top markets by weeks in the Top-10 include India, Bangladesh, Pakistan, reflecting durable, multinational demand that spikes around major release windows."
+  },
+  {
     "objectID": "index.html",
     "href": "index.html",
     "title": "Introduction",
     "section": "",
-    "text": "Hi my name is Tenchi Chen, I’m a current Baruch graduate student that will be graduating in May 2026. I have a background in HR and I’m currently working on transitioning into a more data driven role. Feel free to connect with me on Linkedin if you want to learn more at https://www.linkedin.com/in/tenchi/ . Project portfolio and resume are available by request!\n\nLast Updated: Friday 09 12, 2025 at 08:45AM"
+    "text": "Hi my name is Tenchi Chen, I’m a current Baruch graduate student that will be graduating in May 2026. I have a background in HR and I’m currently working on transitioning into a more data driven role. Feel free to connect with me on Linkedin if you want to learn more at https://www.linkedin.com/in/tenchi/ . Project portfolio and resume are available by request!\n\nLast Updated: Sunday 10 05, 2025 at 14:41PM"
   }
 ]
