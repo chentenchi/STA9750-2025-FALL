@@ -1,0 +1,1104 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en"><head>
+
+<meta charset="utf-8">
+<meta name="generator" content="quarto-1.8.21">
+
+<meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+
+<meta name="author" content="Tenchi Chen">
+
+<title>Mini-Project #02: Making Backyards Affordable for All – Introduction</title>
+<style>
+code{white-space: pre-wrap;}
+span.smallcaps{font-variant: small-caps;}
+div.columns{display: flex; gap: min(4vw, 1.5em);}
+div.column{flex: auto; overflow-x: auto;}
+div.hanging-indent{margin-left: 1.5em; text-indent: -1.5em;}
+ul.task-list{list-style: none;}
+ul.task-list li input[type="checkbox"] {
+  width: 0.8em;
+  margin: 0 0.8em 0.2em -1em; /* quarto-specific, see https://github.com/quarto-dev/quarto-cli/issues/4556 */ 
+  vertical-align: middle;
+}
+</style>
+
+
+<script src="site_libs/quarto-nav/quarto-nav.js"></script>
+<script src="site_libs/quarto-nav/headroom.min.js"></script>
+<script src="site_libs/clipboard/clipboard.min.js"></script>
+<script src="site_libs/quarto-search/autocomplete.umd.js"></script>
+<script src="site_libs/quarto-search/fuse.min.js"></script>
+<script src="site_libs/quarto-search/quarto-search.js"></script>
+<meta name="quarto:offset" content="./">
+<script src="site_libs/quarto-html/quarto.js" type="module"></script>
+<script src="site_libs/quarto-html/tabsets/tabsets.js" type="module"></script>
+<script src="site_libs/quarto-html/axe/axe-check.js" type="module"></script>
+<script src="site_libs/quarto-html/popper.min.js"></script>
+<script src="site_libs/quarto-html/tippy.umd.min.js"></script>
+<script src="site_libs/quarto-html/anchor.min.js"></script>
+<link href="site_libs/quarto-html/tippy.css" rel="stylesheet">
+<link href="site_libs/quarto-html/quarto-syntax-highlighting-ea1d7ac60288e0f1efdbc993fd8432ae.css" rel="stylesheet" id="quarto-text-highlighting-styles">
+<script src="site_libs/bootstrap/bootstrap.min.js"></script>
+<link href="site_libs/bootstrap/bootstrap-icons.css" rel="stylesheet">
+<link href="site_libs/bootstrap/bootstrap-466483732dcb0cea7139c1eae81929d3.min.css" rel="stylesheet" append-hash="true" id="quarto-bootstrap" data-mode="light">
+<script id="quarto-search-options" type="application/json">{
+  "location": "navbar",
+  "copy-button": false,
+  "collapse-after": 3,
+  "panel-placement": "end",
+  "type": "overlay",
+  "limit": 50,
+  "keyboard-shortcut": [
+    "f",
+    "/",
+    "s"
+  ],
+  "show-item-context": false,
+  "language": {
+    "search-no-results-text": "No results",
+    "search-matching-documents-text": "matching documents",
+    "search-copy-link-title": "Copy link to search",
+    "search-hide-matches-text": "Hide additional matches",
+    "search-more-match-text": "more match in this document",
+    "search-more-matches-text": "more matches in this document",
+    "search-clear-button-title": "Clear",
+    "search-text-placeholder": "",
+    "search-detached-cancel-button-title": "Cancel",
+    "search-submit-button-title": "Submit",
+    "search-label": "Search"
+  }
+}</script>
+<link href="site_libs/htmltools-fill-0.5.8.1/fill.css" rel="stylesheet">
+
+<script src="site_libs/htmlwidgets-1.6.4/htmlwidgets.js"></script>
+
+<link href="site_libs/datatables-css-0.0.0/datatables-crosstalk.css" rel="stylesheet">
+
+<script src="site_libs/datatables-binding-0.34.0/datatables.js"></script>
+
+<script src="site_libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
+
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.min.css" rel="stylesheet">
+
+<link href="site_libs/dt-core-1.13.6/css/jquery.dataTables.extra.css" rel="stylesheet">
+
+<script src="site_libs/dt-core-1.13.6/js/jquery.dataTables.min.js"></script>
+
+<link href="site_libs/crosstalk-1.2.2/css/crosstalk.min.css" rel="stylesheet">
+
+<script src="site_libs/crosstalk-1.2.2/js/crosstalk.min.js"></script>
+
+
+
+</head>
+
+<body class="nav-fixed quarto-light">
+
+<div id="quarto-search-results"></div>
+  <header id="quarto-header" class="headroom fixed-top">
+    <nav class="navbar navbar-expand-lg " data-bs-theme="dark">
+      <div class="navbar-container container-fluid">
+      <div class="navbar-brand-container mx-auto">
+    <a href="./index.html" class="navbar-brand navbar-brand-logo">
+    </a>
+    <a class="navbar-brand" href="./index.html">
+    <span class="navbar-title">Introduction</span>
+    </a>
+  </div>
+        <div class="quarto-navbar-tools tools-end">
+</div>
+      </div> <!-- /container-fluid -->
+    </nav>
+</header>
+<!-- content -->
+<div id="quarto-content" class="quarto-container page-columns page-rows-contents page-layout-article page-navbar">
+<!-- sidebar -->
+<!-- margin-sidebar -->
+    <div id="quarto-margin-sidebar" class="sidebar margin-sidebar">
+        <nav id="TOC" role="doc-toc" class="toc-active">
+    <h2 id="toc-title">On this page</h2>
+   
+  <ul>
+  <li><a href="#task-1---data-import" id="toc-task-1---data-import" class="nav-link active" data-scroll-target="#task-1---data-import">Task 1 - Data Import</a></li>
+  <li><a href="#task-2-multi-table-questions" id="toc-task-2-multi-table-questions" class="nav-link" data-scroll-target="#task-2-multi-table-questions">Task 2 — Multi-Table Questions</a></li>
+  <li><a href="#task-3-initial-visualizations" id="toc-task-3-initial-visualizations" class="nav-link" data-scroll-target="#task-3-initial-visualizations">Task 3 — Initial Visualizations</a></li>
+  <li><a href="#task-4-rent-burden" id="toc-task-4-rent-burden" class="nav-link" data-scroll-target="#task-4-rent-burden">Task 4 — Rent Burden</a></li>
+  <li><a href="#task-5-housing-growth" id="toc-task-5-housing-growth" class="nav-link" data-scroll-target="#task-5-housing-growth">Task 5 — Housing Growth</a></li>
+  <li><a href="#task-6-visualization" id="toc-task-6-visualization" class="nav-link" data-scroll-target="#task-6-visualization">Task 6 — Visualization</a></li>
+  <li><a href="#task-7-policy-brief-elevator-pitch" id="toc-task-7-policy-brief-elevator-pitch" class="nav-link" data-scroll-target="#task-7-policy-brief-elevator-pitch">Task 7 — Policy Brief (Elevator Pitch)</a></li>
+  </ul>
+</nav>
+    </div>
+<!-- main -->
+<main class="content" id="quarto-document-content">
+
+<header id="title-block-header" class="quarto-title-block default">
+<div class="quarto-title">
+<h1 class="title">Mini-Project #02: Making Backyards Affordable for All</h1>
+</div>
+
+
+
+<div class="quarto-title-meta">
+
+    <div>
+    <div class="quarto-title-meta-heading">Author</div>
+    <div class="quarto-title-meta-contents">
+             <p>Tenchi Chen </p>
+          </div>
+  </div>
+    
+  
+    
+  </div>
+  
+
+
+</header>
+
+
+<section id="task-1---data-import" class="level3">
+<h3 class="anchored" data-anchor-id="task-1---data-import">Task 1 - Data Import</h3>
+<div class="callout callout-style-default callout-note callout-titled">
+<div class="callout-header d-flex align-content-center collapsed" data-bs-toggle="collapse" data-bs-target=".callout-1-contents" aria-controls="callout-1" aria-expanded="false" aria-label="Toggle callout">
+<div class="callout-icon-container">
+<i class="callout-icon"></i>
+</div>
+<div class="callout-title-container flex-fill">
+<span class="screen-reader-only">Note</span>Data download scripts (for transparency)
+</div>
+<div class="callout-btn-toggle d-inline-block border-0 py-1 ps-1 pe-0 float-end"><i class="callout-toggle"></i></div>
+</div>
+<div id="callout-1" class="callout-1-contents callout-collapse collapse">
+<div class="callout-body-container callout-body">
+<p>00_download_data.R</p>
+<p>r if(!dir.exists(file.path(“data”, “mp01”))){ dir.create(file.path(“data”, “mp01”), showWarnings=FALSE, recursive=TRUE) }</p>
+<p>GLOBAL_TOP_10_FILENAME &lt;- file.path(“data”, “mp01”, “global_top10_alltime.csv”)</p>
+<p>if(!file.exists(GLOBAL_TOP_10_FILENAME)){ download.file(“https://www.netflix.com/tudum/top10/data/all-weeks-global.tsv”, destfile=GLOBAL_TOP_10_FILENAME) }</p>
+<p>COUNTRY_TOP_10_FILENAME &lt;- file.path(“data”, “mp01”, “country_top10_alltime.csv”)</p>
+<p>if(!file.exists(COUNTRY_TOP_10_FILENAME)){ download.file(“https://www.netflix.com/tudum/top10/data/all-weeks-countries.tsv”, destfile=COUNTRY_TOP_10_FILENAME) }</p>
+<p>02_download_tinycensus.R</p>
+<p>r # ===== Step A — Setup (clean session friendly) ===== if(!dir.exists(file.path(“data”, “mp02”))){ dir.create(file.path(“data”, “mp02”), showWarnings = FALSE, recursive = TRUE) }</p>
+<p>library &lt;- function(pkg){ pkg &lt;- as.character(substitute(pkg)) options(repos = c(CRAN = “https://cloud.r-project.org”)) if(!require(pkg, character.only = TRUE, quietly = TRUE)) install.packages(pkg) stopifnot(require(pkg, character.only = TRUE, quietly = TRUE)) }</p>
+<section id="core-packages" class="level1">
+<h1>Core packages</h1>
+<p>library(tidyverse) # includes dplyr, readr, purrr, stringr, etc. library(dplyr) # attach explicitly to ensure verbs are on the path library(glue) library(readxl) library(tidycensus)</p>
+</section>
+<section id="one-time-before-first-acs-call" class="level1">
+<h1>One-time before first ACS call:</h1>
+</section>
+<section id="tidycensuscensus_api_keyyour_key_here-install-true-readrenviron.renviron" class="level1">
+<h1>tidycensus::census_api_key(“YOUR_KEY_HERE”, install = TRUE); readRenviron(“~/.Renviron”)</h1>
+</section>
+<section id="helper-to-downloadcache-acs-1-year-data-across-years" class="level1">
+<h1>Helper to download/cache ACS 1-year data across years</h1>
+<p>get_acs_all_years &lt;- function(variable, geography = “cbsa”, start_year = 2009, end_year = 2023){ fname &lt;- glue::glue(“{variable}<em>{geography}</em>{start_year}_{end_year}.csv”) fname &lt;- file.path(“data”, “mp02”, fname)</p>
+<p>if(!file.exists(fname)){ YEARS &lt;- setdiff(seq(start_year, end_year), 2020) # skip 2020 ACS1 ALL_DATA &lt;- purrr::map(YEARS, function(yy){ tidycensus::get_acs(geography, variable, year = yy, survey = “acs1”) |&gt; dplyr::mutate(year = yy) |&gt; dplyr::select(-moe, -variable) |&gt; dplyr::rename(!!variable := estimate) }) |&gt; dplyr::bind_rows() readr::write_csv(ALL_DATA, fname) }</p>
+<p>readr::read_csv(fname, show_col_types = FALSE) }</p>
+</section>
+<section id="pull-the-four-acs-tables" class="level1">
+<h1>— Pull the four ACS tables —</h1>
+<p>INCOME &lt;- get_acs_all_years(“B19013_001”) |&gt; dplyr::rename(household_income = B19013_001)</p>
+<p>RENT &lt;- get_acs_all_years(“B25064_001”) |&gt; dplyr::rename(monthly_rent = B25064_001)</p>
+<p>POPULATION &lt;- get_acs_all_years(“B01003_001”) |&gt; dplyr::rename(population = B01003_001)</p>
+<p>HOUSEHOLDS &lt;- get_acs_all_years(“B11001_001”) |&gt; dplyr::rename(households = B11001_001)</p>
+<p>02_download_newhousingunits.R</p>
+<p>r # — prereqs (safe to run again) — library(dplyr); library(readr); library(readxl) library(glue); library(stringr); library(purrr) dir.create(“data/mp02”, recursive = TRUE, showWarnings = FALSE)</p>
+</section>
+<section id="step-b-building-permits-new-housing-units-robust-downloader" class="level1">
+<h1>===== Step B — Building permits (new housing units) — ROBUST DOWNLOADER =====</h1>
+<p>get_building_permits &lt;- function(start_year = 2009, end_year = 2023){ out_csv &lt;- file.path(“data”, “mp02”, glue(“housing_units_{start_year}_{end_year}.csv”))</p>
+<p>if(!file.exists(out_csv)){</p>
+<pre><code># ---------- 1) Historical TXT (&lt;= 2018) ----------
+hist_years &lt;- seq(start_year, min(2018, end_year))
+HIST &lt;- map(hist_years, function(yy){
+  url &lt;- glue("https://www.census.gov/construction/bps/txt/tb3u{yy}.txt")
+  lines &lt;- readLines(url, warn = FALSE)[-(1:11)]  # drop header lines
+  cbsa_lines &lt;- str_detect(lines, "^\\d{1}:\\d{1,}")
+  CBSA &lt;- as.integer(str_sub(lines[cbsa_lines], 5, 10))
+  permit_lines &lt;- str_detect(str_sub(lines, 48, 53), "^\\d{1,}")
+  PERMITS &lt;- as.integer(str_sub(lines[permit_lines], 48, 53))
+  tibble(CBSA = CBSA, new_housing_units_permitted = PERMITS, year = yy)
+}) |&gt; bind_rows()
+
+# ---------- 2) Annual Excel files (2019+) ----------
+cur_years &lt;- if (end_year &gt;= 2019) seq(2019, end_year) else integer(0)
+
+# helper: try to read as xlsx first, then xls; return NULL on failure
+read_excel_safely &lt;- function(path){
+  x &lt;- try(read_xlsx(path, skip = 5), silent = TRUE)
+  if (inherits(x, "try-error")) {
+    x &lt;- try(read_xls(path,  skip = 5), silent = TRUE)
+  }
+  if (inherits(x, "try-error")) NULL else x
+}
+
+# helper: attempt several plausible URLs; only accept if we can read it as Excel
+candidates_for &lt;- function(yy){
+  c(
+    glue("https://www.census.gov/construction/bps/xls/msaannual_{yy}99.xls"),
+    glue("https://www.census.gov/construction/bps/xls/msaannual_{yy}99.xlsx"),
+    glue("https://www.census.gov/construction/bps/xls/msaannual_{yy}.xls"),
+    glue("https://www.census.gov/construction/bps/xls/msaannual_{yy}.xlsx")
+  )
+}
+
+try_one_year &lt;- function(yy){
+  urls &lt;- candidates_for(yy)
+  dat &lt;- NULL
+  for (u in urls){
+    tmp &lt;- tempfile(fileext = ".bin")
+    status &lt;- try(utils::download.file(u, tmp, mode = "wb", quiet = TRUE), silent = TRUE)
+    # require successful download, non-tiny file, and readable Excel
+    if (!inherits(status, "try-error") &amp;&amp; file.exists(tmp) &amp;&amp; file.info(tmp)$size &gt; 5000){
+      dat &lt;- read_excel_safely(tmp)
+      if (!is.null(dat)) {  # success!
+        break
+      }
+    }
+  }
+  if (is.null(dat)) stop("Could not locate a valid MSA annual Excel for ", yy, ".")
+  dat |&gt;
+    tidyr::drop_na() |&gt;
+    select(CBSA, Total) |&gt;
+    mutate(year = yy) |&gt;
+    rename(new_housing_units_permitted = Total)
+}
+
+CUR &lt;- map(cur_years, try_one_year) |&gt; bind_rows()
+
+ALL &lt;- bind_rows(HIST, CUR)
+write_csv(ALL, out_csv)</code></pre>
+<p>}</p>
+<p>read_csv(out_csv, show_col_types = FALSE) }</p>
+</section>
+<section id="define-then-call" class="level1">
+<h1>define ↑ then call ↓</h1>
+<p>PERMITS &lt;- get_building_permits() glimpse(PERMITS) dir(“data/mp02”, full.names = TRUE)</p>
+<p>02_download_industrycodes.R</p>
+<p>r # ===== Step C — BLS NAICS industry codes (robust fetch + cache) ===== library(dplyr); library(readr); library(stringr); library(purrr) library(rvest); library(httr2); library(glue); library(tibble) dir.create(“data/mp02”, recursive = TRUE, showWarnings = FALSE)</p>
+<p>get_bls_industry_codes &lt;- function(){ out_csv &lt;- file.path(“data”, “mp02”, “bls_industry_codes.csv”) if (!file.exists(out_csv)) { url &lt;- “https://www.bls.gov/cew/classifications/industry/industry-titles.htm”</p>
+<pre><code># Try a simple HTML fetch first (often bypasses 403)
+page &lt;- tryCatch(
+  rvest::read_html(url),
+  error = function(e) NULL
+)
+
+# Fallback: httr2 with fuller headers + retry
+if (is.null(page)) {
+  resp &lt;- httr2::request(url) |&gt;
+    httr2::req_headers(
+      `User-Agent`      = "Mozilla/5.0 (Windows NT 10.0; Win64; x64)",
+      `Accept`          = "text/html,application/xhtml+xml,application/xml;q=0.9,*/*;q=0.8",
+      `Accept-Language` = "en-US,en;q=0.9",
+      `Referer`         = "https://www.bls.gov/cew/classifications/industry/"
+    ) |&gt;
+    httr2::req_retry(max_tries = 5) |&gt;
+    httr2::req_perform()
+  httr2::resp_check_status(resp)
+  page &lt;- httr2::resp_body_html(resp)
+}
+
+# Parse the table and build the leveled lookup
+raw_tbl &lt;- page |&gt;
+  rvest::html_element("#naics_titles") |&gt;
+  rvest::html_table() |&gt;
+  tibble::as_tibble() |&gt;
+  rename(title = `Industry Title`) |&gt;
+  mutate(depth = if_else(nchar(Code) &lt;= 5, nchar(Code) - 1L, NA_integer_)) |&gt;
+  filter(!is.na(depth))
+
+lvl4 &lt;- raw_tbl |&gt;
+  filter(depth == 4) |&gt;
+  rename(level4_title = title) |&gt;
+  mutate(
+    level1_code = str_sub(Code, end = 2),
+    level2_code = str_sub(Code, end = 3),
+    level3_code = str_sub(Code, end = 4)
+  )
+
+lvl1 &lt;- raw_tbl |&gt; select(Code, title) |&gt; rename(level1_code = Code, level1_title = title)
+lvl2 &lt;- raw_tbl |&gt; select(Code, title) |&gt; rename(level2_code = Code, level2_title = title)
+lvl3 &lt;- raw_tbl |&gt; select(Code, title) |&gt; rename(level3_code = Code, level3_title = title)
+
+naics &lt;- lvl4 |&gt;
+  left_join(lvl1, by = "level1_code") |&gt;
+  left_join(lvl2, by = "level2_code") |&gt;
+  left_join(lvl3, by = "level3_code") |&gt;
+  transmute(
+    level1_code, level1_title,
+    level2_code, level2_title,
+    level3_code, level3_title,
+    level4_code = Code,
+    level4_title
+  )
+
+readr::write_csv(naics, out_csv)</code></pre>
+<p>}</p>
+<p>readr::read_csv(out_csv, show_col_types = FALSE) }</p>
+<p>INDUSTRY_CODES &lt;- get_bls_industry_codes() glimpse(INDUSTRY_CODES) dir(“data/mp02”, full.names = TRUE) # should now include bls_industry_codes.csv</p>
+<p>02_download_QCEWwagesandemployment.R</p>
+<p>r # ===== Step D — QCEW annual averages (try-many-URLs download + cache) ===== library(dplyr); library(readr); library(stringr); library(purrr); library(glue); library(httr2)</p>
+<p>dir.create(“data/mp02”, recursive = TRUE, showWarnings = FALSE)</p>
+<p>.qcew_url_candidates &lt;- function(yy){ # Try both hosts and both filename patterns (with and without ‘qcew_’) base &lt;- c(“https://www.bls.gov”, “https://data.bls.gov”) paths &lt;- c( glue(“/cew/data/files/{yy}/csv/{yy}_qcew_annual_singlefile.zip”), glue(“/cew/data/files/{yy}/csv/{yy}_annual_singlefile.zip”) ) as.vector(outer(base, paths, paste0)) }</p>
+<p>.download_zip_try &lt;- function(url, dest){ req &lt;- request(url) |&gt; req_headers( <code>User-Agent</code> = “Mozilla/5.0 (Windows NT 10.0; Win64; x64)”, <code>Accept</code> = “application/zip,application/octet-stream,<em>/</em>”, <code>Accept-Language</code> = “en-US,en;q=0.9”, <code>Referer</code> = “https://www.bls.gov/cew/downloadable-data-files.htm”, <code>Connection</code> = “keep-alive” ) |&gt; req_retry(max_tries = 4, backoff = ~ runif(1, 0.5, 1.5), is_transient = function(resp) resp_status(resp) &gt;= 500)</p>
+<p>resp &lt;- try(req_perform(req), silent = TRUE) if (inherits(resp, “try-error”)) return(FALSE) if (resp_status(resp) != 200) return(FALSE)</p>
+<p>writeBin(resp_body_raw(resp), dest) # crude size check to avoid HTML error pages saved as .zip file.exists(dest) &amp;&amp; file.info(dest)$size &gt; 1e6 }</p>
+<p>get_bls_qcew_annual_averages &lt;- function(start_year = 2009, end_year = 2023){ out_csv &lt;- file.path(“data”, “mp02”, glue(“bls_qcew_{start_year}_{end_year}.csv.gz”)) YEARS &lt;- setdiff(seq(start_year, end_year), 2020)</p>
+<p>if (!file.exists(out_csv)) { one_year &lt;- function(yy){ zip_path &lt;- file.path(“data”, “mp02”, glue(“{yy}_qcew_annual_singlefile.zip”)) if (!file.exists(zip_path) || file.info(zip_path)$size &lt; 1e6) { message(“Downloading QCEW”, yy, ” …“) ok &lt;- FALSE tried &lt;- character(0) for (u in .qcew_url_candidates(yy)) { tried &lt;- c(tried, u) if (.download_zip_try(u, zip_path)) { ok &lt;- TRUE; break } } if (!ok) stop(”No working QCEW URL for “, yy,”. Tried:“, paste0(” - “, tried, collapse =”“)) }</p>
+<pre><code>  tmpdir &lt;- tempfile(pattern = paste0("qcew_", yy, "_")); dir.create(tmpdir)
+  files &lt;- utils::unzip(zip_path, exdir = tmpdir)
+  csvs  &lt;- files[grepl("\\.csv$", files, ignore.case = TRUE)]
+  if (!length(csvs)) stop("No CSV found inside QCEW ZIP for ", yy, ".")
+  
+  readr::read_csv(csvs[1], show_col_types = FALSE) |&gt;
+    dplyr::select(area_fips, industry_code, annual_avg_emplvl, total_annual_wages) |&gt;
+    dplyr::filter(stringr::str_starts(area_fips, "C"),
+                  nchar(industry_code) &lt;= 5,
+                  !stringr::str_detect(industry_code, "-")) |&gt;
+    dplyr::mutate(
+      YEAR        = yy,
+      FIPS        = area_fips,
+      INDUSTRY    = as.integer(industry_code),
+      EMPLOYMENT  = as.integer(annual_avg_emplvl),
+      TOTAL_WAGES = as.numeric(total_annual_wages),
+      AVG_WAGE    = dplyr::if_else(EMPLOYMENT &gt; 0, TOTAL_WAGES / EMPLOYMENT, NA_real_)
+    ) |&gt;
+    dplyr::select(FIPS, YEAR, INDUSTRY, EMPLOYMENT, TOTAL_WAGES, AVG_WAGE) |&gt;
+    dplyr::filter(INDUSTRY != 10)
+}
+
+ALL &lt;- purrr::map_dfr(YEARS, one_year)
+readr::write_csv(ALL, out_csv)</code></pre>
+<p>}</p>
+<p>dat &lt;- readr::read_csv(out_csv, show_col_types = FALSE) missing &lt;- setdiff(YEARS, unique(dat$YEAR)) if (length(missing)) stop( “QCEW missing years:”, paste(missing, collapse = “,”), “. If a ZIP is corrupted, delete it from data/mp02 and re-run.” ) dat }</p>
+</section>
+<section id="define-then-call-1" class="level1">
+<h1>define ↑ then call ↓</h1>
+<p>WAGES &lt;- get_bls_qcew_annual_averages()</p>
+</section>
+<section id="quick-sanity" class="level1">
+<h1>quick sanity</h1>
+<p>dplyr::glimpse(WAGES) WAGES |&gt; count(YEAR) |&gt; arrange(YEAR) WAGES |&gt; summarise(rows = n(), n_cbsa = n_distinct(FIPS), n_ind = n_distinct(INDUSTRY))</p>
+</section>
+</div>
+</div>
+</div>
+</section>
+<section id="task-2-multi-table-questions" class="level3">
+<h3 class="anchored" data-anchor-id="task-2-multi-table-questions">Task 2 — Multi-Table Questions</h3>
+<section id="q1.-which-cbsa-by-name-permitted-the-largest-number-of-new-housing-units-in-20102019" class="level4">
+<h4 class="anchored" data-anchor-id="q1.-which-cbsa-by-name-permitted-the-largest-number-of-new-housing-units-in-20102019">Q1. Which CBSA (by name) permitted the largest number of new housing units in 2010–2019?</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 4
+   cbsa total_units GEOID NAME                                     
+  &lt;int&gt;       &lt;dbl&gt; &lt;dbl&gt; &lt;chr&gt;                                    
+1 26420       63672 26420 Houston-Sugar Land-Baytown, TX Metro Area</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q2.-in-what-year-did-albuquerque-nm-cbsa-10740-permit-the-most-new-housing-units" class="level4">
+<h4 class="anchored" data-anchor-id="q2.-in-what-year-did-albuquerque-nm-cbsa-10740-permit-the-most-new-housing-units">Q2. In what year did Albuquerque, NM (CBSA 10740) permit the most new housing units?</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 2
+   year units
+  &lt;dbl&gt; &lt;dbl&gt;
+1  2021  4021</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-6-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q3.-which-state-had-the-highest-average-individual-income-in-2015" class="level4">
+<h4 class="anchored" data-anchor-id="q3.-which-state-had-the-highest-average-individual-income-in-2015">Q3. Which state had the highest average individual income in 2015?</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 5
+  state total_income total_pop avg_indiv name                
+  &lt;chr&gt;        &lt;dbl&gt;     &lt;dbl&gt;     &lt;dbl&gt; &lt;chr&gt;               
+1 DC    202663489140   6098283    33233. District of Columbia</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 10 × 2
+   State                `Avg Individual Income`
+   &lt;chr&gt;                                  &lt;dbl&gt;
+ 1 District of Columbia                  33233.
+ 2 Massachusetts                         27621.
+ 3 Connecticut                           27194.
+ 4 Alaska                                26426.
+ 5 Vermont                               26380.
+ 6 New Hampshire                         26253.
+ 7 Minnesota                             26158.
+ 8 Maryland                              25596.
+ 9 Washington                            25431.
+10 Colorado                              25430.</code></pre>
+</div>
+</div>
+</section>
+<section id="q4.-naics-5182-last-year-nyc-cbsa-had-the-most-employment-in-the-country" class="level4">
+<h4 class="anchored" data-anchor-id="q4.-naics-5182-last-year-nyc-cbsa-had-the-most-employment-in-the-country">Q4. NAICS 5182: last year NYC CBSA had the most employment in the country</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 0 × 4
+# ℹ 4 variables: YEAR &lt;dbl&gt;, cbsa &lt;int&gt;, NAME &lt;chr&gt;, emp &lt;dbl&gt;</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 8 × 4
+   YEAR  cbsa NAME    emp
+  &lt;dbl&gt; &lt;int&gt; &lt;chr&gt; &lt;dbl&gt;
+1  2015  3562 &lt;NA&gt;  18922
+2  2016  4186 &lt;NA&gt;  16369
+3  2017  4186 &lt;NA&gt;  18089
+4  2018  4186 &lt;NA&gt;  22379
+5  2019  4186 &lt;NA&gt;  24154
+6  2021  1206 &lt;NA&gt;  15810
+7  2022  4186 &lt;NA&gt;  34080
+8  2023  4186 &lt;NA&gt;  32961</code></pre>
+</div>
+</div>
+</section>
+<section id="q5.-nyc-fraction-of-total-wages-earned-in-finance-insurance-naics-52-and-the-peak-year" class="level4">
+<h4 class="anchored" data-anchor-id="q5.-nyc-fraction-of-total-wages-earned-in-finance-insurance-naics-52-and-the-peak-year">Q5. NYC: fraction of total wages earned in Finance &amp; Insurance (NAICS 52) and the peak year</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 1 × 8
+   YEAR has_all coarse_len   total_wages has_52 coarse_52     wages_52 share_52
+  &lt;dbl&gt; &lt;lgl&gt;        &lt;int&gt;         &lt;dbl&gt; &lt;lgl&gt;      &lt;int&gt;        &lt;dbl&gt;    &lt;dbl&gt;
+1  2014 FALSE            2 1091763553776 TRUE           2 357316847133    0.327</code></pre>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-12-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="task-3-initial-visualizations" class="level3">
+<h3 class="anchored" data-anchor-id="task-3-initial-visualizations">Task 3 — Initial Visualizations</h3>
+<section id="q1.-relationship-between-monthly-rent-and-average-household-income-per-cbsa-in-2009" class="level4">
+<h4 class="anchored" data-anchor-id="q1.-relationship-between-monthly-rent-and-average-household-income-per-cbsa-in-2009">Q1. Relationship between monthly rent and average household income per CBSA in 2009</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-14-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q2.-relationship-between-total-employment-and-health-care-social-assistance-naics-62-employment-across-cbsas-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="q2.-relationship-between-total-employment-and-health-care-social-assistance-naics-62-employment-across-cbsas-over-time">Q2. Relationship between total employment and health care &amp; social assistance (NAICS 62) employment across CBSAs over time</h4>
+<div class="cell">
+<div class="cell-output cell-output-stdout">
+<pre><code>After join - unique NAMEs in w_cbsa: 566 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Sample of w_cbsa after join:</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code># A tibble: 6 × 4
+   cbsa NAME                    YEAR INDUSTRY
+  &lt;int&gt; &lt;chr&gt;                  &lt;dbl&gt;    &lt;dbl&gt;
+1 10180 Abilene, TX Metro Area  2009      101
+2 10180 Abilene, TX Metro Area  2009     1011
+3 10180 Abilene, TX Metro Area  2009     1012
+4 10180 Abilene, TX Metro Area  2009     1013
+5 10180 Abilene, TX Metro Area  2009      102
+6 10180 Abilene, TX Metro Area  2009     1021</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of CBSAs: 4 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Number of unique NAMEs: 9 </code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>Are there any NA names? FALSE </code></pre>
+</div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-15-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="q3.-average-household-size-over-time-highlight-nyc-los-angeles" class="level4">
+<h4 class="anchored" data-anchor-id="q3.-average-household-size-over-time-highlight-nyc-los-angeles">Q3. Average household size over time — highlight NYC &amp; Los Angeles</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-16-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="task-4-rent-burden" class="level3">
+<h3 class="anchored" data-anchor-id="task-4-rent-burden">Task 4 — Rent Burden</h3>
+<section id="q1.-pick-a-single-metro-and-see-how-rent-burden-changed-over-time" class="level4">
+<h4 class="anchored" data-anchor-id="q1.-pick-a-single-metro-and-see-how-rent-burden-changed-over-time">Q1. Pick a single Metro and see how rent burden changed over time</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b894c88d69a4cdf133b0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b894c88d69a4cdf133b0">{"x":{"filter":"none","vertical":false,"caption":"<caption>New York-Northern New Jersey-Long Island, NY-NJ-PA Metro Area: Rent Burden Over Time (100 = Nat’l Avg)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14"],[2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2021,2022,2023],["21.5%","22.3%","22.9%","22.7%","22.6%","22.9%","22.8%","22.5%","22.0%","21.9%","21.4%","22.7%","22.1%","22.2%"],[104.1,108.1,110.8,109.9,109.4,111.1,110.7,108.9,106.5,106.3,103.7,110.3,107.1,107.8],["$1,125","$1,150","$1,187","$1,209","$1,237","$1,281","$1,308","$1,346","$1,379","$1,434","$1,482","$1,600","$1,685","$1,764"],["$62,887","$61,927","$62,322","$63,982","$65,786","$67,066","$68,743","$71,897","$75,368","$78,478","$83,160","$84,409","$91,562","$95,220"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>Year<\/th>\n      <th>Rent-to-Income<\/th>\n      <th>Rent-Burden Index<\/th>\n      <th>Monthly Rent<\/th>\n      <th>Household Income<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","order":[[0,"asc"]],"columnDefs":[{"className":"dt-right","targets":[1,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"Year","targets":1},{"name":"Rent-to-Income","targets":2},{"name":"Rent-Burden Index","targets":3},{"name":"Monthly Rent","targets":4},{"name":"Household Income","targets":5}],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="q2.-highest-lowest-rent-burden-in-the-latest-year-top-10-each" class="level4">
+<h4 class="anchored" data-anchor-id="q2.-highest-lowest-rent-burden-in-the-latest-year-top-10-each">Q2. Highest &amp; lowest rent burden in the latest year (Top 10 each)</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-feca97910ed25ed94425" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-feca97910ed25ed94425">{"x":{"filter":"none","vertical":false,"caption":"<caption>Lowest Rent Burden — Bottom 10 CBSAs (2023)  —  100 = Nat’l Avg<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10"],["Laconia, NH Micro Area","Manitowoc, WI Micro Area","Bismarck, ND Metro Area","Watertown-Fort Atkinson, WI Micro Area","Jefferson City, MO Metro Area","Wisconsin Rapids-Marshfield, WI Micro Area","Decatur, AL Metro Area","Talladega-Sylacauga, AL Micro Area","Mount Airy, NC Micro Area","Albertville, AL Micro Area"],[61.8,64.09999999999999,66.3,66.90000000000001,67.09999999999999,67.09999999999999,68.09999999999999,68.90000000000001,69.59999999999999,69.90000000000001],["12.7%","13.2%","13.7%","13.8%","13.8%","13.8%","14.0%","14.2%","14.3%","14.4%"],["$1,037","$752","$951","$953","$792","$766","$854","$728","$697","$724"],["$97,692","$68,297","$83,440","$82,864","$68,629","$66,461","$72,956","$61,514","$58,291","$60,298"]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>Rent-Burden Index<\/th>\n      <th>Rent-to-Income<\/th>\n      <th>Monthly Rent<\/th>\n      <th>Household Income<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":10,"dom":"tip","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"NAME","targets":1},{"name":"Rent-Burden Index","targets":2},{"name":"Rent-to-Income","targets":3},{"name":"Monthly Rent","targets":4},{"name":"Household Income","targets":5}],"order":[],"autoWidth":false,"orderClasses":false}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-0cc8f782cc515aff09e3" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-0cc8f782cc515aff09e3">{"x":{"filter":"none","vertical":false,"caption":"<caption>Largest Absolute Change in Rent-Burden Index (First vs Last Year) — Top 15<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Madera, CA Metro Area","Hobbs, NM Micro Area","Laurel, MS Micro Area","Clearlake, CA Micro Area","Gallup, NM Micro Area","Colorado Springs, CO Metro Area","Cape Coral-Fort Myers, FL Metro Area","Coamo, PR Micro Area","Mount Airy, NC Micro Area","Seneca, SC Micro Area","Mount Pleasant, MI Micro Area","Houma-Bayou Cane-Thibodaux, LA Metro Area","Hinesville-Fort Stewart, GA Metro Area","Boulder, CO Metro Area","Lebanon, NH-VT Micro Area"],[2013,2011,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009,2009],[2022,2023,2023,2023,2023,2023,2023,2012,2023,2023,2019,2023,2012,2023,2022],[141.7,84.7,112.1,121.3,82.90000000000001,83.5,119.3,166.2,94.90000000000001,95.90000000000001,113.3,78.59999999999999,101,93.2,103.1],[89.90000000000001,122.5,81.59999999999999,151.1,111.4,110.5,146.1,139.6,69.59999999999999,70.59999999999999,88,102.8,124.6,116.8,79.7],[-51.7,37.7,-30.5,29.9,28.5,27,26.8,-26.7,-25.4,-25.3,-25.3,24.2,23.7,23.6,-23.4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>First Year<\/th>\n      <th>Last Year<\/th>\n      <th>Index (First)<\/th>\n      <th>Index (Last)<\/th>\n      <th>Δ Index<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[2,3,4,5,6]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"NAME","targets":1},{"name":"First Year","targets":2},{"name":"Last Year","targets":3},{"name":"Index (First)","targets":4},{"name":"Index (Last)","targets":5},{"name":"Δ Index","targets":6}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-93609f7122175bbe8515" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-93609f7122175bbe8515">{"x":{"filter":"none","vertical":false,"caption":"<caption>Population-Weighted Rent-Burden Index by State (2023) — 100 = Nat’l Avg<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52"],["FL","PR","NV","CA","AZ","HI","GA","CO","TX","OR","SC","NY","NM","ID","LA","TN","VA","MA","WA","NC","DE","MS","VT","ME","UT","MD","OK","NJ","CT","DC","RI","PA","MT","AL","MI","AR","IL","IN","AK","KY","NH","OH","WV","WY","MN","KS","MO","NE","WI","IA","SD","ND"],[134.5,127.3,124.7,119.6,116.4,115.7,109.6,107.8,106.4,105.3,103.5,103.4,103,102.9,102.7,102.4,102.1,102,102,101.4,97.7,97.7,97.7,96.7,96.09999999999999,95,94.90000000000001,94.8,93.90000000000001,93.2,92.90000000000001,92.59999999999999,92.40000000000001,92.3,92.2,91.3,91.2,91,90.7,89.59999999999999,88.7,87.09999999999999,86.90000000000001,86.8,86.40000000000001,86.2,85.8,83.09999999999999,82.3,79,78.59999999999999,75.09999999999999],[25,6,3,29,8,4,18,8,32,11,12,20,8,7,12,15,10,7,17,26,2,7,1,4,7,5,7,3,7,1,1,25,6,16,19,8,12,15,2,11,5,19,9,2,7,4,9,3,21,8,2,4]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>state_abb<\/th>\n      <th>Weighted Avg Index<\/th>\n      <th>CBSAs<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":20,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[2,3]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"state_abb","targets":1},{"name":"Weighted Avg Index","targets":2},{"name":"CBSAs","targets":3}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,20,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+<section id="task-5-housing-growth" class="level3">
+<h3 class="anchored" data-anchor-id="task-5-housing-growth">Task 5 — Housing Growth</h3>
+<section id="build-instantaneous-rate-based-housing-growth-metrics-and-indexes-and-show-cbsas-that-score-highlow-on-each-metric-latest-year" class="level4">
+<h4 class="anchored" data-anchor-id="build-instantaneous-rate-based-housing-growth-metrics-and-indexes-and-show-cbsas-that-score-highlow-on-each-metric-latest-year">Build instantaneous &amp; rate-based housing growth metrics and indexes and show CBSAs that score high/low on each metric (latest year)</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-b9cf79d531f526fe8b7a" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-b9cf79d531f526fe8b7a">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">Instantaneous Housing Growth — Top (2023)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Salisbury, MD Metro Area","Myrtle Beach-Conway-North Myrtle Beach, SC Metro Area","Punta Gorda, FL Metro Area","Crestview-Fort Walton Beach-Destin, FL Metro Area","North Port-Bradenton-Sarasota, FL Metro Area","Daphne-Fairhope-Foley, AL Metro Area","Sherman-Denison, TX Metro Area","Cape Coral-Fort Myers, FL Metro Area","Austin-Round Rock-San Marcos, TX Metro Area","Lakeland-Winter Haven, FL Metro Area","Burlington, NC Metro Area","Elizabethtown, KY Metro Area","St. George, UT Metro Area","Raleigh-Cary, NC Metro Area","Homosassa Springs, FL Metro Area"],[780.1,685.3,444.2,379.6,361.8,355.8,344.4,335.8,324.1,316.1,315,296.7,288,282.5,273.1]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>hg_instant_idx<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"NAME","targets":1},{"name":"hg_instant_idx","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-626eef6dd9881d19fcda" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-626eef6dd9881d19fcda">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">Instantaneous Housing Growth — Bottom (2023)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["48540","19180","34060","48260","21420","19500","27780","13020","48700","21820","11500","37900","40420","47220","49660"],["Wheeling, WV-OH Metro Area","Danville, IL Micro Area","Morgantown, WV Metro Area","Weirton-Steubenville, WV-OH Metro Area","Enid, OK Metro Area","Decatur, IL Metro Area","Johnstown, PA Metro Area","Bay City, MI Metro Area","Williamsport, PA Metro Area","Fairbanks-College, AK Metro Area","Anniston-Oxford, AL Metro Area","Peoria, IL Metro Area","Rockford, IL Metro Area","Vineland, NJ Metro Area","Youngstown-Warren, OH Metro Area"],[2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023],[1.7,2.3,2.5,2.9,3.3,7,7.4,7.7,10.5,10.7,11.4,12,12.4,14,14.1],[5.2,null,3.1,4.9,9.800000000000001,6.2,10.1,13.2,13.9,null,14.1,15.8,16.9,null,null]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>GEOID<\/th>\n      <th>NAME<\/th>\n      <th>year<\/th>\n      <th>hg_instant_idx<\/th>\n      <th>hg_rates_idx<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"GEOID","targets":1},{"name":"NAME","targets":2},{"name":"year","targets":3},{"name":"hg_instant_idx","targets":4},{"name":"hg_rates_idx","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-12d07a23a7540a0eab26" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-12d07a23a7540a0eab26">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">5-year Housing Growth Rate — Top (2023)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Punta Gorda, FL Metro Area","St. George, UT Metro Area","Cape Coral-Fort Myers, FL Metro Area","Daphne-Fairhope-Foley, AL Metro Area","Lakeland-Winter Haven, FL Metro Area","Crestview-Fort Walton Beach-Destin, FL Metro Area","Greeley, CO Metro Area","Boise City, ID Metro Area","Raleigh-Cary, NC Metro Area","Nashville-Davidson--Murfreesboro--Franklin, TN Metro Area","Ocala, FL Metro Area","Port St. Lucie, FL Metro Area","Coeur d'Alene, ID Metro Area","Naples-Marco Island, FL Metro Area","Fayetteville-Springdale-Rogers, AR Metro Area"],[450.7,351.3,319.6,314.6,312.1,300.1,292.8,280.1,276.6,272.8,269.4,268.6,261.7,261.6,257.8]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>hg_rates_idx<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":2},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"NAME","targets":1},{"name":"hg_rates_idx","targets":2}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-f7813f0e5e552034f5b0" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-f7813f0e5e552034f5b0">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">5-year Housing Growth Rate — Bottom (2023)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["34060","48260","48540","19500","21420","27780","13020","48700","11500","12980","37900","26580","21500","40420","30020"],["Morgantown, WV Metro Area","Weirton-Steubenville, WV-OH Metro Area","Wheeling, WV-OH Metro Area","Decatur, IL Metro Area","Enid, OK Metro Area","Johnstown, PA Metro Area","Bay City, MI Metro Area","Williamsport, PA Metro Area","Anniston-Oxford, AL Metro Area","Battle Creek, MI Metro Area","Peoria, IL Metro Area","Huntington-Ashland, WV-KY-OH Metro Area","Erie, PA Metro Area","Rockford, IL Metro Area","Lawton, OK Metro Area"],[2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023,2023],[2.5,2.9,1.7,7,3.3,7.4,7.7,10.5,11.4,20.3,12,16.3,17.3,12.4,25],[3.1,4.9,5.2,6.2,9.800000000000001,10.1,13.2,13.9,14.1,15.1,15.8,15.9,16.2,16.9,16.9]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>GEOID<\/th>\n      <th>NAME<\/th>\n      <th>year<\/th>\n      <th>hg_instant_idx<\/th>\n      <th>hg_rates_idx<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[3,4,5]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"GEOID","targets":1},{"name":"NAME","targets":2},{"name":"year","targets":3},{"name":"hg_instant_idx","targets":4},{"name":"hg_rates_idx","targets":5}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="composite-score-equal-weight-z-scores-of-both-metrics-latest-year" class="level4">
+<h4 class="anchored" data-anchor-id="composite-score-equal-weight-z-scores-of-both-metrics-latest-year">Composite score (equal-weight z-scores of both metrics, latest year)</h4>
+<section id="note-method-tweak-to-ensure-enough-coverage-i-compute-the-5-year-housinggrowth-rate-over-20192023-as-long-as-a-cbsa-has-data-for-3-of-the-5-years-instead-of-all-5.-this-relaxed-rule-preserves-comparability-while-allowing-a-meaningful-composite-score-with-the-instantaneous-index." class="level5">
+<h5 class="anchored" data-anchor-id="note-method-tweak-to-ensure-enough-coverage-i-compute-the-5-year-housinggrowth-rate-over-20192023-as-long-as-a-cbsa-has-data-for-3-of-the-5-years-instead-of-all-5.-this-relaxed-rule-preserves-comparability-while-allowing-a-meaningful-composite-score-with-the-instantaneous-index.">Note (method tweak): To ensure enough coverage, I compute the 5-year housing‐growth rate over 2019–2023 as long as a CBSA has data for ≥3 of the 5 years (instead of all 5). This relaxed rule preserves comparability while allowing a meaningful composite score with the instantaneous index.</h5>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-7c356364df06b34cea27" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-7c356364df06b34cea27">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">Composite (Instant + 5y Rate, z-scores) — Bottom (2023)<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15"],["Morgantown, WV Metro Area","Wheeling, WV-OH Metro Area","Weirton-Steubenville, WV-OH Metro Area","Enid, OK Metro Area","Decatur, IL Metro Area","Johnstown, PA Metro Area","Bay City, MI Metro Area","Williamsport, PA Metro Area","Anniston-Oxford, AL Metro Area","Peoria, IL Metro Area","Rockford, IL Metro Area","Huntington-Ashland, WV-KY-OH Metro Area","Erie, PA Metro Area","Beckley, WV Metro Area","Terre Haute, IN Metro Area"],[-2.49,-2.47,-2.46,-2.38,-2.38,-2.32,-2.28,-2.23,-2.21,-2.18,-2.16,-2.12,-2.1,-2.1,-2.08],[-1.2,-1.21,-1.19,-1.18,-1.13,-1.13,-1.12,-1.09,-1.07,-1.07,-1.06,-1.01,-0.99,-1,-0.99],[-1.29,-1.26,-1.27,-1.2,-1.25,-1.19,-1.15,-1.14,-1.14,-1.12,-1.1,-1.11,-1.11,-1.1,-1.09]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>NAME<\/th>\n      <th>Composite (z)<\/th>\n      <th>Instant z<\/th>\n      <th>Rate-5y z<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[2,3,4]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"NAME","targets":1},{"name":"Composite (z)","targets":2},{"name":"Instant z","targets":3},{"name":"Rate-5y z","targets":4}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+</section>
+</section>
+<section id="task-6-visualization" class="level3">
+<h3 class="anchored" data-anchor-id="task-6-visualization">Task 6 — Visualization</h3>
+<section id="build-a-yimby-scorecard-one-row-per-cbsa" class="level4">
+<h4 class="anchored" data-anchor-id="build-a-yimby-scorecard-one-row-per-cbsa">Build a YIMBY scorecard (one row per CBSA)</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div class="datatables html-widget html-fill-item" id="htmlwidget-90b075dbacab3d2e1fca" style="width:100%;height:auto;"></div>
+<script type="application/json" data-for="htmlwidget-90b075dbacab3d2e1fca">{"x":{"filter":"none","vertical":false,"caption":"<caption style=\"caption-side: top; text-align: left;\">YIMBY Scorecard — early(2009) vs. latest(2023); flags: high early RB (top 25%), RB decreasing, population rising, HG instant above median.<\/caption>","data":[["1","2","3","4","5","6","7","8","9","10","11","12","13","14","15","16","17","18","19","20","21","22","23","24","25","26","27","28","29","30","31","32","33","34","35","36","37","38","39","40","41","42","43","44","45","46","47","48","49","50","51","52","53","54","55","56","57","58","59","60","61","62","63","64","65","66","67","68","69","70","71","72","73","74","75","76","77","78","79","80","81","82","83","84","85","86","87","88","89","90","91","92","93","94","95","96","97","98","99","100","101","102","103","104","105","106","107","108","109","110","111","112","113","114","115","116","117","118","119","120","121","122","123","124","125","126","127","128","129","130","131","132","133","134","135","136","137","138","139","140","141","142","143","144","145","146","147","148","149","150","151","152","153","154","155","156","157","158","159","160","161","162","163","164","165","166","167","168","169","170","171","172","173","174","175","176","177","178","179","180","181","182","183","184","185","186","187","188","189","190","191","192","193","194","195","196","197","198","199","200","201","202","203","204","205","206","207","208","209","210","211","212","213","214","215","216","217","218","219","220","221","222","223","224","225","226","227","228","229","230","231","232","233","234","235","236","237","238","239","240","241","242","243","244","245","246","247","248","249","250","251","252","253","254","255","256","257","258","259","260","261","262","263","264","265","266","267","268","269","270","271","272","273","274","275","276","277","278","279","280","281","282","283","284","285","286","287","288","289","290","291","292","293","294","295","296","297","298","299","300","301","302","303","304","305","306","307","308","309","310","311","312","313","314","315","316","317","318","319","320","321","322","323","324","325","326","327","328","329","330","331","332","333","334","335","336","337","338","339","340","341","342","343","344","345","346","347","348","349","350","351","352","353","354","355","356","357","358","359","360","361","362","363","364","365","366","367","368","369","370","371","372","373","374","375","376","377","378","379","380","381","382","383","384","385","386","387","388","389","390","391","392","393","394","395","396","397","398","399","400","401","402","403","404","405","406","407","408","409","410","411","412","413","414","415","416","417","418","419","420","421","422","423","424","425","426","427","428","429","430","431","432","433","434","435","436","437","438","439","440","441","442","443","444","445","446","447","448","449","450","451","452","453","454","455","456","457","458","459","460","461","462","463","464","465","466","467","468","469","470","471","472","473","474","475","476","477","478","479","480","481","482","483","484","485","486","487","488","489","490","491","492","493","494","495","496","497","498","499","500","501","502","503","504","505","506","507","508","509","510","511","512","513","514","515","516","517","518","519","520","521","522","523","524","525","526","527","528","529","530","531","532","533","534","535","536","537","538","539","540","541","542","543","544","545","546","547","548","549","550","551","552","553","554","555","556","557","558","559","560","561","562","563","564","565","566","567","568","569","570","571","572","573","574","575","576","577","578","579","580","581","582","583","584","585","586","587","588","589","590","591","592","593","594","595","596","597","598","599","600","601","602","603","604","605","606","607","608","609","610","611","612","613","614","615","616","617","618","619","620","621","622","623","624","625","626","627","628","629","630","631","632","633","634","635","636","637","638","639","640","641","642","643","644","645","646","647","648","649","650","651","652","653","654","655","656","657","658","659","660","661","662","663","664","665","666","667","668","669","670","671","672","673","674","675","676","677","678","679","680","681","682","683","684","685","686","687","688","689","690","691","692","693","694"],["41540","39460","48900","32580","25060","12220","45220","49020","27340","46660","47380","29700","23540","37860","17780","25260","12020","15180","25500","35100","49740","34820","15980","29460","15500","21060","41100","25940","36100","27260","38940","37460","37340","16700","29420","19660","42680","11700","34940","25220","20740","42340","22020","24780","22380","45300","27860","28660","31180","22180","25860","17420","42140","16820","25180","29820","33540","27740","42220","33260","44180","40140","40580","18580","29740","46300","27980","14020","41740","33100","47260","19140","42020","16580","12700","33860","42100","31740","29940","33700","12100","26300","29380","42580","38820","10140","40700","44660","37260","46020","18880","35840","19300","19300","43300","12420","12420","39580","26140","26140","14260","14260","20500","22220","22220","43620","26620","34980","17660","26820","16740","16700","24540","39660","29200","47580","13460","26420","36740","36740","38060","38060","25220","17300","39340","19100","14740","14740","25980","25980","24860","24300","31540","14540","39900","39900","43900","40060","49180","41620","22660","28660","26980","19740","17820","15260","19780","28940","34100","30860","42700","42700","28420","28420","44060","44060","17900","39150","32780","30700","12060","41700","23580","26900","20100","29180","12260","38860","38860","48620","31860","31860","23060","15540","18140","24260","16860","36260","40340","36500","36500","14500","33460","46060","40900","40900","31140","46140","36540","43100","44420","30460","48300","16540","36420","44940","38900","24140","41420","17020","24660","11460","29340","42660","36220","16180","18700","48140","31340","43420","27900","13380","46300","12940","47900","34580","30780","33100","35300","28140","41060","27060","40660","21660","35620","35380","17860","46700","30340","20260","44700","23420","12620","46220","49420","36780","47300","27180","24420","11180","19460","20220","17980","28740","18020","48660","13740","34740","48060","24220","20940","41500","37100","32900","22520","39820","31900","26580","47220","34060","29860","42860","25020","10700","45180","28300","18260","31300","39020","34780","48020","43320","40080","41780","18980","24620","23180","32940","16500","40780","43060","44980","44340","14660","49780","17060","13180","42620","49300","35420","46380","38660","17340","18300","21700","25900","26180","28580","31100","31460","34380","37380","39140","42060","45540","34820","25940","43620","37460","16740","42680","26420","39340","24860","41620","19740","15260","12060","41700","26900","29820","24260","36260","31140","36540","44420","16540","38900","47460","43420","27900","38540","22500","27980","41740","47260","35300","29540","49700","31700","41940","23900","46700","24340","25420","46340","10740","11540","32820","24580","20020","13140","22900","10540","10540","47940","16940","16300","29100","29100","17140","31020","16220","44700","13980","12540","12540","12580","12580","36980","38300","21340","10180","28700","28700","41180","45940","45940","43580","49620","34900","11100","31420","31420","47300","24420","33660","14460","14460","13900","44300","10580","30300","41660","33140","29620","10900","40220","27140","37980","27500","27500","24020","33740","46520","33220","33220","33340","30140","24500","39380","33780","14100","41860","40380","14860","44220","49340","19820","45820","21140","10420","43780","15940","22540","27620","35980","10500","30980","30020","39300","39300","38340","11260","37620","15380","15380","25620","42200","23460","42540","45060","12980","22420","41140","39740","16020","16020","30620","34620","37900","11500","48700","34340","20180","36460","26860","46180","31980","32740","36700","31940","18500","37020","39060","45860","35900","31820","32060","47700","11980","32100","22300","42940","34180","36020","22840","18180","31260","28060","48980","24940","28900","12300","10380","11340","14060","14580","14600","14700","17620","19260","20380","21460","21940","23020","23660","25740","26100","29140","29580","30100","30500","30740","32270","32420","33500","36140","37140","37700","37820","39100","40260","40740","41900","41980","43140","43860","44380","44620","45640","45900","48580","48740","49500","10460","12660","22060","22100","24180","25720","25840","26020","26090","26660","27600","28180","29300","32420","33980","36837","39940","41820","41980","43220","43700","48580","21780","21780","35620","35380","23900","26380","24340","13820","13820","17140","28020","31020","39540","39540","43340","31080","35660","35660","45780","19430","25540","33340","48060","45500","45500","29020","10780","16980","16980","19340","14860","19820","44140","13780","38220","38220","20700","14010","35980","44100","37620","40980","40980","27100","21300","22140","11020","16620","47020","46540","21500","45460","13220","13220","28100","28100","19060","19060","49660","49660","47220","40420","21820","21820","13020","27780","19500","21420","48260","19180","19180","48540","39500","10300","17220","39980","43740","12180","38460","35340","14140","23700","10880","11300","11780","17460","17940","19380","20620","27460","32020","32300","35260","36300","36660","36860","41580","46100","10380","10620","11200","11360","11640","11940","14580","14940","17410","17580","18340","19260","20580","21700","22580","24640","25740","25850","25900","27460","28450","28580","28880","29060","30150","30500","32390","33500","33910","34680","34860","36660","37060","37140","38210","38240","39480","40090","40100","41400","43140","43640","44620","45620","45900","46100","47930","48680","49220"],["Salisbury, MD Metro Area","Punta Gorda, FL Metro Area","Wilmington, NC Metro Area","McAllen-Edinburg-Mission, TX Metro Area","Gulfport-Biloxi, MS Metro Area","Auburn-Opelika, AL Metro Area","Tallahassee, FL Metro Area","Winchester, VA-WV Metro Area","Jacksonville, NC Metro Area","Valdosta, GA Metro Area","Waco, TX Metro Area","Laredo, TX Metro Area","Gainesville, FL Metro Area","Pensacola-Ferry Pass-Brent, FL Metro Area","College Station-Bryan, TX Metro Area","Hanford-Corcoran, CA Metro Area","Athens-Clarke County, GA Metro Area","Brownsville-Harlingen, TX Metro Area","Harrisonburg, VA Metro Area","New Bern, NC Micro Area","Yuma, AZ Metro Area","Myrtle Beach-North Myrtle Beach-Conway, SC Metro Area","Cape Coral-Fort Myers, FL Metro Area","Lakeland-Winter Haven, FL Metro Area","Burlington, NC Metro Area","Elizabethtown, KY Metro Area","St. George, UT Metro Area","Hilton Head Island-Beaufort, SC Micro Area","Ocala, FL Metro Area","Jacksonville, FL Metro Area","Port St. Lucie, FL Metro Area","Panama City-Lynn Haven-Panama City Beach, FL Metro Area","Palm Bay-Melbourne-Titusville, FL Metro Area","Charleston-North Charleston-Summerville, SC Metro Area","Lake Havasu City-Kingman, AZ Metro Area","Deltona-Daytona Beach-Ormond Beach, FL Metro Area","Sebastian-Vero Beach, FL Metro Area","Asheville, NC Metro Area","Naples-Marco Island, FL Metro Area","Hammond, LA Micro Area","Eau Claire, WI Metro Area","Savannah, GA Metro Area","Fargo, ND-MN Metro Area","Greenville, NC Metro Area","Flagstaff, AZ Metro Area","Tampa-St. Petersburg-Clearwater, FL Metro Area","Jonesboro, AR Metro Area","Killeen-Temple-Fort Hood, TX Metro Area","Lubbock, TX Metro Area","Fayetteville, NC Metro Area","Hickory-Lenoir-Morganton, NC Metro Area","Cleveland, TN Metro Area","Santa Fe, NM Metro Area","Charlottesville, VA Metro Area","Hagerstown-Martinsburg, MD-WV Metro Area","Las Vegas-Paradise, NV Metro Area","Missoula, MT Metro Area","Johnson City, TN Metro Area","Santa Rosa-Petaluma, CA Metro Area","Midland, TX Metro Area","Springfield, MO Metro Area","Riverside-San Bernardino-Ontario, CA Metro Area","Rocky Mount, NC Metro Area","Corpus Christi, TX Metro Area","Las Cruces, NM Metro Area","Twin Falls, ID Micro Area","Kahului-Wailuku, HI Micro Area","Bloomington, IN Metro Area","San Diego-Carlsbad-San Marcos, CA Metro Area","Miami-Fort Lauderdale-Pompano Beach, FL Metro Area","Virginia Beach-Norfolk-Newport News, VA-NC Metro Area","Dalton, GA Metro Area","San Luis Obispo-Paso Robles, CA Metro Area","Champaign-Urbana, IL Metro Area","Barnstable Town, MA Metro Area","Montgomery, AL Metro Area","Santa Cruz-Watsonville, CA Metro Area","Manhattan, KS Metro Area","Lawrence, KS Metro Area","Modesto, CA Metro Area","Atlantic City-Hammonton, NJ Metro Area","Hot Springs, AR Metro Area","Lake City, FL Micro Area","Seaford, DE Micro Area","Port Angeles, WA Micro Area","Aberdeen, WA Micro Area","Roseburg, OR Micro Area","Stillwater, OK Micro Area","Palatka, FL Micro Area","Truckee-Grass Valley, CA Micro Area","Crestview-Fort Walton Beach-Destin, FL Metro Area","North Port-Bradenton-Sarasota, FL Metro Area","Daphne-Fairhope-Foley, AL Micro Area","Daphne-Fairhope-Foley, AL Metro Area","Sherman-Denison, TX Metro Area","Austin-Round Rock, TX Metro Area","Austin-Round Rock-San Marcos, TX Metro Area","Raleigh-Cary, NC Metro Area","Homosassa Springs, FL Micro Area","Homosassa Springs, FL Metro Area","Boise City-Nampa, ID Metro Area","Boise City, ID Metro Area","Durham-Chapel Hill, NC Metro Area","Fayetteville-Springdale-Rogers, AR-MO Metro Area","Fayetteville-Springdale-Rogers, AR Metro Area","Sioux Falls, SD Metro Area","Huntsville, AL Metro Area","Nashville-Davidson--Murfreesboro--Franklin, TN Metro Area","Coeur d'Alene, ID Metro Area","Idaho Falls, ID Metro Area","Charlotte-Concord-Gastonia, NC-SC Metro Area","Charleston-North Charleston, SC Metro Area","Greeley, CO Metro Area","Rapid City, SD Metro Area","Lafayette-West Lafayette, IN Metro Area","Warner Robins, GA Metro Area","Bend, OR Metro Area","Houston-Sugar Land-Baytown, TX Metro Area","Orlando-Kissimmee, FL Metro Area","Orlando-Kissimmee-Sanford, FL Metro Area","Phoenix-Mesa-Scottsdale, AZ Metro Area","Phoenix-Mesa-Chandler, AZ Metro Area","Hammond, LA Metro Area","Clarksville, TN-KY Metro Area","Provo-Orem, UT Metro Area","Dallas-Fort Worth-Arlington, TX Metro Area","Bremerton-Silverdale, WA Metro Area","Bremerton-Silverdale-Port Orchard, WA Metro Area","Hinesville-Fort Stewart, GA Metro Area","Hinesville, GA Metro Area","Greenville-Mauldin-Easley, SC Metro Area","Grand Junction, CO Metro Area","Madison, WI Metro Area","Bowling Green, KY Metro Area","Reno-Sparks, NV Metro Area","Reno, NV Metro Area","Spartanburg, SC Metro Area","Richmond, VA Metro Area","Winston-Salem, NC Metro Area","Salt Lake City, UT Metro Area","Fort Collins-Loveland, CO Metro Area","Killeen-Temple, TX Metro Area","Iowa City, IA Metro Area","Denver-Aurora-Broomfield, CO Metro Area","Colorado Springs, CO Metro Area","Brunswick, GA Metro Area","Des Moines-West Des Moines, IA Metro Area","Knoxville, TN Metro Area","Morristown, TN Metro Area","Logan, UT-ID Metro Area","Sebring, FL Micro Area","Sebring, FL Metro Area","Kennewick-Pasco-Richland, WA Metro Area","Kennewick-Richland, WA Metro Area","Spokane, WA Metro Area","Spokane-Spokane Valley, WA Metro Area","Columbia, SC Metro Area","Prescott Valley-Prescott, AZ Metro Area","Medford, OR Metro Area","Lincoln, NE Metro Area","Atlanta-Sandy Springs-Roswell, GA Metro Area","San Antonio-New Braunfels, TX Metro Area","Gainesville, GA Metro Area","Indianapolis-Carmel, IN Metro Area","Dover, DE Metro Area","Lafayette, LA Metro Area","Augusta-Richmond County, GA-SC Metro Area","Portland-South Portland-Biddeford, ME Metro Area","Portland-South Portland, ME Metro Area","Wichita, KS Metro Area","Mankato-North Mankato, MN Metro Area","Mankato, MN Metro Area","Fort Wayne, IN Metro Area","Burlington-South Burlington, VT Metro Area","Columbus, OH Metro Area","Grand Island, NE Micro Area","Chattanooga, TN-GA Metro Area","Ogden-Clearfield, UT Metro Area","Rochester, MN Metro Area","Olympia, WA Metro Area","Olympia-Lacey-Tumwater, WA Metro Area","Boulder, CO Metro Area","Minneapolis-St. Paul-Bloomington, MN-WI Metro Area","Tucson, AZ Metro Area","Sacramento--Arden-Arcade--Roseville, CA Metro Area","Sacramento-Roseville-Folsom, CA Metro Area","Louisville/Jefferson County, KY-IN Metro Area","Tulsa, OK Metro Area","Omaha-Council Bluffs, NE-IA Metro Area","Sheboygan, WI Metro Area","Staunton-Waynesboro, VA Micro Area","Lexington-Fayette, KY Metro Area","Wenatchee-East Wenatchee, WA Metro Area","Chambersburg, PA Micro Area","Oklahoma City, OK Metro Area","Sumter, SC Metro Area","Portland-Vancouver-Hillsboro, OR-WA Metro Area","Goldsboro, NC Metro Area","Salem, OR Metro Area","Chico, CA Metro Area","Greensboro-High Point, NC Metro Area","Ann Arbor, MI Metro Area","Lake Charles, LA Metro Area","Seattle-Tacoma-Bellevue, WA Metro Area","Odessa, TX Metro Area","Carson City, NV Metro Area","Corvallis, OR Metro Area","Wausau, WI Metro Area","Lynchburg, VA Metro Area","Sierra Vista-Douglas, AZ Micro Area","Joplin, MO Metro Area","Bellingham, WA Metro Area","Twin Falls, ID Metro Area","Baton Rouge, LA Metro Area","Washington-Arlington-Alexandria, DC-VA-MD-WV Metro Area","Mount Vernon-Anacortes, WA Metro Area","Little Rock-North Little Rock-Conway, AR Metro Area","Miami-Fort Lauderdale-West Palm Beach, FL Metro Area","New Haven-Milford, CT Metro Area","Kansas City, MO-KS Metro Area","St. Cloud, MN Metro Area","Ithaca, NY Metro Area","Rome, GA Metro Area","Eugene-Springfield, OR Metro Area","New York-Northern New Jersey-Long Island, NY-NJ-PA Metro Area","New Orleans-Metairie-Kenner, LA Metro Area","Columbia, MO Metro Area","Vallejo-Fairfield, CA Metro Area","Lewiston-Auburn, ME Metro Area","Duluth, MN-WI Metro Area","Stockton, CA Metro Area","Fresno, CA Metro Area","Bangor, ME Metro Area","Tuscaloosa, AL Metro Area","Yakima, WA Metro Area","Oshkosh-Neenah, WI Metro Area","Visalia-Porterville, CA Metro Area","Jackson, TN Metro Area","Grants Pass, OR Micro Area","Ames, IA Metro Area","Decatur, AL Metro Area","Dubuque, IA Metro Area","Columbus, GA-AL Metro Area","Kingston, NY Metro Area","Columbus, IN Metro Area","Wichita Falls, TX Metro Area","Billings, MT Metro Area","Muskegon-Norton Shores, MI Metro Area","Watertown-Fort Drum, NY Micro Area","Grand Forks, ND-MN Metro Area","El Centro, CA Metro Area","Salinas, CA Metro Area","Oxnard-Thousand Oaks-Ventura, CA Metro Area","Merced, CA Metro Area","Florence-Muscle Shoals, AL Metro Area","Redding, CA Metro Area","Mansfield, OH Metro Area","Huntington-Ashland, WV-KY-OH Metro Area","Vineland-Millville-Bridgeton, NJ Metro Area","Morgantown, WV Metro Area","Laurel, MS Micro Area","Seneca, SC Micro Area","Guayama, PR Metro Area","Albertville, AL Micro Area","Talladega-Sylacauga, AL Micro Area","Keene, NH Micro Area","Cookeville, TN Micro Area","Lumberton, NC Micro Area","Portsmouth, OH Micro Area","Muskogee, OK Micro Area","Watertown-Fort Atkinson, WI Micro Area","Show Low, AZ Micro Area","Richmond-Berea, KY Micro Area","Sandusky, OH Metro Area","Cullman, AL Micro Area","Greeneville, TN Micro Area","Frankfort, KY Micro Area","Meridian, MS Micro Area","Centralia, WA Micro Area","Russellville, AR Micro Area","Shawnee, OK Micro Area","Sunbury, PA Micro Area","Statesboro, GA Micro Area","Brainerd, MN Micro Area","Zanesville, OH Micro Area","Chillicothe, OH Micro Area","Beaver Dam, WI Micro Area","Searcy, AR Micro Area","Wooster, OH Micro Area","New Philadelphia-Dover, OH Micro Area","Ukiah, CA Micro Area","Ponce, PR Metro Area","Clearlake, CA Micro Area","Coos Bay, OR Micro Area","Eureka-Arcata-Fortuna, CA Micro Area","Hilo, HI Micro Area","Honolulu, HI Metro Area","Key West, FL Micro Area","Los Angeles-Long Beach-Santa Ana, CA Metro Area","Madera-Chowchilla, CA Metro Area","Mount Pleasant, MI Micro Area","Palm Coast, FL Metro Area","Prescott, AZ Metro Area","Santa Barbara-Santa Maria-Goleta, CA Metro Area","The Villages, FL Micro Area","Myrtle Beach-Conway-North Myrtle Beach, SC Metro Area","Hilton Head Island-Bluffton-Port Royal, SC Metro Area","Sioux Falls, SD-MN Metro Area","Panama City-Panama City Beach, FL Metro Area","Charlotte-Gastonia-Concord, NC-SC Metro Area","Sebastian-Vero Beach-West Vero Corridor, FL Metro Area","Houston-Pasadena-The Woodlands, TX Metro Area","Provo-Orem-Lehi, UT Metro Area","Greenville-Anderson-Greer, SC Metro Area","Salt Lake City-Murray, UT Metro Area","Denver-Aurora-Centennial, CO Metro Area","Brunswick-St. Simons, GA Metro Area","Atlanta-Sandy Springs-Marietta, GA Metro Area","San Antonio, TX Metro Area","Indianapolis-Carmel-Greenwood, IN Metro Area","Las Vegas-Henderson-North Las Vegas, NV Metro Area","Grand Island, NE Metro Area","Ogden, UT Metro Area","Louisville-Jefferson County, KY-IN Metro Area","Omaha, NE-IA Metro Area","Staunton-Stuarts Draft, VA Metro Area","Chambersburg, PA Metro Area","Portland-Vancouver-Beaverton, OR-WA Metro Area","Walla Walla, WA Metro Area","Sierra Vista-Douglas, AZ Metro Area","Joplin, MO-KS Metro Area","Pocatello, ID Metro Area","Florence, SC Metro Area","Kahului-Wailuku, HI Metro Area","San Diego-Chula Vista-Carlsbad, CA Metro Area","Virginia Beach-Chesapeake-Norfolk, VA-NC Metro Area","New Haven, CT Metro Area","Lancaster, PA Metro Area","Yuba City, CA Metro Area","Manchester-Nashua, NH Metro Area","San Jose-Sunnyvale-Santa Clara, CA Metro Area","Gettysburg, PA Metro Area","Vallejo, CA Metro Area","Grand Rapids-Wyoming, MI Metro Area","Harrisburg-Carlisle, PA Metro Area","Tyler, TX Metro Area","Albuquerque, NM Metro Area","Appleton, WI Metro Area","Memphis, TN-MS-AR Metro Area","Green Bay, WI Metro Area","Dothan, AL Metro Area","Beaumont-Port Arthur, TX Metro Area","Fort Smith, AR-OK Metro Area","Albany-Lebanon, OR Micro Area","Albany, OR Metro Area","Waterloo-Cedar Falls, IA Metro Area","Cheyenne, WY Metro Area","Cedar Rapids, IA Metro Area","La Crosse, WI-MN Metro Area","La Crosse-Onalaska, WI-MN Metro Area","Cincinnati, OH-KY-IN Metro Area","Longview, WA Metro Area","Casper, WY Metro Area","Stockton-Lodi, CA Metro Area","Blacksburg-Christiansburg-Radford, VA Metro Area","Bakersfield, CA Metro Area","Bakersfield-Delano, CA Metro Area","Baltimore-Towson, MD Metro Area","Baltimore-Columbia-Towson, MD Metro Area","Owensboro, KY Metro Area","Pittsburgh, PA Metro Area","El Paso, TX Metro Area","Abilene, TX Metro Area","Kingsport-Bristol-Bristol, TN-VA Metro Area","Kingsport-Bristol, TN-VA Metro Area","St. Louis, MO-IL Metro Area","Trenton-Ewing, NJ Metro Area","Trenton-Princeton, NJ Metro Area","Sioux City, IA-NE-SD Metro Area","York-Hanover, PA Metro Area","Napa, CA Metro Area","Amarillo, TX Metro Area","Macon, GA Metro Area","Macon-Bibb County, GA Metro Area","Visalia, CA Metro Area","Grants Pass, OR Metro Area","Mobile, AL Metro Area","Boston-Cambridge-Quincy, MA-NH Metro Area","Boston-Cambridge-Newton, MA-NH Metro Area","Bismarck, ND Metro Area","State College, PA Metro Area","Albany-Schenectady-Troy, NY Metro Area","Lewiston, ID-WA Metro Area","San Angelo, TX Metro Area","Michigan City-La Porte, IN Metro Area","Lansing-East Lansing, MI Metro Area","Allentown-Bethlehem-Easton, PA-NJ Metro Area","Roanoke, VA Metro Area","Jackson, MS Metro Area","Philadelphia-Camden-Wilmington, PA-NJ-DE-MD Metro Area","Janesville, WI Metro Area","Janesville-Beloit, WI Metro Area","Glens Falls, NY Metro Area","Monroe, LA Metro Area","Urban Honolulu, HI Metro Area","Midland, MI Micro Area","Midland, MI Metro Area","Milwaukee-Waukesha-West Allis, WI Metro Area","Lebanon, PA Metro Area","Great Falls, MT Metro Area","Pueblo, CO Metro Area","Monroe, MI Metro Area","Bloomsburg-Berwick, PA Micro Area","San Francisco-Oakland-Fremont, CA Metro Area","Rochester, NY Metro Area","Bridgeport-Stamford-Norwalk, CT Metro Area","Springfield, OH Metro Area","Worcester, MA Metro Area","Detroit-Warren-Dearborn, MI Metro Area","Topeka, KS Metro Area","Elkhart-Goshen, IN Metro Area","Akron, OH Metro Area","South Bend-Mishawaka, IN-MI Metro Area","Canton-Massillon, OH Metro Area","Fond du Lac, WI Metro Area","Jefferson City, MO Metro Area","Norwich-New London, CT Metro Area","Albany, GA Metro Area","Longview, TX Metro Area","Lawton, OK Metro Area","Providence-New Bedford-Fall River, RI-MA Metro Area","Providence-Warwick, RI-MA Metro Area","Pittsfield, MA Metro Area","Anchorage, AK Metro Area","Parkersburg-Marietta-Vienna, WV-OH Metro Area","Buffalo-Niagara Falls, NY Metro Area","Buffalo-Cheektowaga, NY Metro Area","Hattiesburg, MS Metro Area","Santa Maria-Santa Barbara, CA Metro Area","Gadsden, AL Metro Area","Scranton--Wilkes-Barre, PA Metro Area","Syracuse, NY Metro Area","Battle Creek, MI Metro Area","Flint, MI Metro Area","St. Joseph, MO-KS Metro Area","Reading, PA Metro Area","Cape Girardeau-Jackson, MO-IL Metro Area","Cape Girardeau, MO-IL Metro Area","Lima, OH Metro Area","Muncie, IN Metro Area","Peoria, IL Metro Area","Anniston-Oxford, AL Metro Area","Williamsport, PA Metro Area","Mount Airy, NC Micro Area","DuBois, PA Micro Area","Olean, NY Micro Area","Indiana, PA Micro Area","Tupelo, MS Micro Area","Marion, IN Micro Area","Meadville, PA Micro Area","Orangeburg, SC Micro Area","Marinette, WI-MI Micro Area","Corning, NY Micro Area","Owosso, MI Micro Area","Pottsville, PA Micro Area","Torrington, CT Micro Area","North Wilkesboro, NC Micro Area","Manitowoc, WI Micro Area","Marion-Herrin, IL Micro Area","Warsaw, IN Micro Area","Athens, TX Micro Area","Marquette, MI Micro Area","Findlay, OH Micro Area","Sevierville, TN Micro Area","Moses Lake, WA Micro Area","Oak Harbor, WA Micro Area","Fort Payne, AL Micro Area","Concord, NH Micro Area","Lufkin, TX Micro Area","Kalispell, MT Micro Area","Wilson, NC Micro Area","Greenwood, SC Micro Area","Klamath Falls, OR Micro Area","Augusta-Waterville, ME Micro Area","Aguadilla-Isabela-San Sebasti?n, PR Metro Area","Anderson, SC Metro Area","Bloomington-Normal, IL Metro Area","Bozeman, MT Micro Area","Bradenton-Sarasota-Venice, FL Metro Area","Branson, MO Micro Area","Coamo, PR Micro Area","Danville, VA Metro Area","Dunn, NC Micro Area","Enterprise-Ozark, AL Micro Area","Fajardo, PR Metro Area","Fort Walton Beach-Crestview-Destin, FL Metro Area","Galesburg, IL Micro Area","Helena, MT Micro Area","Holland-Grand Haven, MI Metro Area","Lafayette, IN Metro Area","Lancaster, SC Micro Area","Lebanon, NH-VT Micro Area","Lexington Park, MD Micro Area","Lincolnton, NC Micro Area","Marshfield-Wisconsin Rapids, WI Micro Area","Mayag?ez, PR Metro Area","Minot, ND Micro Area","Ocean City, NJ Metro Area","Paducah, KY-IL Micro Area","Pascagoula, MS Metro Area","Pendleton-Hermiston, OR Micro Area","Poughkeepsie-Newburgh-Middletown, NY Metro Area","Roanoke Rapids, NC Micro Area","Roswell, NM Micro Area","San Germ?n-Cabo Rojo, PR Metro Area","San Juan-Caguas-Guaynabo, PR Metro Area","Shelby, NC Micro Area","Southern Pines-Pinehurst, NC Micro Area","Statesville-Mooresville, NC Micro Area","Stevens Point, WI Micro Area","Thomasville-Lexington, NC Micro Area","Traverse City, MI Micro Area","Whitewater, WI Micro Area","Willimantic, CT Micro Area","Yauco, PR Metro Area","Alamogordo, NM Micro Area","Baraboo, WI Micro Area","Faribault-Northfield, MN Micro Area","Farmington, MO Micro Area","Granbury, TX Micro Area","Heber, UT Micro Area","Hermiston-Pendleton, OR Micro Area","Hobbs, NM Micro Area","Holland, MI Micro Area","Huntsville, TX Micro Area","Jefferson, GA Micro Area","Kapaa, HI Micro Area","LaGrange, GA-AL Micro Area","Mayagüez, PR Metro Area","Morehead City, NC Micro Area","Ottawa, IL Micro Area","Rexburg, ID Micro Area","Sanford, NC Micro Area","San Juan-Bayamón-Caguas, PR Metro Area","Shelton, WA Micro Area","Somerset, KY Micro Area","Whitewater-Elkhorn, WI Micro Area","Evansville, IN-KY Metro Area","Evansville, IN Metro Area","New York-Newark-Jersey City, NY-NJ Metro Area","New Orleans-Metairie, LA Metro Area","Gettysburg, PA Micro Area","Houma-Bayou Cane-Thibodaux, LA Metro Area","Grand Rapids-Wyoming-Kentwood, MI Metro Area","Birmingham-Hoover, AL Metro Area","Birmingham, AL Metro Area","Cincinnati-Middletown, OH-KY-IN Metro Area","Kalamazoo-Portage, MI Metro Area","Longview-Kelso, WA Metro Area","Racine, WI Metro Area","Racine-Mount Pleasant, WI Metro Area","Shreveport-Bossier City, LA Metro Area","Los Angeles-Long Beach-Anaheim, CA Metro Area","Niles-Benton Harbor, MI Metro Area","Niles, MI Metro Area","Toledo, OH Metro Area","Dayton-Kettering-Beavercreek, OH Metro Area","Hartford-West Hartford-East Hartford, CT Metro Area","Milwaukee-Waukesha, WI Metro Area","Watertown-Fort Drum, NY Metro Area","Texarkana, TX-Texarkana, AR Metro Area","Texarkana, TX-AR Metro Area","Kokomo, IN Metro Area","Alexandria, LA Metro Area","Chicago-Naperville-Joliet, IL-IN-WI Metro Area","Chicago-Naperville-Elgin, IL-IN Metro Area","Davenport-Moline-Rock Island, IA-IL Metro Area","Bridgeport-Stamford-Danbury, CT Metro Area","Detroit-Warren-Livonia, MI Metro Area","Springfield, MA Metro Area","Binghamton, NY Metro Area","Pine Bluff, AR Metro Area","Pine Bluff, AR Micro Area","East Stroudsburg, PA Micro Area","Bloomington, IL Metro Area","Norwich-New London-Willimantic, CT Metro Area","Springfield, IL Metro Area","Parkersburg-Vienna, WV Metro Area","Saginaw-Saginaw Township North, MI Metro Area","Saginaw, MI Metro Area","Jackson, MI Metro Area","Elmira, NY Metro Area","Farmington, NM Metro Area","Altoona, PA Metro Area","Charleston, WV Metro Area","Victoria, TX Metro Area","Utica-Rome, NY Metro Area","Erie, PA Metro Area","Terre Haute, IN Metro Area","Beckley, WV Micro Area","Beckley, WV Metro Area","Kankakee-Bradley, IL Metro Area","Kankakee, IL Metro Area","Cumberland, MD-WV Metro Area","Cumberland, MD-WV Micro Area","Youngstown-Warren-Boardman, OH-PA Metro Area","Youngstown-Warren, OH Metro Area","Vineland, NJ Metro Area","Rockford, IL Metro Area","Fairbanks, AK Metro Area","Fairbanks-College, AK Metro Area","Bay City, MI Metro Area","Johnstown, PA Metro Area","Decatur, IL Metro Area","Enid, OK Metro Area","Weirton-Steubenville, WV-OH Metro Area","Danville, IL Metro Area","Danville, IL Micro Area","Wheeling, WV-OH Metro Area","Quincy, IL-MO Micro Area","Adrian, MI Micro Area","Clarksburg, WV Micro Area","Richmond, IN Micro Area","Somerset, PA Micro Area","Auburn, NY Micro Area","Plattsburgh, NY Micro Area","New Iberia, LA Micro Area","Bluefield, WV-VA Micro Area","Gallup, NM Micro Area","Allegan, MI Micro Area","Anderson, IN Metro Area","Ashtabula, OH Micro Area","Cleveland-Elyria-Mentor, OH Metro Area","Columbia, TN Micro Area","Dayton, OH Metro Area","East Liverpool-Salem, OH Micro Area","Jamestown-Dunkirk-Fredonia, NY Micro Area","Marion, OH Micro Area","Martinsville, VA Micro Area","New Castle, PA Micro Area","Ogdensburg-Massena, NY Micro Area","Opelousas-Eunice, LA Micro Area","Ottawa-Streator, IL Micro Area","Salisbury, NC Micro Area","Tullahoma, TN Micro Area","Aguadilla, PR Metro Area","Albemarle, NC Micro Area","Amherst Town-Northampton, MA Metro Area","Anderson Creek, NC Micro Area","Arecibo, PR Metro Area","Athens, TN Micro Area","Bozeman, MT Metro Area","Brigham City, UT-ID Micro Area","Cleveland, OH Metro Area","Clovis, NM Micro Area","Corbin, KY Micro Area","Danville, VA Micro Area","Eagle Pass, TX Metro Area","Eureka-Arcata, CA Micro Area","Forest City, NC Micro Area","Greenfield, MA Micro Area","Helena, MT Metro Area","Hermitage, PA Micro Area","Hilo-Kailua, HI Micro Area","Jamestown-Dunkirk, NY Micro Area","Kenosha, WI Metro Area","Key West-Key Largo, FL Micro Area","Kiryas Joel-Poughkeepsie-Newburgh, NY Metro Area","Laconia, NH Micro Area","Lebanon-Claremont, NH-VT Micro Area","Lexington Park, MD Metro Area","Massena-Ogdensburg, NY Micro Area","Minot, ND Metro Area","Monticello, NY Micro Area","Murrells Inlet, SC Micro Area","Nacogdoches, TX Micro Area","Opelousas, LA Micro Area","Oxford, MS Micro Area","Paducah, KY-IL Metro Area","Pikeville, KY Micro Area","Pinehurst-Southern Pines, NC Metro Area","Putnam, CT Micro Area","Rifle, CO Micro Area","Rio Grande City-Roma, TX Micro Area","Salem, OH Micro Area","Shelby-Kings Mountain, NC Micro Area","Slidell-Mandeville-Covington, LA Metro Area","Stevens Point-Plover, WI Micro Area","Thomasville, GA Micro Area","Traverse City, MI Metro Area","Tullahoma-Manchester, TN Micro Area","Waterbury-Shelton, CT Metro Area","Wildwood-The Villages, FL Metro Area","Wisconsin Rapids-Marshfield, WI Micro Area"],[115.3,124.8,110.3,111.9,114.5,110.1,121.4,107.9,120.4,106.8,105.9,109.3,134.4,107.5,134.3,111.4,110.3,111.4,108.8,113.1,116.9,113.4,119.3,113.6,93.90000000000001,89,108.8,108,119.1,105.1,129,117.8,113.2,104.8,111.1,116.8,118.5,103.8,109,109.2,81,112.3,79.09999999999999,105.5,106.5,119.9,95.2,107.1,103.3,110.5,92.7,95.5,94.09999999999999,99.90000000000001,91,112.4,99.90000000000001,100.2,110.4,87,92.7,117.2,106.2,104.5,97.59999999999999,103.2,125.7,111.3,118.2,136.4,103.7,93.09999999999999,115.5,107,105.4,103.7,119.3,108.9,109.6,112.4,104.8,106.7,116.9,107.5,111.1,104.1,107.8,104.4,110.1,119.2,null,null,96.40000000000001,null,93.7,94.09999999999999,null,82.59999999999999,115.1,null,92.40000000000001,null,89.40000000000001,84.2,null,76.2,72.09999999999999,89.3,98.90000000000001,82.2,null,null,82.7,80.7,null,85.90000000000001,96.5,91.09999999999999,121.7,null,100.5,null,null,99.90000000000001,81.5,90.3,95.90000000000001,null,101,null,91.8,87.3,83.90000000000001,85.40000000000001,99.3,null,91,94.3,82.5,85,90.8,null,84.2,86.40000000000001,83.5,96.2,72.59999999999999,86.8,92.5,84,124.7,null,78.8,null,96,null,93.7,null,102.2,79.8,null,null,92.2,86.59999999999999,100.8,88,93.2,94.09999999999999,null,76.2,78.2,null,76,95.59999999999999,86.8,76.5,94.2,75.3,70.90000000000001,92.90000000000001,null,93.2,77.40000000000001,98.2,101.2,null,null,86,81.09999999999999,71,87.3,85.7,80.09999999999999,83.40000000000001,88.90000000000001,98.7,null,91.5,94.7,113.1,95.40000000000001,89.59999999999999,89.7,92.2,95.90000000000001,91.2,98.90000000000001,73.7,83.09999999999999,94.59999999999999,95.09999999999999,97.90000000000001,null,89.59999999999999,89,92.5,88.59999999999999,null,98.7,81.40000000000001,80.90000000000001,111.7,102.6,113,104.1,112,93,105.5,93.09999999999999,83.8,110,105.8,97.5,97.59999999999999,93.90000000000001,77.59999999999999,115.8,101.1,125.4,87.2,84,70.5,106.2,96.8,85,90,83.59999999999999,98.5,106.4,84.5,99.5,110.7,113.3,118.9,86.5,114.9,86.5,96.2,103.9,102.8,112.1,95.90000000000001,152.8,90.40000000000001,88.90000000000001,99.7,102.7,128.4,105.5,103.7,80.59999999999999,113,84.5,88.2,86.59999999999999,87.59999999999999,81.8,108,101.4,92.40000000000001,92.5,83.09999999999999,103,87.40000000000001,89.3,85.5,79.8,86.3,76,81.90000000000001,111,124.2,121.3,118.8,133,114.4,118,141.1,119,108.9,113.3,123.7,115.4,125.2,103.6,null,null,null,null,90,null,null,null,null,null,null,null,95.7,92.8,null,null,null,null,83.90000000000001,null,null,null,91.8,null,null,null,69.3,88.90000000000001,null,null,null,null,81.40000000000001,100.4,88,97.40000000000001,null,null,84.5,82.40000000000001,91.3,90.2,70,102,73.90000000000001,94.5,87.3,86.90000000000001,92.90000000000001,null,76.5,82.2,66.90000000000001,77.3,null,null,84.2,71.59999999999999,null,99.5,103.1,null,93.3,null,83.40000000000001,80.7,100.4,96.5,93.90000000000001,null,82.40000000000001,84.5,null,81.2,76,104.7,88.09999999999999,101.3,null,null,null,104,94.2,null,59.7,91.40000000000001,84,79.59999999999999,101.9,79,86.2,88.09999999999999,90.40000000000001,98.8,88.3,89.3,null,88.5,87.59999999999999,null,72.09999999999999,null,85.7,72.3,74.40000000000001,99.2,79.5,86.7,102.7,83.8,90.5,84.2,78.09999999999999,null,79.3,92.90000000000001,88.59999999999999,89.90000000000001,81.8,75.09999999999999,63.2,92.40000000000001,100.2,85.3,81.59999999999999,90.59999999999999,null,98.90000000000001,85,84.5,84.2,null,92.8,null,89.09999999999999,85.40000000000001,81.40000000000001,95.8,93.5,86.90000000000001,85,74.59999999999999,null,87.8,99.90000000000001,77.5,89.40000000000001,86.90000000000001,94.90000000000001,88.5,89.40000000000001,90.7,86.7,91.59999999999999,82,100.6,78,79.7,92.5,75.59999999999999,74.90000000000001,81.7,63.6,94.2,82.7,96.59999999999999,77.09999999999999,77.90000000000001,89.59999999999999,75.3,98.8,81.5,81.5,100.6,89.2,102.3,78.7,93.7,76.40000000000001,156.8,84.2,70.7,94.90000000000001,123.5,94.7,166.2,103.7,91.90000000000001,82.2,122,108.7,87.40000000000001,75.5,84,100.8,92.5,103.1,84.7,76.7,74.8,136.6,71.2,103.2,75.3,102.4,67.2,88.40000000000001,117.8,98.5,130.8,127.5,95.8,82.7,87,71.90000000000001,79.59999999999999,93.40000000000001,88.09999999999999,84.2,131.8,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,79.59999999999999,null,null,null,77.40000000000001,78.59999999999999,null,98.3,null,77,91.5,null,79.8,null,96.09999999999999,null,85,null,82.7,null,81.2,null,null,90.09999999999999,null,78.09999999999999,98.3,89.2,null,68.59999999999999,null,93.90000000000001,88.5,81.3,99.59999999999999,null,96.09999999999999,null,null,75.5,null,94.8,null,80.09999999999999,86.8,81.2,80.59999999999999,83.2,83,77.5,79,89.2,83.2,null,88.7,null,81.8,null,81,null,null,85.59999999999999,80.3,null,73.5,74.09999999999999,77.2,null,78.90000000000001,91.7,null,73.8,82.2,82.2,82,88.59999999999999,71.5,75.40000000000001,80.7,80.5,92.7,82.90000000000001,75.3,91.7,79.90000000000001,89.09999999999999,80.3,87.09999999999999,82,97.8,92.8,93,80.2,83.3,84,69,90.7,90.90000000000001,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[104.8,123.2,107.9,101.5,100.1,97.59999999999999,112.6,91.59999999999999,108.5,106.3,103.4,95.7,129.2,102.1,123.4,106.9,109.7,100.7,88.2,103,97.59999999999999,null,146.1,122,91.59999999999999,82.09999999999999,122,null,135.5,118.1,143,null,122,null,112,131.3,null,110.3,131.7,null,76.09999999999999,114.7,78.90000000000001,101.1,128.1,138.3,93.40000000000001,null,117.1,116,82.8,91.90000000000001,92.7,97.09999999999999,89.7,null,92.5,95.59999999999999,119.1,83,91,122.5,83.8,114.3,96.2,null,null,110,null,null,null,81.8,123.3,92,103.8,95,113.2,97.8,91.7,112.1,96,105.1,95.5,92.09999999999999,96.5,90.09999999999999,99.2,98.40000000000001,107.3,117.8,121.5,136.7,null,102.6,111.7,null,103.5,97.2,null,123.1,null,106.5,107,null,91.59999999999999,null,85,107.6,113,91,107.8,112.1,100.3,84.8,104.3,88.59999999999999,109.5,null,null,135.3,null,119.5,105.5,110.2,null,109.7,null,105.6,null,114.3,null,106.4,94.59999999999999,88.59999999999999,null,112.2,95.7,102.9,89.8,null,112.1,106.6,86.7,null,110.5,null,80,97.40000000000001,90,85.7,null,122,null,90.90000000000001,null,102.2,101.2,124.8,115.2,83.2,114.4,106.7,101.6,null,105.3,96,95.40000000000001,null,98,83.3,null,85.5,82.59999999999999,97.7,94.3,null,102.9,null,86.8,null,110.9,116.8,87.3,105.3,null,110.3,91.40000000000001,95.40000000000001,null,71.40000000000001,null,92.8,89.59999999999999,null,94.90000000000001,96.8,102.4,97.7,108.6,132,101.4,100.8,94.40000000000001,103.2,102.1,105.3,109,76.7,84.40000000000001,null,null,116.3,97.7,99.2,93.2,106.3,90.59999999999999,146,null,90.40000000000001,81.7,119.7,93,113.5,null,null,90.90000000000001,null,91.5,82.3,null,116,96.90000000000001,95.8,93.59999999999999,77.3,null,97.90000000000001,null,79.3,68.09999999999999,70.2,106.2,92.3,83.09999999999999,87.40000000000001,82.3,95.40000000000001,null,73.90000000000001,98.7,132.5,122.4,130.8,71.59999999999999,103.5,83,83.59999999999999,null,89,81.59999999999999,70.59999999999999,130.6,69.90000000000001,68.90000000000001,82,85.40000000000001,111.6,89.8,88.7,66.90000000000001,99.59999999999999,72.90000000000001,79.09999999999999,77.8,79,73.3,100.1,93.59999999999999,85.3,85.59999999999999,76.8,98.90000000000001,83.59999999999999,86.3,83,77.40000000000001,84.5,74.59999999999999,81.59999999999999,124.1,139.2,151.1,null,null,null,null,null,null,null,null,null,null,null,null,106.7,121.7,75.40000000000001,125.7,null,112.4,104.9,89.8,97.90000000000001,101,107.2,100.3,null,null,90.09999999999999,128.2,77.7,88.5,null,83.5,99.59999999999999,84,null,83.8,110.5,89.5,90.7,111.4,127.1,128.9,107.5,106,96.59999999999999,102.1,93.59999999999999,105.3,80.5,119.8,null,90.59999999999999,104.5,103.5,75.3,109.1,76.90000000000001,96.5,101.8,85.09999999999999,null,112.1,86.7,88.5,72.90000000000001,null,79.09999999999999,82.3,null,84.5,110.2,104.5,null,108.6,null,96.09999999999999,83.2,83.7,111.1,116,null,87.59999999999999,82,null,88.7,83.8,82.2,124.4,91.7,null,99.5,101.6,105.7,107.4,null,105.1,66.3,100.9,91.3,90.5,115.9,92,86.59999999999999,96.59999999999999,96.5,101.6,97.5,null,77.09999999999999,78.5,108.3,114.7,null,71.2,null,87.5,84,104,80,79.5,109.1,90.3,null,78.90000000000001,89.59999999999999,94.8,84.90000000000001,93.40000000000001,85.40000000000001,93.5,80.90000000000001,78.7,67.09999999999999,null,94.09999999999999,95.5,101,null,92.90000000000001,80.59999999999999,88.3,null,null,87.8,104.8,126.8,84.7,104.5,84.7,91.7,90,83.40000000000001,93.7,null,75.8,81.90000000000001,92.5,76.40000000000001,89.59999999999999,81.40000000000001,69.59999999999999,75.7,76.7,79.7,76.09999999999999,81.8,73.09999999999999,94,72.8,75.90000000000001,89.09999999999999,72.5,72.90000000000001,81.09999999999999,64.09999999999999,94.8,83.8,97.90000000000001,78.90000000000001,81.40000000000001,94.59999999999999,81.40000000000001,105.1,88.09999999999999,88.3,109.3,99.90000000000001,114.1,92.8,109.3,95.8,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,110.6,78.2,73.40000000000001,84.90000000000001,109.2,104.9,89.59999999999999,122.5,81.09999999999999,110.3,76.3,102,110.2,130,85.09999999999999,71.90000000000001,97.5,83.59999999999999,123.1,106.8,88.8,86.3,null,84.7,107.8,110.6,null,102.8,90.09999999999999,null,96.8,null,91.59999999999999,96.40000000000001,null,81.59999999999999,109,126.1,null,87.2,85.5,89.09999999999999,88.2,84.8,116.1,null,109.3,90.09999999999999,101.6,null,92.90000000000001,75,97.59999999999999,null,98.7,83.7,null,108.3,108.5,76.3,94.90000000000001,76.7,77.90000000000001,null,90,88.59999999999999,98.90000000000001,97.90000000000001,90.2,90.59999999999999,96.5,86.5,85.7,100.3,null,93,null,92.2,null,84.8,null,89.3,107.2,86.09999999999999,null,101.2,80.40000000000001,75.7,82,86.90000000000001,82.8,null,106.3,76.40000000000001,83.2,83.90000000000001,84.5,92.7,76.3,81.3,88,91.2,110.8,111.4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,149.8,76.09999999999999,98.59999999999999,90.2,121.2,75,114.3,84.09999999999999,88.8,114.8,98.5,106.7,96,117.7,97.09999999999999,95,82.40000000000001,82.5,116.4,84,94.2,136.9,97.7,61.8,89.8,86,80.7,79.5,86.09999999999999,123.8,99.3,92.5,91,71.09999999999999,107,100,79.7,95.5,104.6,82.3,82.3,95.90000000000001,79.5,97.7,96,81.8,92.90000000000001,104.9,67.09999999999999],[-10.5,-1.7,-2.4,-10.4,-14.4,-12.5,-8.800000000000001,-16.3,-11.8,-0.6,-2.5,-13.6,-5.2,-5.4,-10.9,-4.5,-0.6,-10.7,-20.6,-10,-19.3,null,26.8,8.4,-2.4,-6.9,13.1,null,16.4,13.1,14,null,8.800000000000001,null,0.9,14.5,null,6.5,22.7,null,-4.9,2.4,-0.1,-4.3,21.6,18.4,-1.8,null,13.8,5.5,-9.9,-3.6,-1.4,-2.8,-1.3,null,-7.3,-4.6,8.699999999999999,-4,-1.7,5.3,-22.5,9.9,-1.4,null,null,-1.3,null,null,null,-11.3,7.8,-15,-1.6,-8.699999999999999,-6.1,-11.1,-17.9,-0.3,-8.800000000000001,-1.6,-21.4,-15.3,-14.6,-14,-8.6,-6,-2.8,-1.4,null,null,null,null,18,null,null,14.6,null,null,null,null,17.6,null,null,null,12.8,18.3,14.1,8.800000000000001,null,null,17.5,4.2,null,2.6,13,null,null,null,null,null,null,10.3,null,19.5,null,null,null,null,null,19.2,10.6,3.2,null,null,4.6,8.6,7.3,null,21.3,null,2.5,null,27,null,7.4,10.6,-2.6,1.7,null,null,null,null,null,null,7.5,null,13,3.5,null,null,9.4,null,4.5,8,2.2,null,null,7.1,null,null,6.5,2.1,7.5,null,8.6,null,15.9,null,null,23.6,9.9,7.2,null,null,null,9.4,null,0.5,null,7.2,9.5,null,6,-1.9,null,6.2,13.9,18.9,6,11.2,4.7,11,6.2,14,10.1,3,1.3,null,null,18.4,null,9.6,4.1,13.8,2,null,null,8.9,0.7,8,-9.6,0.6,null,null,-2.1,null,-1.6,-1.5,null,10.2,-0.6,-1.8,-0.3,-0.3,null,-3.1,null,-7.9,-15.8,-0.3,0.1,-4.5,-1.9,-2.6,-1.3,-3.1,null,-10.7,-0.8,21.8,9,11.9,-14.9,-11.4,-3.5,-12.5,null,-13.8,-30.5,-25.3,-22.3,-20.5,-20,-17.6,-17.3,-16.8,-15.7,-15.1,-13.7,-13.4,-11.6,-9.1,-8.800000000000001,-8.6,-8.5,-7.9,-7.8,-7,-7,-6.3,-4.1,-3.8,-3.1,-2.5,-2.3,-1.8,-1.4,-0.2,13.1,15.1,29.9,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,21.4,22.5,null,null,null,null,15.2,1.7,5.6,7.9,null,null,null,8.199999999999999,13.2,13.3,5.3,7,3,1.9,14.5,-1.8,null,null,10.1,6.3,6,null,null,null,null,12.8,null,4.9,null,null,null,null,-0.3,3,10.6,19.5,null,null,-0.4,null,null,2.6,6.2,19.8,3.5,null,null,null,null,3.4,null,null,6.6,9.5,7.3,10.9,14,13,0.4,8.5,6.1,2.8,9.199999999999999,null,null,-10,20.7,null,null,null,null,15.3,9.6,4.9,0.5,-7.2,6.4,6.6,null,-5.3,11.5,null,5.6,0.5,-3.2,3.6,-0.9,3.6,3.9,null,-6.2,10.2,19.4,null,null,-18.3,3.3,null,null,null,12.1,null,-4.4,19.1,3.4,-4.1,-3.5,-3.5,8.800000000000001,null,null,-5.9,-7.3,-1.1,0.2,-5.5,-25.4,-12.8,-12.7,-11,-10.6,-9.800000000000001,-8.800000000000001,-6.5,-5.2,-3.8,-3.4,-3.1,-1.9,-0.7,0.4,0.6,1.1,1.3,1.8,3.4,5,6,6.4,6.6,6.8,8.699999999999999,10.7,11.8,14,15.6,19.4,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,24.2,null,null,null,null,0.1,null,null,null,13,null,null,null,2.8,null,7,null,null,null,null,12.1,3.3,null,null,6.4,null,null,10.2,2.3,null,null,12.4,null,null,1.2,null,null,null,8.5,12.1,16.7,9.5,7.4,13.5,9,6.8,11.1,null,null,null,null,null,null,null,null,null,0.5,null,null,6.9,1.6,4.9,null,3.8,null,null,2.6,1.1,1.7,2.4,4.1,4.8,5.9,7.3,10.6,18.1,28.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[7.9,31.3,31.8,21.2,73.09999999999999,49.2,9.199999999999999,19.9,23.5,12,30.8,11.5,34.9,16.5,31.5,2.6,14.4,7.7,14.4,3.3,8.199999999999999,7,42.2,40.3,19.2,14.1,47.3,8.699999999999999,24.8,29,32.1,4.3,20.1,5.8,14.8,45.6,23.8,1.1,26.9,4,9.300000000000001,23.9,31.3,-2.6,11.3,21.7,13.5,10.8,29.7,8.9,1.3,14.5,5.7,13.5,15.4,5.1,15.8,7.7,2.1,37.9,13.7,13.2,-0.8,7.2,9.1,14.4,9,-13.2,4,10.7,7.9,7.7,5.5,5.7,4.8,4.9,2.1,7.9,3.6,8,36.1,1.3,5.5,36.7,8.699999999999999,7.7,8.9,4.5,4.2,4.4,68.7,29.4,6.1,29.6,22.4,27.2,43.1,34.1,-0.7,19.7,5.8,27.3,21.5,20.2,10.1,21.1,29.8,33,32.7,32.1,20.1,19.3,41.1,25.6,8.199999999999999,47.9,64.5,5.8,0,31.6,11.3,2.5,10.1,25.4,28.7,25.6,12,2.3,10.6,8.800000000000001,2.2,9.300000000000001,21.8,57.6,3.6,28.6,33.6,9.300000000000001,43.5,12,24.3,18.4,18.3,3.6,22.5,6.8,30.9,35.4,-9.9,24.8,-0.6,10.2,9.199999999999999,15.9,1.5,12.2,15,5.9,9.699999999999999,15.4,14.1,25.3,15.7,3.1,20.3,57.4,16.4,0.2,8.9,6.4,9,2.3,10.1,9.6,21,3,10.7,31.7,23.4,2.9,2.9,7.7,13.5,4.2,3.2,2.4,6,12.3,15,2.8,2.7,10.4,13.5,4.3,20.4,-0.3,12.4,4.3,10.2,-6.1,10.5,5.2,24.7,18.7,22.2,5.2,18.3,5.3,8.9,2,5.6,15.7,9.9,11,15.1,9.9,11.4,6.1,2.6,7.4,7.1,1.7,4,8.6,0.5,1.3,29.6,9.699999999999999,6.8,1.4,17.5,28.9,3.9,29.2,7.4,5.1,8.4,59.3,2.3,43.5,4.8,6.2,14.2,0.5,10.4,0.6,24.4,1.5,1.3,6.8,7.3,5,3.3,19,7.6,-0.4,0.5,28.6,0,17.9,-4,13.6,-23.6,11.5,13.2,0.9,40.4,-9.4,-5.7,-6.6,6.1,-3.4,28.7,47.9,12.5,9.5,7.8,-18,15.3,2.3,5,18.3,38.7,9.300000000000001,1.7,0.7,1,2.8,2,0.8,3.6,1.5,4,2.7,5.2,16,7.6,11.7,1.4,2.4,4,7.4,7.6,5.9,30.8,0,0,0,0,0,0,0,0,0,0,0,0,-0.6,0,0,0,-9.1,0,0,0,0,0,0,-2.8,-3.7,0,-1,-0.5,0,-2,0,0,10,11,5.3,5.8,5.1,0.4,37.5,12.9,19.8,7.9,11.1,2.3,8.9,7.5,4.5,-21.1,1.5,10.7,1,13.7,7.5,1.8,25.6,6.5,9.800000000000001,7.3,13.7,11.9,13.5,8.5,2.3,2.3,-0.4,2.9,16.1,12.5,1.2,1.6,-1.1,0.6,3.9,0.7,8.300000000000001,-1.1,11.1,0.2,2.7,2.8,5.4,-0,1.1,5,27.6,7.9,5.5,8.9,8.699999999999999,0.6,4.3,7.1,4.8,12.7,4.7,0.2,2.2,-2.6,27.7,0.6,1.5,0.1,1.1,10.5,3.3,7.8,1.5,-24.2,5.8,1.6,6.9,-3.6,7.9,1.1,0,2.9,-0.2,2.2,-2.1,3.9,2.7,1.2,-10.5,41.9,11.9,0,4.6,-1.9,7.1,2.6,0.9,2.4,8.300000000000001,1.3,-0.4,3.5,1.1,-1.7,-5.3,-4,6.3,2.4,2.6,-3.4,-2.5,-3.7,2.1,-3.5,-1.4,-6.4,-5.1,-5,-1.6,-3.8,-7.4,-8.1,-3.3,-4.5,-2.8,-2.2,-39.9,-0.8,0.9,2.4,5.1,9.199999999999999,2,0.2,15.3,16.5,6.4,4.6,5.4,4.4,26.8,0.8,36.1,4.7,5.1,-11.1,2.4,2.7,38.2,0,10.3,-1,-0,15.9,5.1,-12.5,0,3.2,23.3,2.7,5.6,1.7,29.9,5.8,4.3,0.7,-2.2,17.6,-0.5,1.8,4.9,5.4,3.9,-12.2,1.6,-9.300000000000001,-6.6,1.4,3.6,2.9,2.2,2.9,8.199999999999999,4.8,0.1,-34.4,4.8,0.3,4.5,2.4,2.1,4.8,5,10.2,8.4,19.2,31.2,9.9,1.6,105.3,4.4,0.1,1.2,2.4,0.3,4.4,1.2,2.8,-10.7,0,0,-22.5,-0.8,-2.1,0,-1.3,0,-1.1,-19.7,0,-2.4,0,-2.1,-2.5,-3.9,-0.7,-10.7,0,-3.7,-0.9,-3.9,-0.5,-2.3,-13.7,-3.8,0,0,-0.2,0,-2.5,-34.1,-0.4,-16.5,0,-0.2,-11.3,0,-1.3,-5.3,-0.8,-4.5,-0.3,-7.9,-2.8,-4.6,-33.2,-13.1,-2.1,-4.5,-1.2,-0.2,-10.5,-0.2,-5.5,-5.6,0,-4.9,0,0,-5.5,-3.3,0,-4.6,-9.300000000000001,-7,-0.9,-5.6,-9.699999999999999,0,-6.3,-6.2,-2.3,-3.1,-2.1,-6.2,-6.3,-4.3,-9.9,-9,-2.4,-1.2,-0.8,-3.7,-1.3,-2.7,-3.4,-1.1,-5.6,-1.5,-10.4,-5.9,-1.8,-9.4,-0.4,-1.9,-1.2,0,0,0,0,-8,0,0,0,0,0,0,-3.7,0,-1.2,-3.3,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,-0.1,-2.4,0,0,0,0,0,0,-0.2,-5.4,0,0,0,0,0,-34,0,0,-0],[780.1,444.2,175.4,158.8,149.4,143.1,141.4,139.9,137.3,130.9,119.1,118.4,114.8,110.1,107.6,101.2,96.5,94.59999999999999,89.40000000000001,89,84.59999999999999,685.3,335.8,316.1,315,296.7,288,262.7,262.1,245.3,236.3,221.9,209.9,208.7,207.1,202.9,201.6,194.6,185,181.6,177.5,164.8,164.5,162.2,160.7,157,155.7,147.6,144.2,135.7,132.9,131,122.8,120.3,119.1,115.7,107.9,101.5,101,92.7,91.7,89.40000000000001,87.3,85.8,79,78.40000000000001,76.3,74,72.5,71.3,70.90000000000001,70.90000000000001,70.59999999999999,53.1,48.8,45.3,42.7,40,38.2,30.4,21.4,17.4,null,null,null,null,null,null,null,null,379.6,361.8,355.8,355.8,344.4,324.1,324.1,282.5,273.1,273.1,247.4,247.4,244.8,242.2,242.2,234,232.9,231.5,228.3,223,216.8,208.7,208.6,207.7,190.8,190,189.9,189.3,186.5,186.5,186,186,181.6,180.4,174.3,173.6,168.1,168.1,165.6,165.6,162.9,161.3,159.6,156.5,156.4,156.4,154.6,152.7,150.8,150.6,149.8,147.6,145.3,142.1,141.9,141.2,140.2,139.7,138.7,136.8,136.8,136.8,135.5,135.5,134.4,134.4,131.9,130.1,129.6,128.6,126.7,126,125.5,121.3,120.4,119.1,117.1,112.1,112.1,111.9,111.3,111.3,110,108.6,108.5,107.9,107.4,106.8,106,104.5,104.5,103.9,103.8,102.2,102,102,102,99.2,99.09999999999999,98.3,98.2,97.09999999999999,97.09999999999999,96.5,94.2,93.90000000000001,93.8,93.7,93.09999999999999,92.7,91.8,90.3,88.8,88,86.7,86.2,85.5,85,85,80.59999999999999,80.5,79.7,78.40000000000001,77.59999999999999,77,76.5,72,71.3,70.40000000000001,70,69.5,68.5,67.5,67.2,66.8,66,65.2,65.09999999999999,63.1,61.8,56,55.3,53.8,53,52.4,52,50.2,49.3,49.2,43.3,41.6,40.8,40.1,39,38.4,37.8,37.7,36.5,34.9,33.1,30.4,29.6,29,28.8,26.8,23.8,21.8,16.3,14,2.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,685.3,262.7,234,221.9,216.8,201.6,189.3,174.3,162.9,150.6,142.1,141.2,126.7,126,121.3,115.7,107.9,106.8,102,99.09999999999999,98.2,96.5,93.8,92.3,80.59999999999999,80.5,79.59999999999999,76.3,76.3,72.5,70.90000000000001,70.40000000000001,68.8,68.59999999999999,66.90000000000001,66.2,65.5,65.09999999999999,64.09999999999999,63.6,63.5,63.4,63.2,62.8,61.9,61.7,61.7,61.1,59.3,59.3,59.1,58.8,57.6,57.3,57.3,56.8,56.4,56.4,56,55.9,55.5,55.5,55,55,54.1,53.7,53.3,53,52.8,52.8,52.6,52.5,52.5,52.4,51.9,51.4,50.9,50.3,50.3,50.2,49.2,46.1,45.5,45.5,45.4,45.1,43.6,43.5,43.4,43.1,41.5,41.1,40.9,40.7,39.8,39.4,39.4,39.2,38.8,38.7,38.4,38.4,37.7,37.1,36.8,36.2,34.4,34.1,34.1,33.9,33.2,33,32.2,32.1,31.4,28.7,27.8,26.9,26.5,26.5,26.4,26,25.7,25.6,25,23.8,23.8,23.6,23.5,22.6,22.6,22.6,22.4,22.1,21.2,20.8,20.4,20.3,19.6,16.9,16.8,16.7,16.7,15.8,15.1,12,11.4,10.5,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,68.59999999999999,68.59999999999999,66.8,66,65.5,64.2,64.09999999999999,59.2,59.2,56.8,56.6,56.4,55.1,55.1,53,49.7,48.2,48.2,46.1,44.8,38,37.7,34.9,34.9,34.9,34,33.6,33.5,33.5,33.4,33.2,32.1,31.8,28.7,28.3,28.3,27.6,26.1,26,24.8,22.6,20.9,20.9,20.1,20.1,20,18.9,18.8,18.6,18.2,17.3,17.3,16.9,16.9,16.8,16.8,15.8,15.8,14.1,14.1,14,12.4,10.7,10.7,7.7,7.4,7,3.3,2.9,2.3,2.3,1.7,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null,null],[4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,4,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,3,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,2,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0]],"container":"<table class=\"display\">\n  <thead>\n    <tr>\n      <th> <\/th>\n      <th>GEOID<\/th>\n      <th>NAME<\/th>\n      <th>RB Early<\/th>\n      <th>RB Latest<\/th>\n      <th>RB Change<\/th>\n      <th>Pop Growth %<\/th>\n      <th>HG Instant (latest)<\/th>\n      <th>HG Rate (latest)<\/th>\n      <th>YIMBY Flags Hit<\/th>\n    <\/tr>\n  <\/thead>\n<\/table>","options":{"pageLength":15,"dom":"tip","columnDefs":[{"className":"dt-right","targets":[3,4,5,6,7,8,9]},{"orderable":false,"targets":0},{"name":" ","targets":0},{"name":"GEOID","targets":1},{"name":"NAME","targets":2},{"name":"RB Early","targets":3},{"name":"RB Latest","targets":4},{"name":"RB Change","targets":5},{"name":"Pop Growth %","targets":6},{"name":"HG Instant (latest)","targets":7},{"name":"HG Rate (latest)","targets":8},{"name":"YIMBY Flags Hit","targets":9}],"order":[],"autoWidth":false,"orderClasses":false,"lengthMenu":[10,15,25,50,100]}},"evals":[],"jsHooks":[]}</script>
+</div>
+</div>
+</section>
+<section id="task-6-viz-1-rb-change-vs-housing-growth-color-population-growth" class="level4">
+<h4 class="anchored" data-anchor-id="task-6-viz-1-rb-change-vs-housing-growth-color-population-growth">Task 6 — Viz #1: RB change vs Housing Growth (color = population growth)</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-30-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+<section id="viz-2-change-in-rent-burden-for-the-best-yimby-candidates" class="level4">
+<h4 class="anchored" data-anchor-id="viz-2-change-in-rent-burden-for-the-best-yimby-candidates">Viz #2: change in rent-burden for the best “YIMBY” candidates</h4>
+<div class="cell">
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="mp02_files/figure-html/unnamed-chunk-31-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="task-7-policy-brief-elevator-pitch" class="level2">
+<h2 class="anchored" data-anchor-id="task-7-policy-brief-elevator-pitch">Task 7 — Policy Brief (Elevator Pitch)</h2>
+<p><strong>Policy Brief: Federal YIMBY Partnership Act</strong></p>
+<p>Our analysis shows metros that permit more homes per resident tend to see rent-burden fall even as population grows. The Federal YIMBY Partnership Act rewards cities that adopt proven pro-housing reforms—by-right infill/ADUs, parking reform, and fast digital permitting—and then deliver measurable results. It’s a performance grant, not a mandate: more homes, lower rent-burden, transparent metrics.</p>
+<ul>
+<li><strong>What it does:</strong> Competitive grants for cities that modernize zoning &amp; permitting and hit outcomes on supply and affordability.</li>
+<li><strong>Why now:</strong> Employers can’t hire if workers can’t live near jobs; lower rent-burden means more take-home pay circulating locally.</li>
+<li><strong>Who backs it:</strong> Health-care workers (staffing &amp; retention) and building trades (steady, predictable projects).</li>
+<li><strong>How we’ll measure success:</strong>
+<ul>
+<li>Rent-Burden Index ↓ (latest vs early period)</li>
+<li>Permits / housing growth (instant, z) ↑</li>
+<li>5-year housing growth vs population ↑</li>
+</ul></li>
+</ul>
+<p><strong>Proposed sponsors (with local facts):</strong></p>
+<ul>
+<li><p><strong>Primary —</strong> Houston-Sugar Land-Baytown, TX Metro Area: Rent-Burden Index <strong>91.1</strong> → <strong>104.9</strong> (Δ 13.8 points; lower is better). Housing growth (instant, z): 189.3. Population growth: 5.8%.</p></li>
+<li><p><strong>Co-sponsor —</strong> New York-Northern New Jersey-Long Island, NY-NJ-PA Metro Area: Rent-Burden Index <strong>104.1</strong> → <strong>107.8</strong> (Δ 3.7 points). Housing growth (instant, z): 66.8. Population growth: 0.5%.</p></li>
+</ul>
+<p><strong>What we’re asking:</strong> Sponsor a bill that rewards results—cities unlock multi-year funds when they build more homes and cut rent-burden.</p>
+
+
+</section>
+
+</main> <!-- /main -->
+<script id="quarto-html-after-body" type="application/javascript">
+  window.document.addEventListener("DOMContentLoaded", function (event) {
+    const icon = "";
+    const anchorJS = new window.AnchorJS();
+    anchorJS.options = {
+      placement: 'right',
+      icon: icon
+    };
+    anchorJS.add('.anchored');
+    const isCodeAnnotation = (el) => {
+      for (const clz of el.classList) {
+        if (clz.startsWith('code-annotation-')) {                     
+          return true;
+        }
+      }
+      return false;
+    }
+    const onCopySuccess = function(e) {
+      // button target
+      const button = e.trigger;
+      // don't keep focus
+      button.blur();
+      // flash "checked"
+      button.classList.add('code-copy-button-checked');
+      var currentTitle = button.getAttribute("title");
+      button.setAttribute("title", "Copied!");
+      let tooltip;
+      if (window.bootstrap) {
+        button.setAttribute("data-bs-toggle", "tooltip");
+        button.setAttribute("data-bs-placement", "left");
+        button.setAttribute("data-bs-title", "Copied!");
+        tooltip = new bootstrap.Tooltip(button, 
+          { trigger: "manual", 
+            customClass: "code-copy-button-tooltip",
+            offset: [0, -8]});
+        tooltip.show();    
+      }
+      setTimeout(function() {
+        if (tooltip) {
+          tooltip.hide();
+          button.removeAttribute("data-bs-title");
+          button.removeAttribute("data-bs-toggle");
+          button.removeAttribute("data-bs-placement");
+        }
+        button.setAttribute("title", currentTitle);
+        button.classList.remove('code-copy-button-checked');
+      }, 1000);
+      // clear code selection
+      e.clearSelection();
+    }
+    const getTextToCopy = function(trigger) {
+        const codeEl = trigger.previousElementSibling.cloneNode(true);
+        for (const childEl of codeEl.children) {
+          if (isCodeAnnotation(childEl)) {
+            childEl.remove();
+          }
+        }
+        return codeEl.innerText;
+    }
+    const clipboard = new window.ClipboardJS('.code-copy-button:not([data-in-quarto-modal])', {
+      text: getTextToCopy
+    });
+    clipboard.on('success', onCopySuccess);
+    if (window.document.getElementById('quarto-embedded-source-code-modal')) {
+      const clipboardModal = new window.ClipboardJS('.code-copy-button[data-in-quarto-modal]', {
+        text: getTextToCopy,
+        container: window.document.getElementById('quarto-embedded-source-code-modal')
+      });
+      clipboardModal.on('success', onCopySuccess);
+    }
+      var localhostRegex = new RegExp(/^(?:http|https):\/\/localhost\:?[0-9]*\//);
+      var mailtoRegex = new RegExp(/^mailto:/);
+        var filterRegex = new RegExp("https:\/\/chentenchi\.github\.io\/STA9750-2025-FALL\/");
+      var isInternal = (href) => {
+          return filterRegex.test(href) || localhostRegex.test(href) || mailtoRegex.test(href);
+      }
+      // Inspect non-navigation links and adorn them if external
+     var links = window.document.querySelectorAll('a[href]:not(.nav-link):not(.navbar-brand):not(.toc-action):not(.sidebar-link):not(.sidebar-item-toggle):not(.pagination-link):not(.no-external):not([aria-hidden]):not(.dropdown-item):not(.quarto-navigation-tool):not(.about-link)');
+      for (var i=0; i<links.length; i++) {
+        const link = links[i];
+        if (!isInternal(link.href)) {
+          // undo the damage that might have been done by quarto-nav.js in the case of
+          // links that we want to consider external
+          if (link.dataset.originalHref !== undefined) {
+            link.href = link.dataset.originalHref;
+          }
+        }
+      }
+    function tippyHover(el, contentFn, onTriggerFn, onUntriggerFn) {
+      const config = {
+        allowHTML: true,
+        maxWidth: 500,
+        delay: 100,
+        arrow: false,
+        appendTo: function(el) {
+            return el.parentElement;
+        },
+        interactive: true,
+        interactiveBorder: 10,
+        theme: 'quarto',
+        placement: 'bottom-start',
+      };
+      if (contentFn) {
+        config.content = contentFn;
+      }
+      if (onTriggerFn) {
+        config.onTrigger = onTriggerFn;
+      }
+      if (onUntriggerFn) {
+        config.onUntrigger = onUntriggerFn;
+      }
+      window.tippy(el, config); 
+    }
+    const noterefs = window.document.querySelectorAll('a[role="doc-noteref"]');
+    for (var i=0; i<noterefs.length; i++) {
+      const ref = noterefs[i];
+      tippyHover(ref, function() {
+        // use id or data attribute instead here
+        let href = ref.getAttribute('data-footnote-href') || ref.getAttribute('href');
+        try { href = new URL(href).hash; } catch {}
+        const id = href.replace(/^#\/?/, "");
+        const note = window.document.getElementById(id);
+        if (note) {
+          return note.innerHTML;
+        } else {
+          return "";
+        }
+      });
+    }
+    const xrefs = window.document.querySelectorAll('a.quarto-xref');
+    const processXRef = (id, note) => {
+      // Strip column container classes
+      const stripColumnClz = (el) => {
+        el.classList.remove("page-full", "page-columns");
+        if (el.children) {
+          for (const child of el.children) {
+            stripColumnClz(child);
+          }
+        }
+      }
+      stripColumnClz(note)
+      if (id === null || id.startsWith('sec-')) {
+        // Special case sections, only their first couple elements
+        const container = document.createElement("div");
+        if (note.children && note.children.length > 2) {
+          container.appendChild(note.children[0].cloneNode(true));
+          for (let i = 1; i < note.children.length; i++) {
+            const child = note.children[i];
+            if (child.tagName === "P" && child.innerText === "") {
+              continue;
+            } else {
+              container.appendChild(child.cloneNode(true));
+              break;
+            }
+          }
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(container);
+          }
+          return container.innerHTML
+        } else {
+          if (window.Quarto?.typesetMath) {
+            window.Quarto.typesetMath(note);
+          }
+          return note.innerHTML;
+        }
+      } else {
+        // Remove any anchor links if they are present
+        const anchorLink = note.querySelector('a.anchorjs-link');
+        if (anchorLink) {
+          anchorLink.remove();
+        }
+        if (window.Quarto?.typesetMath) {
+          window.Quarto.typesetMath(note);
+        }
+        if (note.classList.contains("callout")) {
+          return note.outerHTML;
+        } else {
+          return note.innerHTML;
+        }
+      }
+    }
+    for (var i=0; i<xrefs.length; i++) {
+      const xref = xrefs[i];
+      tippyHover(xref, undefined, function(instance) {
+        instance.disable();
+        let url = xref.getAttribute('href');
+        let hash = undefined; 
+        if (url.startsWith('#')) {
+          hash = url;
+        } else {
+          try { hash = new URL(url).hash; } catch {}
+        }
+        if (hash) {
+          const id = hash.replace(/^#\/?/, "");
+          const note = window.document.getElementById(id);
+          if (note !== null) {
+            try {
+              const html = processXRef(id, note.cloneNode(true));
+              instance.setContent(html);
+            } finally {
+              instance.enable();
+              instance.show();
+            }
+          } else {
+            // See if we can fetch this
+            fetch(url.split('#')[0])
+            .then(res => res.text())
+            .then(html => {
+              const parser = new DOMParser();
+              const htmlDoc = parser.parseFromString(html, "text/html");
+              const note = htmlDoc.getElementById(id);
+              if (note !== null) {
+                const html = processXRef(id, note);
+                instance.setContent(html);
+              } 
+            }).finally(() => {
+              instance.enable();
+              instance.show();
+            });
+          }
+        } else {
+          // See if we can fetch a full url (with no hash to target)
+          // This is a special case and we should probably do some content thinning / targeting
+          fetch(url)
+          .then(res => res.text())
+          .then(html => {
+            const parser = new DOMParser();
+            const htmlDoc = parser.parseFromString(html, "text/html");
+            const note = htmlDoc.querySelector('main.content');
+            if (note !== null) {
+              // This should only happen for chapter cross references
+              // (since there is no id in the URL)
+              // remove the first header
+              if (note.children.length > 0 && note.children[0].tagName === "HEADER") {
+                note.children[0].remove();
+              }
+              const html = processXRef(null, note);
+              instance.setContent(html);
+            } 
+          }).finally(() => {
+            instance.enable();
+            instance.show();
+          });
+        }
+      }, function(instance) {
+      });
+    }
+        let selectedAnnoteEl;
+        const selectorForAnnotation = ( cell, annotation) => {
+          let cellAttr = 'data-code-cell="' + cell + '"';
+          let lineAttr = 'data-code-annotation="' +  annotation + '"';
+          const selector = 'span[' + cellAttr + '][' + lineAttr + ']';
+          return selector;
+        }
+        const selectCodeLines = (annoteEl) => {
+          const doc = window.document;
+          const targetCell = annoteEl.getAttribute("data-target-cell");
+          const targetAnnotation = annoteEl.getAttribute("data-target-annotation");
+          const annoteSpan = window.document.querySelector(selectorForAnnotation(targetCell, targetAnnotation));
+          const lines = annoteSpan.getAttribute("data-code-lines").split(",");
+          const lineIds = lines.map((line) => {
+            return targetCell + "-" + line;
+          })
+          let top = null;
+          let height = null;
+          let parent = null;
+          if (lineIds.length > 0) {
+              //compute the position of the single el (top and bottom and make a div)
+              const el = window.document.getElementById(lineIds[0]);
+              top = el.offsetTop;
+              height = el.offsetHeight;
+              parent = el.parentElement.parentElement;
+            if (lineIds.length > 1) {
+              const lastEl = window.document.getElementById(lineIds[lineIds.length - 1]);
+              const bottom = lastEl.offsetTop + lastEl.offsetHeight;
+              height = bottom - top;
+            }
+            if (top !== null && height !== null && parent !== null) {
+              // cook up a div (if necessary) and position it 
+              let div = window.document.getElementById("code-annotation-line-highlight");
+              if (div === null) {
+                div = window.document.createElement("div");
+                div.setAttribute("id", "code-annotation-line-highlight");
+                div.style.position = 'absolute';
+                parent.appendChild(div);
+              }
+              div.style.top = top - 2 + "px";
+              div.style.height = height + 4 + "px";
+              div.style.left = 0;
+              let gutterDiv = window.document.getElementById("code-annotation-line-highlight-gutter");
+              if (gutterDiv === null) {
+                gutterDiv = window.document.createElement("div");
+                gutterDiv.setAttribute("id", "code-annotation-line-highlight-gutter");
+                gutterDiv.style.position = 'absolute';
+                const codeCell = window.document.getElementById(targetCell);
+                const gutter = codeCell.querySelector('.code-annotation-gutter');
+                gutter.appendChild(gutterDiv);
+              }
+              gutterDiv.style.top = top - 2 + "px";
+              gutterDiv.style.height = height + 4 + "px";
+            }
+            selectedAnnoteEl = annoteEl;
+          }
+        };
+        const unselectCodeLines = () => {
+          const elementsIds = ["code-annotation-line-highlight", "code-annotation-line-highlight-gutter"];
+          elementsIds.forEach((elId) => {
+            const div = window.document.getElementById(elId);
+            if (div) {
+              div.remove();
+            }
+          });
+          selectedAnnoteEl = undefined;
+        };
+          // Handle positioning of the toggle
+      window.addEventListener(
+        "resize",
+        throttle(() => {
+          elRect = undefined;
+          if (selectedAnnoteEl) {
+            selectCodeLines(selectedAnnoteEl);
+          }
+        }, 10)
+      );
+      function throttle(fn, ms) {
+      let throttle = false;
+      let timer;
+        return (...args) => {
+          if(!throttle) { // first call gets through
+              fn.apply(this, args);
+              throttle = true;
+          } else { // all the others get throttled
+              if(timer) clearTimeout(timer); // cancel #2
+              timer = setTimeout(() => {
+                fn.apply(this, args);
+                timer = throttle = false;
+              }, ms);
+          }
+        };
+      }
+        // Attach click handler to the DT
+        const annoteDls = window.document.querySelectorAll('dt[data-target-cell]');
+        for (const annoteDlNode of annoteDls) {
+          annoteDlNode.addEventListener('click', (event) => {
+            const clickedEl = event.target;
+            if (clickedEl !== selectedAnnoteEl) {
+              unselectCodeLines();
+              const activeEl = window.document.querySelector('dt[data-target-cell].code-annotation-active');
+              if (activeEl) {
+                activeEl.classList.remove('code-annotation-active');
+              }
+              selectCodeLines(clickedEl);
+              clickedEl.classList.add('code-annotation-active');
+            } else {
+              // Unselect the line
+              unselectCodeLines();
+              clickedEl.classList.remove('code-annotation-active');
+            }
+          });
+        }
+    const findCites = (el) => {
+      const parentEl = el.parentElement;
+      if (parentEl) {
+        const cites = parentEl.dataset.cites;
+        if (cites) {
+          return {
+            el,
+            cites: cites.split(' ')
+          };
+        } else {
+          return findCites(el.parentElement)
+        }
+      } else {
+        return undefined;
+      }
+    };
+    var bibliorefs = window.document.querySelectorAll('a[role="doc-biblioref"]');
+    for (var i=0; i<bibliorefs.length; i++) {
+      const ref = bibliorefs[i];
+      const citeInfo = findCites(ref);
+      if (citeInfo) {
+        tippyHover(citeInfo.el, function() {
+          var popup = window.document.createElement('div');
+          citeInfo.cites.forEach(function(cite) {
+            var citeDiv = window.document.createElement('div');
+            citeDiv.classList.add('hanging-indent');
+            citeDiv.classList.add('csl-entry');
+            var biblioDiv = window.document.getElementById('ref-' + cite);
+            if (biblioDiv) {
+              citeDiv.innerHTML = biblioDiv.innerHTML;
+            }
+            popup.appendChild(citeDiv);
+          });
+          return popup.innerHTML;
+        });
+      }
+    }
+  });
+  </script>
+</div> <!-- /content -->
+
+
+
+
+</body></html>

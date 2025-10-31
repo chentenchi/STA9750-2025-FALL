@@ -1,0 +1,1418 @@
+---
+title: "Mini-Project #02: Making Backyards Affordable for All"
+author: "Tenchi Chen"
+format:
+  html:
+    theme: flatly
+    toc: true
+    code-fold: true
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r, include=FALSE}
+# global chunk options
+knitr::opts_chunk$set(echo = FALSE, message = FALSE, warning = FALSE)
+
+# load data (silent render)
+source("02_download_tinycensus.R")
+source("02_download_newhousingunits.R")
+source("02_download_industrycodes.R")
+source("02_download_QCEWwagesandemployment.R")
+
+library(dplyr); library(stringr); library(readr); library(ggplot2); library(scales); library(forcats)
+
+# CBSA lookup once
+cbsa_lu <- INCOME |> distinct(GEOID, NAME) |> mutate(cbsa = as.integer(GEOID))
+```
+
+### Task 1 - Data Import
+
+```{r}
+#| echo: false
+#| results: asis
+
+files <- c(
+"00_download_data.R",
+"02_download_tinycensus.R",
+"02_download_newhousingunits.R",
+"02_download_industrycodes.R",
+"02_download_QCEWwagesandemployment.R"
+)
+
+cat('::: {.callout-note collapse="true"}\n')
+cat("# Data download scripts (for transparency)\n\n")
+
+for (path in files) {
+cat("", path, "\n\n", sep = "")
+if (!file.exists(path)) {
+cat("Missing file\n\n")
+} else {
+txt <- paste(readLines(path, warn = FALSE), collapse = "\n")
+cat("r\n", txt, "\n\n\n", sep = "")
+}
+}
+
+cat(":::\n")
+```
+
+
+### Task 2 — Multi-Table Questions
+
+#### Q1. Which CBSA (by name) permitted the largest number of new housing units in 2010–2019?
+
+```{r}
+## Task 2 — Q1: Largest new housing units (2010–2019)
+
+perm_10s <- PERMITS |>
+  filter(year >= 2010, year <= 2019) |>
+  group_by(cbsa = as.integer(CBSA)) |>
+  summarise(total_units = sum(new_housing_units_permitted, na.rm = TRUE), .groups = "drop") |>
+  left_join(cbsa_lu, by = "cbsa") |>
+  arrange(desc(total_units))
+
+# Top row = answer
+head(perm_10s, 1)
+```
+
+```{r}
+#plot top10
+perm_10s |>
+slice_head(n = 10) |>
+mutate(NAME = forcats::fct_reorder(NAME, total_units)) |>
+ggplot(aes(total_units, NAME)) +
+geom_col() +
+labs(title = "Largest New Housing Units Permitted (2010–2019)",
+x = "Total Permits (2010–2019)", y = NULL) +
+scale_x_continuous(labels = label_comma())
+```
+
+#### Q2. In what year did Albuquerque, NM (CBSA 10740) permit the most new housing units?
+
+```{r}
+## Task 2 – Q2: Albuquerque peak year
+albuquerque_yearly <- PERMITS |>
+  dplyr::filter(CBSA == 10740) |>
+  dplyr::group_by(year) |>
+  dplyr::summarise(units = sum(new_housing_units_permitted, na.rm = TRUE), .groups = "drop")
+
+# Top row(s) = answer (handles ties)
+albuquerque_yearly |>
+  dplyr::filter(units == max(units, na.rm = TRUE)) |>
+  dplyr::arrange(year)
+```
+
+```{r}
+# plot 
+albuquerque_yearly |>
+  ggplot2::ggplot(ggplot2::aes(year, units)) +
+  ggplot2::geom_line() + ggplot2::geom_point() +
+  ggplot2::labs(title = "Albuquerque (CBSA 10740): New Housing Units by Year",
+                x = NULL, y = "Permits") +
+  ggplot2::scale_y_continuous(labels = scales::comma) +
+  ggplot2::scale_x_continuous(breaks = scales::pretty_breaks())
+```
+
+#### Q3. Which state had the highest average individual income in 2015?
+
+```{r}
+## Task 2 – Q3: State with highest avg individual income (2015)
+acs_2015 <- INCOME |>
+  dplyr::filter(year == 2015) |>
+  dplyr::inner_join(HOUSEHOLDS |> dplyr::filter(year == 2015),
+                    by = c("GEOID","NAME","year")) |>
+  dplyr::inner_join(POPULATION |> dplyr::filter(year == 2015),
+                    by = c("GEOID","NAME","year")) |>
+  dplyr::transmute(
+    state = stringr::str_sub(stringr::str_extract(NAME, ", ([A-Z]{2})"), 3, 4),
+    total_income = household_income * households,
+    population   = population
+  )
+
+state_df <- data.frame(
+  abb  = c(state.abb, "DC", "PR"),
+  name = c(state.name, "District of Columbia", "Puerto Rico")
+)
+
+state_income <- acs_2015 |>
+  dplyr::group_by(state) |>
+  dplyr::summarise(
+    total_income = sum(total_income, na.rm = TRUE),
+    total_pop    = sum(population,   na.rm = TRUE),
+    avg_indiv    = dplyr::if_else(total_pop > 0, total_income / total_pop, NA_real_),
+    .groups = "drop"
+  ) |>
+  dplyr::left_join(state_df, by = c("state" = "abb")) |>
+  dplyr::arrange(dplyr::desc(avg_indiv))
+
+# Top row = answer
+state_income |> dplyr::slice(1)
+```
+
+```{r}
+# table: top 10 states
+state_income |>
+  dplyr::transmute(State = name, `Avg Individual Income` = avg_indiv) |>
+  dplyr::slice_head(n = 10)
+```
+
+#### Q4. NAICS 5182: last year NYC CBSA had the most employment in the country
+
+```{r}
+## Task 2 – Q4: NYC last year as #1 in NAICS 5182
+leaders_5182 <- WAGES |>
+  dplyr::filter(INDUSTRY == 5182) |>
+  dplyr::group_by(YEAR, FIPS) |>
+  dplyr::summarise(emp = sum(EMPLOYMENT, na.rm = TRUE), .groups = "drop") |>
+  dplyr::group_by(YEAR) |>
+  dplyr::slice_max(emp, n = 1, with_ties = FALSE) |>
+  dplyr::ungroup() |>
+  dplyr::mutate(cbsa = as.integer(stringr::str_sub(FIPS, 2, 6))) |>
+  dplyr::left_join(cbsa_lu, by = "cbsa") |>
+  dplyr::select(YEAR, cbsa, NAME, emp) |>
+  dplyr::arrange(YEAR)
+
+# Answer = last row where cbsa == 35620 (NYC); empty tibble if never #1
+leaders_5182 |>
+  dplyr::filter(cbsa == 35620) |>
+  dplyr::slice_tail(n = 1)
+```
+
+```{r}
+# context: most recent yearly leaders
+leaders_5182 |> dplyr::slice_tail(n = 8)
+```
+
+#### Q5. NYC: fraction of total wages earned in Finance & Insurance (NAICS 52) and the peak year
+
+```{r}
+## Task 2 – Q5: NYC NAICS 52 wage share + peak year
+# 1) Normalize CBSA from FIPS (pad a trailing 0 when only 4 digits appear)
+w_cbsa <- WAGES |>
+  dplyr::mutate(
+    digits  = stringr::str_extract(FIPS, "\\d+"),
+    cbsa    = suppressWarnings(as.integer(dplyr::if_else(nchar(digits) == 4,
+                                                         paste0(digits, "0"),
+                                                         digits))),
+    code_chr = as.character(INDUSTRY),
+    code_len = nchar(code_chr)
+  ) |>
+  dplyr::filter(!is.na(cbsa)) |>
+  dplyr::left_join(cbsa_lu, by = "cbsa")  # attach NAME
+
+# 2) Pick NYC rows by name (broader match in case of variant labels)
+nyc_w <- w_cbsa |>
+  dplyr::filter(stringr::str_detect(NAME, "New York|NY-NJ-PA"))
+
+# 3) Compute share:
+#    - total_wages: prefer INDUSTRY==10 (all industries); else sum at coarsest non-10 level (to avoid double counting)
+#    - wages_52: sum at coarsest available "52*" level
+nyc_52_share <- nyc_w |>
+  dplyr::group_by(YEAR) |>
+  dplyr::summarise(
+    has_all     = any(INDUSTRY == 10),
+    coarse_len  = suppressWarnings(min(code_len[INDUSTRY != 10], na.rm = TRUE)),
+    total_wages = dplyr::if_else(
+      has_all,
+      sum(TOTAL_WAGES[INDUSTRY == 10], na.rm = TRUE),
+      sum(TOTAL_WAGES[INDUSTRY != 10 & code_len == coarse_len], na.rm = TRUE)
+    ),
+    has_52      = any(stringr::str_starts(code_chr, "52")),
+    coarse_52   = suppressWarnings(min(code_len[stringr::str_starts(code_chr, "52")], na.rm = TRUE)),
+    wages_52    = dplyr::if_else(
+      has_52,
+      sum(TOTAL_WAGES[stringr::str_starts(code_chr, "52") & code_len == coarse_52], na.rm = TRUE),
+      NA_real_
+    ),
+    share_52    = dplyr::if_else(total_wages > 0, wages_52 / total_wages, NA_real_),
+    .groups = "drop"
+  ) |>
+  dplyr::arrange(YEAR)
+
+# Answer = peak year & value
+nyc_52_share |>
+  dplyr::filter(!is.na(share_52)) |>
+  dplyr::filter(share_52 == max(share_52, na.rm = TRUE)) |>
+  dplyr::slice(1)
+```
+
+```{r}
+# plot
+nyc_52_share |>
+  dplyr::filter(!is.na(share_52)) |>
+  ggplot2::ggplot(ggplot2::aes(YEAR, share_52)) +
+  ggplot2::geom_line() + ggplot2::geom_point() +
+  ggplot2::scale_y_continuous(labels = scales::label_percent(accuracy = 1)) +
+  ggplot2::scale_x_continuous(breaks = scales::pretty_breaks()) +
+  ggplot2::labs(title = "NYC: Finance & Insurance Share of Total Wages (NAICS 52)",
+                x = NULL, y = "Share of Total Wages")
+```
+
+### Task 3 — Initial Visualizations
+
+#### Q1. Relationship between monthly rent and average household income per CBSA in 2009
+
+```{r}
+# Clipped title fix
+base_plot_theme <- ggplot2::theme_minimal(base_size = 13) +
+  ggplot2::theme(
+    plot.title.position = "plot",
+    plot.title   = ggplot2::element_text(margin = ggplot2::margin(b = 6)),
+    plot.subtitle= ggplot2::element_text(margin = ggplot2::margin(b = 8)),
+    plot.margin  = ggplot2::margin(t = 8, r = 16, b = 8, l = 8)
+  )
+```
+
+
+```{r}
+## Task 3 – Q1: Rent vs Income (CBSA, 2009)
+v1_2009 <- RENT |> 
+  dplyr::filter(year == 2009) |>
+  dplyr::inner_join(INCOME |> dplyr::filter(year == 2009),
+                    by = c("GEOID","NAME","year")) |>
+  dplyr::transmute(
+    cbsa   = as.integer(GEOID),
+    NAME,
+    monthly_rent,
+    household_income
+  )
+
+v1_2009 |>
+  ggplot2::ggplot(ggplot2::aes(household_income, monthly_rent)) +
+  ggplot2::geom_point(alpha = 0.6) +
+  ggplot2::geom_smooth(method = "lm", se = FALSE) +
+  ggplot2::scale_x_continuous(labels = scales::label_dollar()) +
+  ggplot2::scale_y_continuous(labels = function(x) scales::dollar(x, accuracy = 1)) +
+  ggplot2::labs(
+    title = "Monthly Rent vs Average Household Income (CBSA, 2009)",
+    x = "Average Household Income",
+    y = "Monthly Rent"
+  ) +
+  base_plot_theme
+```
+
+#### Q2. Relationship between total employment and health care & social assistance (NAICS 62) employment across CBSAs over time
+
+```{r}
+## Task 3 – Q2: Health Care Employment Share over Time (by CBSA)
+# Prepare: attach CBSA digits + NAME to WAGES
+w_cbsa <- WAGES |>
+  dplyr::mutate(
+    # Remove 'C' prefix and add trailing 0 to match 5-digit CBSA codes
+    cbsa  = as.integer(paste0(stringr::str_remove(FIPS, "^C"), "0")),
+    code  = as.character(INDUSTRY),
+    clen  = nchar(code)
+  ) |>
+  dplyr::filter(!is.na(cbsa)) |>
+  dplyr::left_join(
+    cbsa_lu |> dplyr::mutate(cbsa = as.integer(cbsa)), 
+    by = "cbsa"
+  )
+
+# DEBUGGING: Check if NAME exists after join
+cat("After join - unique NAMEs in w_cbsa:", length(unique(w_cbsa$NAME)), "\n")
+cat("Sample of w_cbsa after join:\n")
+print(head(w_cbsa |> dplyr::select(cbsa, NAME, YEAR, INDUSTRY)))
+
+# Compute 62-share safely per YEAR/CBSA (avoid double counting)
+v2_share <- w_cbsa |>
+  dplyr::group_by(YEAR, cbsa, NAME) |>
+  dplyr::summarise(
+    has_all    = any(INDUSTRY == 10),
+    coarse_len = suppressWarnings(min(clen[INDUSTRY != 10], na.rm = TRUE)),
+    total_emp  = dplyr::if_else(
+      has_all,
+      sum(EMPLOYMENT[INDUSTRY == 10], na.rm = TRUE),
+      sum(EMPLOYMENT[INDUSTRY != 10 & clen == coarse_len], na.rm = TRUE)
+    ),
+    has_62     = any(stringr::str_starts(code, "62")),
+    coarse_62  = suppressWarnings(min(clen[stringr::str_starts(code, "62")], na.rm = TRUE)),
+    emp_62     = dplyr::if_else(
+      has_62,
+      sum(EMPLOYMENT[stringr::str_starts(code, "62") & clen == coarse_62], na.rm = TRUE),
+      NA_real_
+    ),
+    share_62   = dplyr::if_else(total_emp > 0, emp_62 / total_emp, NA_real_),
+    .groups = "drop"
+  ) |>
+  dplyr::filter(!is.na(share_62), total_emp > 0)
+
+# Focus on 8 biggest CBSAs by average total employment to keep panel grid readable
+focus_cbsa <- v2_share |>
+  dplyr::group_by(cbsa, NAME) |>
+  dplyr::summarise(avg_emp = mean(total_emp, na.rm = TRUE), .groups="drop") |>
+  dplyr::slice_max(avg_emp, n = 8) |>
+  dplyr::pull(cbsa)
+
+# DEBUGGING: Check if NAME exists and faceting will work
+v2_filtered <- v2_share |> dplyr::filter(cbsa %in% focus_cbsa)
+cat("Number of CBSAs:", length(unique(v2_filtered$cbsa)), "\n")
+cat("Number of unique NAMEs:", length(unique(v2_filtered$NAME)), "\n")
+cat("Are there any NA names?", any(is.na(v2_filtered$NAME)), "\n")
+
+# Create plot with small multiples
+v2_filtered |>
+  ggplot2::ggplot(ggplot2::aes(YEAR, share_62, group = NAME)) +
+  ggplot2::geom_line(linewidth = 0.8) +
+  ggplot2::scale_y_continuous(
+    labels = scales::label_percent(),
+    limits = c(0, NA)
+  ) +
+  ggplot2::scale_x_continuous(breaks = scales::pretty_breaks(n = 4)) +
+  ggplot2::labs(
+    title = "NAICS 62 Share of Total Employment — Top CBSAs (Small Multiples)",
+    subtitle = "Each panel uses the same y-axis for easier comparison",
+    x = NULL, 
+    y = "Share of Total Employment"
+  ) +
+  ggplot2::facet_wrap(~ NAME, ncol = 3, labeller = ggplot2::labeller(NAME = ggplot2::label_wrap_gen(width = 25))) +
+  ggplot2::theme(
+    strip.text = ggplot2::element_text(size = 8, face = "bold", lineheight = 0.9),
+    strip.background = ggplot2::element_rect(fill = "grey90"),
+    panel.spacing = ggplot2::unit(1.2, "lines")
+  ) +
+  base_plot_theme
+```
+
+#### Q3. Average household size over time — highlight NYC & Los Angeles
+
+```{r}
+## Task 3 – V3 (self-contained): compute hh_size_ec if missing + plot with thicker lines
+library(dplyr)
+library(ggplot2)
+library(ggrepel)
+
+# build hh_size_ec if not already present
+if (!exists("hh_size_ec")) {
+  hh_size_ec <- POPULATION |>
+    inner_join(HOUSEHOLDS, by = c("GEOID","NAME","year")) |>
+    transmute(
+      cbsa  = as.integer(GEOID),
+      NAME,
+      year,
+      household_size = population / households
+    )
+}
+
+highlight_cbsa <- c(35620, 31100)  # NYC, Los Angeles
+
+bg <- hh_size_ec |> filter(!cbsa %in% highlight_cbsa)
+
+hi <- hh_size_ec |>
+  filter(cbsa %in% highlight_cbsa) |>
+  mutate(label = case_when(
+    cbsa == 31100 ~ "Los Angeles",
+    cbsa == 35620 ~ "New York City",
+    TRUE ~ NAME
+  ))
+
+hi_end <- hi |>
+  group_by(label) |>
+  filter(year == max(year, na.rm = TRUE)) |>
+  ungroup()
+
+cols <- c("Los Angeles" = "#D55E00",   # orange
+          "New York City" = "#0072B2") # blue
+
+ggplot() +
+  # background spaghetti — a bit thicker now
+  geom_line(
+    data = bg, aes(year, household_size, group = NAME),
+    color = "grey70", linewidth = 0.8, alpha = 0.35
+  ) +
+  # highlighted lines — clearly thicker
+  geom_line(
+    data = hi, aes(year, household_size, color = label),
+    linewidth = 2.2
+  ) +
+  # end points
+  geom_point(
+    data = hi_end, aes(year, household_size, color = label),
+    size = 2.8, stroke = 0.6
+  ) +
+  # end labels (repelled)
+  geom_text_repel(
+    data = hi_end,
+    aes(year, household_size, label = label, color = label),
+    nudge_x = 0.7, direction = "y", hjust = 0, seed = 42,
+    box.padding = 0.28, point.padding = 0.25, segment.alpha = 0.6, size = 4
+  ) +
+  scale_color_manual(values = cols, guide = "none") +
+  scale_x_continuous(breaks = scales::pretty_breaks(),
+                     expand = expansion(mult = c(0.01, 0.15))) +  # extra right room for labels
+  labs(
+    title = "Average Household Size Over Time — Highlight: NYC & Los Angeles",
+    subtitle = "Other CBSAs shown in gray for context",
+    x = NULL, y = "Household Size"
+  ) +
+  coord_cartesian(clip = "off") +
+  base_plot_theme
+```
+
+### Task 4 — Rent Burden
+
+```{r}
+# Task 4 – build rent-burden index
+# Needs: dplyr, scales, DT
+library(dplyr)
+library(scales)
+library(DT)
+
+rentburden_raw <- INCOME |>
+  inner_join(RENT,       by = c("GEOID","NAME","year")) |>
+  inner_join(POPULATION, by = c("GEOID","NAME","year")) |>
+  transmute(
+    GEOID, NAME, year,
+    population,
+    household_income = household_income,  # ACS B19013_001
+    monthly_rent     = monthly_rent       # ACS B25064_001
+  ) |>
+  filter(!is.na(household_income), !is.na(monthly_rent),
+         household_income > 0, monthly_rent > 0)
+
+# Ratio of medians (approx): annual rent / household income
+rentburden_raw <- rentburden_raw |>
+  mutate(rti = 12 * monthly_rent / household_income)  # share of income to rent
+
+# Population-weighted national average across all years (baseline)
+baseline <- rentburden_raw |>
+  summarise(b = weighted.mean(rti, w = population, na.rm = TRUE)) |>
+  pull(b)
+
+# 100-index (100 = national avg burden). >100 = higher burden (less affordable)
+RENTBURDEN <- rentburden_raw |>
+  mutate(
+    rb_index = 100 * (rti / baseline),
+    rti_pct  = rti       # keep raw ratio for display later
+  )
+```
+
+
+#### Q1. Pick a single Metro and see how rent burden changed over time
+
+```{r}
+# Task 4 – Q1: single CBSA over time (interactive table)
+library(dplyr)
+library(scales)
+library(DT)
+
+selected_cbsa <- 35620  # NYC; change if you want
+
+rb_one <- RENTBURDEN |>
+  filter(as.integer(GEOID) == selected_cbsa) |>
+  arrange(year) |>
+  transmute(
+    Year              = year,
+    `Rent-to-Income`  = percent(rti_pct, accuracy = 0.1),
+    `Rent-Burden Index` = round(rb_index, 1),
+    `Monthly Rent`    = dollar(monthly_rent, accuracy = 1),
+    `Household Income`= dollar(household_income)
+  )
+
+# Build a length-1 caption string robustly
+cbsa_name <- RENTBURDEN |>
+  filter(as.integer(GEOID) == selected_cbsa) |>
+  distinct(NAME) |>
+  slice(1) |>
+  pull(NAME)
+
+if (length(cbsa_name) == 0 || is.na(cbsa_name)) {
+  cbsa_name <- paste0("CBSA ", selected_cbsa)
+}
+
+cap_text <- paste0(cbsa_name, ": Rent Burden Over Time (100 = Nat’l Avg)")
+
+datatable(
+  rb_one,
+  caption = cap_text,              # <- guaranteed length-1 character
+  options = list(pageLength = 15, dom = "tip", order = list(list(0, "asc")))
+)
+```
+
+#### Q2. Highest & lowest rent burden in the latest year (Top 10 each)
+
+```{r}
+# --- Task 4 – Q2a: Top/Bottom rent burden in latest year (robust) ---
+library(dplyr)
+library(scales)
+library(DT)
+
+# 1) find latest year that actually has data
+latest_year <- RENTBURDEN %>%
+  filter(is.finite(rb_index)) %>%
+  summarise(y = max(year, na.rm = TRUE)) %>%
+  pull(y)
+
+# 2) build tidy latest-year table (skip rows with missing/zero income/rent)
+rb_latest <- RENTBURDEN %>%
+  filter(year == latest_year, is.finite(rb_index)) %>%
+  mutate(
+    `Rent-to-Income`   = percent(rti_pct, accuracy = 0.1),
+    `Rent-Burden Index`= round(rb_index, 1),
+    `Monthly Rent`     = dollar(monthly_rent, accuracy = 1),
+    `Household Income` = dollar(household_income)
+  ) %>%
+  select(NAME, `Rent-Burden Index`, `Rent-to-Income`, `Monthly Rent`, `Household Income`) %>%
+  arrange(desc(`Rent-Burden Index`))
+
+# 3) pick top/bottom (handle tiny tables safely)
+n_show <- min(10, nrow(rb_latest))
+top_10 <- if (n_show > 0) slice_head(rb_latest, n = n_show) else rb_latest
+bot_10 <- if (n_show > 0) rb_latest %>% slice_tail(n = n_show) %>% arrange(`Rent-Burden Index`) else rb_latest
+
+top_cap <- paste0("Highest Rent Burden — Top ", n_show, " CBSAs (", latest_year, ")  —  100 = Nat’l Avg")
+bot_cap <- paste0("Lowest Rent Burden — Bottom ", n_show, " CBSAs (", latest_year, ")  —  100 = Nat’l Avg")
+
+if (nrow(top_10) == 0) {
+  cat("No rent-burden data for the latest year.\n")
+} else {
+  DT::datatable(top_10, caption = top_cap, options = list(pageLength = n_show, dom = "tip"))
+  DT::datatable(bot_10, caption = bot_cap, options = list(pageLength = n_show, dom = "tip"))
+}
+```
+
+```{r}
+# --- Task 4 – Q2b: Largest change in rent burden (first vs last) ---
+library(dplyr)
+library(scales)
+library(DT)
+
+rb_change <- RENTBURDEN %>%
+  filter(is.finite(rb_index)) %>%
+  group_by(GEOID, NAME) %>%
+  summarise(
+    year_first = min(year, na.rm = TRUE),
+    year_last  = max(year, na.rm = TRUE),
+    rb_first   = rb_index[which.min(year)],
+    rb_last    = rb_index[which.max(year)],
+    change     = rb_last - rb_first,
+    .groups = "drop"
+  ) %>%
+  filter(is.finite(change)) %>%
+  arrange(desc(abs(change)))
+
+n_show <- min(15, nrow(rb_change))
+cap_change <- paste0("Largest Absolute Change in Rent-Burden Index (First vs Last Year) — Top ", n_show)
+
+if (n_show == 0) {
+  cat("No change data available.\n")
+} else {
+  DT::datatable(
+    rb_change %>% slice_head(n = n_show) %>%
+      transmute(
+        NAME, `First Year` = year_first, `Last Year` = year_last,
+        `Index (First)` = round(rb_first,1),
+        `Index (Last)`  = round(rb_last,1),
+        `Δ Index`       = round(change,1)
+      ),
+    caption = cap_change,
+    options = list(pageLength = n_show, dom = "tip")
+  )
+}
+```
+
+```{r}
+# --- Task 4 – Q2c: State weighted-average burden (latest year) ---
+library(dplyr)
+library(stringr)
+library(DT)
+
+# latest_year already computed earlier; if not:
+# latest_year <- RENTBURDEN |> filter(is.finite(rb_index)) |> summarise(y = max(year, na.rm=TRUE)) |> pull(y)
+
+rb_state_latest <- RENTBURDEN %>%
+  filter(year == latest_year, is.finite(rb_index)) %>%
+  # Extract the FIRST two-letter state/territory code after the comma
+  # Works for single-state ("..., CA Metro Area") and multi-state ("..., NY-NJ-PA Metro Area")
+  mutate(state_abb = stringr::str_match(NAME, ",\\s([A-Z]{2})(?:\\b|-)")[, 2]) %>%
+  filter(!is.na(state_abb)) %>%
+  group_by(state_abb) %>%
+  summarise(
+    `Weighted Avg Index` = round(weighted.mean(rb_index, w = population, na.rm = TRUE), 1),
+    CBSAs = n(),
+    .groups = "drop"
+  ) %>%
+  arrange(desc(`Weighted Avg Index`))
+
+# Only show the table if we actually have rows; otherwise stay quiet
+if (nrow(rb_state_latest) > 0) {
+  cap_state <- paste0("Population-Weighted Rent-Burden Index by State (", latest_year, ") — 100 = Nat’l Avg")
+  DT::datatable(rb_state_latest, caption = cap_state, options = list(pageLength = 20, dom = "tip"))
+}
+```
+
+```{r, include=FALSE}
+# ---- Data Audit for Task 5: keys & columns we need ----
+suppressPackageStartupMessages({library(dplyr); library(stringr)})
+
+exists_tbl <- function(x) !is.null(get0(x, inherits = TRUE))
+
+pick_col <- function(df, candidates) {
+  hits <- intersect(candidates, names(df))
+  if (length(hits)) hits[1] else NA_character_
+}
+
+show_tbl <- function(name, n = 5) {
+  obj <- get0(name, inherits = TRUE)
+  cat("\n====", name, "====\n")
+  if (is.null(obj)) { cat("  ✗ not found\n"); return(invisible(NULL)) }
+  cat("  ✓ rows:", nrow(obj), "  cols:", ncol(obj), "\n")
+  cat("  names:", paste(names(obj), collapse = ", "), "\n")
+  print(utils::head(obj, n))
+}
+
+# 1) Print quick glances
+show_tbl("POPULATION")
+show_tbl("PERMITS")
+show_tbl("INCOME")
+show_tbl("WAGES")
+show_tbl("cbsa_lu")
+
+# 2) Try to auto-map expected columns
+map_one <- function(df, label){
+  if (is.null(df)) return(tibble(table = label, key = NA, value = NA))
+  tibble(
+    table = label,
+    key   = c("geoid","name","year","population","permits","cbsa"),
+    value = c(
+      pick_col(df, c("GEOID","geoid","geoid10")),
+      pick_col(df, c("NAME","name")),
+      pick_col(df, c("year","YEAR")),
+      pick_col(df, c("population","POPULATION","total_population","pop")),
+      pick_col(df, c("new_housing_units_permitted","permits","PERMITS","NEW_UNITS")),
+      pick_col(df, c("CBSA","cbsa"))
+    )
+  )
+}
+
+POPULATION_ <- get0("POPULATION", inherits = TRUE)
+PERMITS_    <- get0("PERMITS",    inherits = TRUE)
+INCOME_     <- get0("INCOME",     inherits = TRUE)
+WAGES_      <- get0("WAGES",      inherits = TRUE)
+CBSA_LU_    <- get0("cbsa_lu",    inherits = TRUE)
+
+mapping <- bind_rows(
+  map_one(POPULATION_, "POPULATION"),
+  map_one(PERMITS_,    "PERMITS"),
+  map_one(INCOME_,     "INCOME"),
+  map_one(WAGES_,      "WAGES"),
+  map_one(CBSA_LU_,    "cbsa_lu")
+)
+
+cat("\n==== Proposed column mapping (auto-detected) ====\n")
+print(mapping %>% tidyr::pivot_wider(names_from = key, values_from = value))
+
+# 3) Year ranges + basic sanity for pop/permits
+yr_range <- function(df, y) {
+  if (is.null(df) || is.na(y) || !(y %in% names(df))) return("n/a")
+  rng <- range(df[[y]], na.rm = TRUE)
+  paste0(rng[1], "–", rng[2])
+}
+
+# Helpers to count NA/zero
+count_na <- function(x) sum(!is.finite(x) | is.na(x))
+count_zero <- function(x) sum(is.finite(x) & x == 0)
+
+pop_year <- mapping %>% filter(table=="POPULATION", key=="year") %>% dplyr::pull(value) %>% `[`(1)
+pop_col  <- mapping %>% filter(table=="POPULATION", key=="population") %>% dplyr::pull(value) %>% `[`(1)
+
+perm_year <- mapping %>% filter(table=="PERMITS", key=="year") %>% dplyr::pull(value) %>% `[`(1)
+perm_col  <- mapping %>% filter(table=="PERMITS", key=="permits") %>% dplyr::pull(value) %>% `[`(1)
+
+cat("\n==== Year ranges ====\n")
+cat("POPULATION years:", yr_range(POPULATION_, pop_year), "\n")
+cat("PERMITS    years:", yr_range(PERMITS_,    perm_year), "\n")
+
+if (!is.null(POPULATION_) && !is.na(pop_col) && pop_col %in% names(POPULATION_)) {
+  pvec <- as.numeric(POPULATION_[[pop_col]])
+  cat("\nPOPULATION checks:\n  NAs:", count_na(pvec), " zeros:", count_zero(pvec), "\n")
+}
+
+if (!is.null(PERMITS_) && !is.na(perm_col) && perm_col %in% names(PERMITS_)) {
+  uvec <- as.numeric(PERMITS_[[perm_col]])
+  cat("\nPERMITS checks:\n  NAs:", count_na(uvec), " zeros:", count_zero(uvec), "\n")
+}
+
+# 4) Final copy-ready mapping lines we will use next
+geo_pop <- list(
+  geoid = mapping %>% filter(table=="POPULATION", key=="geoid") %>% pull(value) %>% .[1],
+  name  = mapping %>% filter(table=="POPULATION", key=="name")  %>% pull(value) %>% .[1],
+  year  = pop_year,
+  population = pop_col
+)
+geo_permits <- list(
+  geoid = mapping %>% filter(table=="PERMITS", key=="geoid") %>% pull(value) %>% .[1],
+  name  = mapping %>% filter(table=="PERMITS", key=="name")  %>% pull(value) %>% .[1],
+  year  = perm_year,
+  permits = perm_col,
+  cbsa = mapping %>% filter(table=="PERMITS", key=="cbsa") %>% pull(value) %>% .[1]
+)
+
+cat("\n==== Copy these into the next chunk ====\n")
+cat("POPULATION mapping:\n")
+print(geo_pop)
+cat("PERMITS mapping:\n")
+print(geo_permits)
+cat("\nIf any value above is NA, tell me which table/column is missing and we’ll adjust.\n")
+```
+
+### Task 5 — Housing Growth
+#### Build instantaneous & rate-based housing growth metrics and indexes and show CBSAs that score high/low on each metric (latest year)
+
+```{r}
+# ---- Task 5: build housing growth metrics (instantaneous & 5-yr rate) ----
+library(dplyr)
+library(slider)
+
+# 0) Canonical join helper: attach GEOID/NAME to PERMITS via cbsa, and keep types aligned
+CBSA_LU <- cbsa_lu %>%
+  transmute(cbsa = as.integer(cbsa),
+            GEOID = as.character(GEOID),
+            NAME)
+
+POP_G <- POPULATION %>%
+  transmute(GEOID = as.character(GEOID),
+            NAME,
+            year = as.integer(year),
+            population = as.numeric(population)) %>%
+  filter(is.finite(population), population > 0)
+
+PERMITS_G <- PERMITS %>%
+  transmute(cbsa = as.integer(CBSA),
+            year = as.integer(year),
+            permits = as.numeric(new_housing_units_permitted)) %>%
+  left_join(CBSA_LU, by = "cbsa") %>%
+  transmute(GEOID, NAME, year, permits) %>%
+  filter(!is.na(GEOID))
+
+# Sanity ping
+message("POPULATION years: ",
+        paste(range(POP_G$year, na.rm = TRUE), collapse = "–"))
+message("PERMITS   years: ",
+        paste(range(PERMITS_G$year, na.rm = TRUE), collapse = "–"))
+
+# 1) Instantaneous metric: permits per 1,000 residents (for each CBSA/year)
+HG_INSTANT <- PERMITS_G %>%
+  inner_join(POP_G, by = c("GEOID", "NAME", "year")) %>%
+  group_by(GEOID, NAME, year) %>%
+  summarise(permits   = sum(permits,   na.rm = TRUE),
+            population= sum(population,na.rm = TRUE),
+            .groups = "drop_last") %>%
+  mutate(permits_per_1k = 1000 * permits / pmax(population, 1)) %>%
+  ungroup()
+
+# Baseline (overall mean across all rows) and index
+inst_baseline <- mean(HG_INSTANT$permits_per_1k, na.rm = TRUE)
+HG_INSTANT <- HG_INSTANT %>%
+  mutate(hg_instant_idx = 100 * (permits_per_1k / inst_baseline))
+
+# 2) 5-year “rate” metric:
+# For 2023 ONLY (full 2019–2023 window). We require 5 complete years per CBSA.
+five_year_window <- 2019:2023
+HG_RATES <- PERMITS_G %>%
+  inner_join(POP_G, by = c("GEOID","NAME","year")) %>%
+  filter(year %in% five_year_window) %>%
+  group_by(GEOID, NAME) %>%
+  # keep only CBSAs with all 5 years present in BOTH permits & population
+  filter(n_distinct(year) == length(five_year_window)) %>%
+  summarise(permits_5y = sum(permits,    na.rm = TRUE),
+            pop_5y     = sum(population, na.rm = TRUE),
+            .groups = "drop") %>%
+  mutate(rate_5y_raw = if_else(pop_5y > 0, permits_5y / pop_5y, NA_real_),
+         year = 2023L)
+
+rates_baseline <- mean(HG_RATES$rate_5y_raw[is.finite(HG_RATES$rate_5y_raw)],
+                       na.rm = TRUE)
+
+HG_RATES <- HG_RATES %>%
+  mutate(hg_rates_idx = 100 * (rate_5y_raw / rates_baseline))
+
+# 3) Latest snapshot (for Q2/Q3)
+latest_year <- 2023L
+HG_LATEST <- HG_INSTANT %>%
+  filter(year == latest_year) %>%
+  select(GEOID, NAME, year, hg_instant_idx) %>%
+  left_join(HG_RATES %>% select(GEOID, NAME, hg_rates_idx),
+            by = c("GEOID","NAME"))
+
+message("Built HG_INSTANT rows: ", nrow(HG_INSTANT),
+        " | HG_RATES rows (2023 only): ", nrow(HG_RATES))
+```
+
+
+```{r}
+# ---- Recompute 5-year rate with relaxed coverage (>= 3 years in 2019–2023) ----
+five_year_window <- 2019:2023
+min_years <- 3L
+
+HG_RATES <- PERMITS_G %>%
+  inner_join(POP_G, by = c("GEOID","NAME","year")) %>%
+  filter(year %in% five_year_window) %>%
+  group_by(GEOID, NAME) %>%
+  summarise(
+    n_years   = n_distinct(year),
+    permits_5y = sum(permits,    na.rm = TRUE),
+    pop_5y     = sum(population, na.rm = TRUE),
+    .groups = "drop"
+  ) %>%
+  filter(n_years >= min_years, pop_5y > 0) %>%
+  mutate(rate_5y_raw = permits_5y / pop_5y)
+
+rates_baseline <- mean(HG_RATES$rate_5y_raw, na.rm = TRUE)
+HG_RATES <- HG_RATES %>%
+  mutate(hg_rates_idx = 100 * (rate_5y_raw / rates_baseline))
+
+# Rebuild latest snapshot for joins used in Q2/Q3
+latest_year <- 2023L
+HG_LATEST <- HG_INSTANT %>%
+  filter(year == latest_year) %>%
+  select(GEOID, NAME, year, hg_instant_idx) %>%
+  left_join(HG_RATES %>% select(GEOID, NAME, hg_rates_idx), by = c("GEOID","NAME"))
+
+message("Relaxed-rate HG_RATES rows: ", nrow(HG_RATES))
+message("HG_LATEST rows with both metrics: ",
+        sum(is.finite(HG_LATEST$hg_instant_idx) & is.finite(HG_LATEST$hg_rates_idx)))
+```
+
+
+```{r}
+# ---- Task 5: top/bottom CBSAs on each metric (latest year) ----
+library(DT)
+
+rank_tbl <- function(df, value_col, title_prefix, top_n = 15, digits = 1) {
+  if (is.null(df) || nrow(df) == 0 || !(value_col %in% names(df))) {
+    cat("No data available for:", title_prefix, "\n")
+    return(invisible(NULL))
+  }
+  out <- df %>%
+    select(NAME, !!rlang::sym(value_col)) %>%
+    arrange(desc(!!rlang::sym(value_col))) %>%
+    slice_head(n = top_n) %>%
+    mutate(across(where(is.numeric), ~round(.x, digits)))
+
+  datatable(
+    out,
+    caption = htmltools::tags$caption(
+      style = 'caption-side: top; text-align: left;',
+      paste0(title_prefix, " (", latest_year, ")")
+    ),
+    options = list(pageLength = min(15, nrow(out)), dom = "tip")
+  )
+}
+
+# Instantaneous — TOP
+rank_tbl(HG_LATEST %>% filter(is.finite(hg_instant_idx)),
+         "hg_instant_idx", "Instantaneous Housing Growth — Top")
+
+# Instantaneous — BOTTOM
+if (nrow(HG_LATEST %>% filter(is.finite(hg_instant_idx))) > 0) {
+  HG_LATEST %>%
+    filter(is.finite(hg_instant_idx)) %>%
+    arrange(hg_instant_idx) %>%
+    slice_head(n = 15) %>%
+    mutate(across(where(is.numeric), ~round(.x, 1))) %>%
+    datatable(
+      caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        paste0("Instantaneous Housing Growth — Bottom (", latest_year, ")")
+      ),
+      options = list(pageLength = 15, dom = "tip")
+    )
+} else {
+  cat("No rows available for instantaneous ranks in", latest_year, "\n")
+}
+
+# 5-year Rate — TOP (note: only 2023 exists for rate metric)
+rank_tbl(HG_LATEST %>% filter(is.finite(hg_rates_idx)),
+         "hg_rates_idx", "5-year Housing Growth Rate — Top")
+
+# 5-year Rate — BOTTOM
+if (nrow(HG_LATEST %>% filter(is.finite(hg_rates_idx))) > 0) {
+  HG_LATEST %>%
+    filter(is.finite(hg_rates_idx)) %>%
+    arrange(hg_rates_idx) %>%
+    slice_head(n = 15) %>%
+    mutate(across(where(is.numeric), ~round(.x, 1))) %>%
+    datatable(
+      caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        paste0("5-year Housing Growth Rate — Bottom (", latest_year, ")")
+      ),
+      options = list(pageLength = 15, dom = "tip")
+    )
+} else {
+  cat("No finite 5-year rate values; cannot show 5-year rate ranks.\n")
+}
+```
+
+#### Composite score (equal-weight z-scores of both metrics, latest year)
+##### Note (method tweak): To ensure enough coverage, I compute the 5-year housing‐growth rate over 2019–2023 as long as a CBSA has data for ≥3 of the 5 years (instead of all 5). This relaxed rule preserves comparability while allowing a meaningful composite score with the instantaneous index.
+
+```{r}
+# ---- Task 5: composite score (equal-weight z-scores, latest year) ----
+z_scale <- function(x) {
+  s <- sd(x, na.rm = TRUE); m <- mean(x, na.rm = TRUE)
+  if (!is.finite(s) || s == 0) return(rep(NA_real_, length(x)))
+  (x - m) / s
+}
+
+comp_tbl <- HG_LATEST %>%
+  filter(is.finite(hg_instant_idx), is.finite(hg_rates_idx)) %>%
+  mutate(
+    z_instant = z_scale(hg_instant_idx),
+    z_rate    = z_scale(hg_rates_idx),
+    composite = z_instant + z_rate
+  ) %>%
+  arrange(desc(composite)) %>%
+  select(NAME, `Composite (z)` = composite, `Instant z` = z_instant, `Rate-5y z` = z_rate)
+
+if (nrow(comp_tbl) > 0) {
+  # Top
+  comp_tbl %>%
+    slice_head(n = 15) %>%
+    mutate(across(where(is.numeric), ~round(.x, 2))) %>%
+    datatable(
+      caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        paste0("Composite (Instant + 5y Rate, z-scores) — Top (", latest_year, ")")
+      ),
+      options = list(pageLength = 15, dom = "tip")
+    )
+
+  # Bottom
+  comp_tbl %>%
+    arrange(`Composite (z)`) %>%
+    slice_head(n = 15) %>%
+    mutate(across(where(is.numeric), ~round(.x, 2))) %>%
+    datatable(
+      caption = htmltools::tags$caption(
+        style = 'caption-side: top; text-align: left;',
+        paste0("Composite (Instant + 5y Rate, z-scores) — Bottom (", latest_year, ")")
+      ),
+      options = list(pageLength = 15, dom = "tip")
+    )
+} else {
+  cat("No common CBSAs with finite values in BOTH metrics; skipping composite.\n")
+}
+```
+
+### Task 6 — Visualization
+#### Build a YIMBY scorecard (one row per CBSA)
+
+```{r}
+## Task 6 — build a YIMBY scorecard (one row per CBSA)
+# label: task6-build-scorecard
+
+library(dplyr)
+library(rlang)
+library(DT)
+library(htmltools)
+
+# --- helpers ---------------------------------------------------------------
+pick_col <- function(df, choices) {
+  hits <- intersect(choices, names(df))
+  if (length(hits)) hits[1] else NA_character_
+}
+safe_int <- function(x) suppressWarnings(as.integer(x))
+safe_num <- function(x) suppressWarnings(as.numeric(x))
+safe_chr <- function(x) as.character(x)
+
+# --- required upstream objects (quiet checks) ------------------------------
+stopifnot(exists("POPULATION", inherits = TRUE))
+stopifnot(exists("PERMITS_G",  inherits = TRUE))
+stopifnot(exists("RENBURDEN",  inherits = TRUE) || exists("RENTBURDEN", inherits = TRUE))
+stopifnot(exists("HG_LATEST",  inherits = TRUE))
+stopifnot(exists("HG_RATES",   inherits = TRUE))
+
+# --- column mappings (robust to small name changes) -----------------------
+RB   <- if (exists("RENBURDEN", inherits = TRUE)) RENBURDEN else RENTBURDEN
+rb_geoid <- pick_col(RB, c("GEOID","geoid"))
+rb_name  <- pick_col(RB, c("NAME","name"))
+rb_year  <- pick_col(RB, c("year","YEAR"))
+rb_col   <- pick_col(RB, c("rb_index","RB_INDEX","rb_index_scaled","rent_burden_index","index"))
+stopifnot(all(c(rb_geoid, rb_name, rb_year, rb_col) %in% names(RB)))
+
+hl_geoid <- pick_col(HG_LATEST, c("GEOID","geoid"))
+hl_name  <- pick_col(HG_LATEST, c("NAME","name"))
+hl_year  <- pick_col(HG_LATEST, c("year","YEAR"))
+inst_col <- pick_col(HG_LATEST, c("hg_instant_idx","inst_index","inst_z","inst_zscore"))
+
+hr_geoid   <- pick_col(HG_RATES, c("GEOID","geoid"))
+hr_year    <- pick_col(HG_RATES, c("year","YEAR"))
+rate_col   <- pick_col(HG_RATES, c("hg_rates_idx","rate_index","rate_z","rate_5y_raw"))
+
+pop_geoid <- pick_col(POPULATION, c("GEOID","geoid"))
+pop_name  <- pick_col(POPULATION, c("NAME","name"))
+pop_year  <- pick_col(POPULATION, c("year","YEAR"))
+pop_col   <- pick_col(POPULATION, c("population","POPULATION"))
+stopifnot(all(c(pop_geoid,pop_name,pop_year,pop_col) %in% names(POPULATION)))
+
+# --- canonical, typed snapshots (GEOID as CHARACTER everywhere) -----------
+RENTB <- RB %>%
+  transmute(
+    GEOID = safe_chr(.data[[rb_geoid]]),
+    NAME  = as.character(.data[[rb_name]]),
+    year  = safe_int(.data[[rb_year]]),
+    rb    = safe_num(.data[[rb_col]])
+  ) %>%
+  filter(is.finite(year), is.finite(rb))
+
+HG_INST <- HG_LATEST %>%
+  transmute(
+    GEOID = safe_chr(.data[[hl_geoid]]),
+    NAME  = as.character(.data[[hl_name]]),
+    year  = safe_int(.data[[hl_year]]),
+    hg_instant = safe_num(.data[[inst_col]])
+  ) %>%
+  filter(is.finite(year)) %>%
+  distinct(GEOID, .keep_all = TRUE)
+
+# Filter BEFORE select, and cast GEOID to character
+if (!is.na(rate_col) &&
+    all(c(hr_geoid, hr_year, rate_col) %in% names(HG_RATES))) {
+  HG_RATE <- HG_RATES %>%
+    mutate(year = safe_int(.data[[hr_year]])) %>%
+    filter(is.finite(year)) %>%
+    select(GEOID = !!sym(hr_geoid), year, hg_rate = !!sym(rate_col)) %>%
+    mutate(GEOID = safe_chr(GEOID)) %>%
+    distinct(GEOID, .keep_all = TRUE)
+} else {
+  HG_RATE <- tibble(GEOID = character(), year = integer(), hg_rate = numeric())
+}
+
+POP <- POPULATION %>%
+  transmute(
+    GEOID = safe_chr(.data[[pop_geoid]]),
+    NAME  = as.character(.data[[pop_name]]),
+    year  = safe_int(.data[[pop_year]]),
+    population = safe_num(.data[[pop_col]])
+  ) %>%
+  filter(is.finite(year), is.finite(population))
+
+# --- derive scorecard ingredients ----------------------------------------
+latest_year <- max(RENTB$year, na.rm = TRUE)
+early_year  <- min(RENTB$year, na.rm = TRUE)
+
+rb_wide <- RENTB %>%
+  filter(year %in% c(early_year, latest_year)) %>%
+  select(GEOID, NAME, year, rb) %>%
+  tidyr::pivot_wider(names_from = year, values_from = rb, names_prefix = "rb_") %>%
+  mutate(
+    rb_early  = .data[[paste0("rb_", early_year)]],
+    rb_latest = .data[[paste0("rb_", latest_year)]],
+    rb_change = rb_latest - rb_early
+  ) %>%
+  select(GEOID, NAME, rb_early, rb_latest, rb_change)
+
+pop_span <- POP %>%
+  group_by(GEOID, NAME) %>%
+  summarise(
+    pop_first = population[which.min(year)],
+    pop_last  = population[which.max(year)],
+    .groups = "drop"
+  ) %>%
+  mutate(pop_growth_pct = 100 * (pop_last - pop_first) / pmax(pop_first, 1))
+
+hg_latest <- HG_INST %>% select(GEOID, hg_instant)
+
+SCORECARD <- rb_wide %>%
+  left_join(pop_span, by = c("GEOID","NAME")) %>%
+  left_join(hg_latest, by = "GEOID") %>%
+  left_join(HG_RATE %>% select(GEOID, hg_rate), by = "GEOID")
+
+# --- simple flags & ordering ----------------------------------------------
+q_rb_high <- quantile(SCORECARD$rb_early, probs = 0.75, na.rm = TRUE)
+med_hg    <- median(SCORECARD$hg_instant, na.rm = TRUE)
+
+SCORECARD <- SCORECARD %>%
+  mutate(
+    flag_rb_high   = rb_early >= q_rb_high,
+    flag_rb_drop   = rb_change < 0,
+    flag_pop_up    = pop_growth_pct > 0,
+    flag_hg_above  = hg_instant >= med_hg,
+    yimby_score    = rowSums(cbind(flag_rb_high, flag_rb_drop, flag_pop_up, flag_hg_above), na.rm = TRUE)
+  ) %>%
+  arrange(desc(yimby_score), desc(hg_instant), rb_change)
+
+# --- output table ----------------------------------------------------------
+cap <- htmltools::tags$caption(
+  style = "caption-side: top; text-align: left;",
+  paste0(
+    "YIMBY Scorecard — early(", early_year, ") vs. latest(", latest_year, "); ",
+    "flags: high early RB (top 25%), RB decreasing, population rising, HG instant above median."
+  )
+)
+
+DT::datatable(
+  SCORECARD %>%
+    transmute(
+      GEOID, NAME,
+      `RB Early` = round(rb_early, 1),
+      `RB Latest` = round(rb_latest, 1),
+      `RB Change` = round(rb_change, 1),
+      `Pop Growth %` = round(pop_growth_pct, 1),
+      `HG Instant (latest)` = round(hg_instant, 1),
+      `HG Rate (latest)` = round(hg_rate, 1),
+      `YIMBY Flags Hit` = yimby_score
+    ),
+  caption = cap,
+  options = list(pageLength = 15, dom = "tip")
+)
+```
+
+```{r, include=FALSE}
+cat("Has SCORECARD? ", exists("SCORECARD"), "\n")
+ls(pattern = "SCORE")
+```
+
+```{r, include=FALSE}
+# --- DIAGNOSTIC: run once after SCORECARD exists ---
+stopifnot(exists("SCORECARD"))
+scorecard <- SCORECARD
+
+normalize_names <- function(x) gsub("[^a-z0-9]+","", tolower(x))
+nms <- names(scorecard)
+nn  <- normalize_names(nms)
+
+diag_tbl <- data.frame(col = nms, norm = nn, stringsAsFactors = FALSE)
+print(diag_tbl, row.names = FALSE)
+```
+
+#### Task 6 — Viz #1: RB change vs Housing Growth (color = population growth)
+```{r}
+stopifnot(exists("SCORECARD"))
+scorecard <- SCORECARD
+
+# use the exact columns found in your diagnostic
+req_cols <- c("rb_change", "hg_instant", "pop_growth_pct")
+stopifnot(all(req_cols %in% names(scorecard)))
+
+# be robust to accidental character columns
+scorecard <- scorecard |>
+  dplyr::mutate(
+    rb_change      = suppressWarnings(as.numeric(rb_change)),
+    hg_instant     = suppressWarnings(as.numeric(hg_instant)),
+    pop_growth_pct = suppressWarnings(as.numeric(pop_growth_pct))
+  )
+
+ggplot2::ggplot(
+  scorecard,
+  ggplot2::aes(x = rb_change, y = hg_instant, color = pop_growth_pct)
+) +
+  ggplot2::geom_hline(yintercept = 0, linewidth = 0.3, linetype = 2) +
+  ggplot2::geom_vline(xintercept = 0, linewidth = 0.3, linetype = 2) +
+  ggplot2::geom_point(alpha = 0.85) +
+  ggplot2::scale_color_continuous(name = "Population growth (%)") +
+  ggplot2::labs(
+    title    = "Rent-Burden Change vs Housing-Growth (color = population growth)",
+    subtitle = "Left (< 0) = improved rent burden; Up (> 0) = stronger housing growth",
+    x = "Δ Rent-Burden Index (latest − early)",
+    y = "Housing-growth composite (z-score)"
+  ) +
+  ggplot2::theme_minimal(base_size = 12)
+```
+
+#### Viz #2: change in rent-burden for the best “YIMBY” candidates
+
+```{r}
+stopifnot(exists("SCORECARD"))
+sc <- SCORECARD
+
+to_num <- function(x) suppressWarnings(as.numeric(x))
+need <- c("NAME","rb_early","rb_latest","rb_change","hg_instant","pop_growth_pct",
+          "flag_rb_high","flag_rb_drop","flag_pop_up","flag_hg_above")
+stopifnot(all(need %in% names(sc)))
+
+sc <- sc |>
+  dplyr::mutate(
+    rb_early       = to_num(rb_early),
+    rb_latest      = to_num(rb_latest),
+    rb_change      = to_num(rb_change),
+    hg_instant     = to_num(hg_instant),
+    pop_growth_pct = to_num(pop_growth_pct),
+    flag_rb_high   = as.logical(flag_rb_high),
+    flag_rb_drop   = as.logical(flag_rb_drop),
+    flag_pop_up    = as.logical(flag_pop_up),
+    flag_hg_above  = as.logical(flag_hg_above)
+  )
+
+strict <- sc |>
+  dplyr::filter(flag_rb_high, flag_rb_drop, flag_pop_up, flag_hg_above) |>
+  dplyr::filter(is.finite(rb_early), is.finite(rb_latest), is.finite(rb_change))
+
+if (nrow(strict) < 10) {
+  top <- sc |>
+    dplyr::mutate(yimby_score = as.integer(flag_rb_high) + as.integer(flag_rb_drop) +
+                                 as.integer(flag_pop_up)  + as.integer(flag_hg_above)) |>
+    dplyr::filter(rb_change < 0, hg_instant > 0, pop_growth_pct > 0) |>
+    dplyr::arrange(dplyr::desc(yimby_score), rb_change) |>
+    dplyr::slice_head(n = 20)
+} else {
+  top <- strict |>
+    dplyr::arrange(rb_change) |>
+    dplyr::slice_head(n = 20)
+}
+
+if (nrow(top) == 0) {
+  cat("No candidate CBSAs available to plot.\n")
+} else {
+  top <- top |>
+    dplyr::mutate(NAME = stringr::str_replace(NAME, " Metro Area$", "")) |>
+    dplyr::mutate(NAME = forcats::fct_reorder(NAME, rb_change))
+
+  sub_text <- stringr::str_wrap(
+    "Lines connect RB early → latest. Color = housing growth (instant, z); size = population growth (%).",
+    width = 70
+  )
+
+  ggplot2::ggplot(top) +
+    ggplot2::geom_segment(
+      ggplot2::aes(y = NAME, yend = NAME, x = rb_early, xend = rb_latest, color = hg_instant),
+      linewidth = 1.0, alpha = 0.8
+    ) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = rb_early,  y = NAME, color = hg_instant, size = pop_growth_pct),
+      alpha = 0.9, shape = 16
+    ) +
+    ggplot2::geom_point(
+      ggplot2::aes(x = rb_latest, y = NAME, color = hg_instant, size = pop_growth_pct),
+      alpha = 0.9, shape = 16
+    ) +
+    ggplot2::scale_color_viridis_c(name = "Housing growth (z)", option = "C") +
+    ggplot2::scale_size_continuous(name = "Population growth (%)", range = c(2.5, 6)) +
+    ggplot2::labs(
+      title = "Rent-Burden Change for YIMBY Candidates",
+      subtitle = sub_text,
+      x = "Rent-Burden Index", y = NULL
+    ) +
+    ggplot2::theme_minimal(base_size = 12) +
+    ggplot2::theme(
+      plot.title.position = "plot",
+      plot.subtitle = ggplot2::element_text(margin = ggplot2::margin(t = 4, b = 8)),
+      plot.margin = ggplot2::unit(c(10, 30, 10, 10), "pt")  # add right margin for safety
+    )
+}
+```
+
+## Task 7 — Policy Brief (Elevator Pitch)
+
+```{r task7-setup, include=FALSE}
+# REQUIRE: SCORECARD from Task 6
+stopifnot(exists("SCORECARD"))
+suppressMessages({ library(dplyr); library(stringr); library(scales) })
+
+.required <- c("rb_early","rb_latest","hg_instant","pop_growth_pct")
+
+# consolidate all rows of a GEOID into one complete record
+.consolidate_geoid <- function(df_g) {
+  # helper: first finite value across rows
+  first_ok <- function(x) { x[which(is.finite(x))[1]] %||% NA_real_ }
+  nm <- df_g$NAME %>% na.omit() %>% unique()
+  tibble(
+    GEOID         = df_g$GEOID[1] %||% NA,
+    NAME          = if (length(nm)) nm[1] else df_g$NAME[1],
+    rb_early      = first_ok(df_g$rb_early),
+    rb_latest     = first_ok(df_g$rb_latest),
+    hg_instant    = first_ok(df_g$hg_instant),
+    pop_growth_pct= first_ok(df_g$pop_growth_pct)
+  ) %>%
+    mutate(
+      rb_change = ifelse(is.finite(rb_latest) & is.finite(rb_early),
+                         rb_latest - rb_early, NA_real_)
+    )
+}
+
+# pick by fuzzy name(s), then consolidate by GEOID and choose the best-filled GEOID
+pick_metro_best <- function(patterns) {
+  pats <- as.character(patterns)
+  cand <- SCORECARD %>%
+    filter(reduce(pats, \(acc,p)
+      acc | str_detect(NAME, regex(p, ignore_case = TRUE)), .init = FALSE))
+
+  if (nrow(cand) == 0) return(tibble())  # nothing matched
+
+  # if we have GEOID, consolidate per GEOID; otherwise consolidate all together
+  if ("GEOID" %in% names(cand)) {
+    agg <- cand %>%
+      group_by(GEOID) %>%
+      reframe(.consolidate_geoid(cur_data_all())) %>%
+      ungroup()
+  } else {
+    agg <- .consolidate_geoid(cand)
+  }
+
+  # score completeness: prefer both RB endpoints; then most finite required fields
+  agg <- agg %>%
+    mutate(
+      have_both_rb = is.finite(rb_early) & is.finite(rb_latest),
+      fin_count    = rowSums(across(all_of(.required), is.finite))
+    ) %>%
+    arrange(desc(have_both_rb), desc(fin_count))
+
+  slice_head(agg, n = 1)
+}
+
+# ==== choose your metros (edit patterns as you like) ====
+m_primary   <- pick_metro_best(c("Houston-Sugar|Houston-Pasadena|Houston"))
+m_cosponsor <- pick_metro_best(c("New York-Newark-Jersey City",
+                                 "New York|NY-NJ-PA|Newark|Jersey City|Long Island"))
+
+# formatter & extractor
+fmt <- function(x, d = 1) if (is.numeric(x)) round(x, d) else x
+
+get_vals <- function(df) {
+  if (nrow(df) == 0) return(NULL)
+  list(
+    name        = df$NAME[1],
+    rb_early    = fmt(df$rb_early[1]),
+    rb_latest   = fmt(df$rb_latest[1]),
+    rb_change   = fmt(df$rb_change[1]),
+    hg_instant  = fmt(df$hg_instant[1]),
+    pop_growth  = if (is.finite(df$pop_growth_pct[1])) fmt(df$pop_growth_pct[1], 1) else NA
+  )
+}
+
+P  <- get_vals(m_primary)
+C0 <- get_vals(m_cosponsor)
+
+# optional: print what was selected
+bind_rows(
+  as.data.frame(P, optional = TRUE)  %>% mutate(.role = "primary"),
+  as.data.frame(C0, optional = TRUE) %>% mutate(.role = "co-sponsor")
+) %>% relocate(.role) %>% print()
+```
+
+**Policy Brief: Federal YIMBY Partnership Act**
+
+Our analysis shows metros that permit more homes per resident tend to see rent-burden fall even as population grows. The Federal YIMBY Partnership Act rewards cities that adopt proven pro-housing reforms—by-right infill/ADUs, parking reform, and fast digital permitting—and then deliver measurable results. It's a performance grant, not a mandate: more homes, lower rent-burden, transparent metrics.
+
+* **What it does:** Competitive grants for cities that modernize zoning & permitting and hit outcomes on supply and affordability.
+* **Why now:** Employers can't hire if workers can't live near jobs; lower rent-burden means more take-home pay circulating locally.
+* **Who backs it:** Health-care workers (staffing & retention) and building trades (steady, predictable projects).
+* **How we'll measure success:**
+   * Rent-Burden Index ↓ (latest vs early period)
+   * Permits / housing growth (instant, z) ↑
+   * 5-year housing growth vs population ↑
+
+**Proposed sponsors (with local facts):**
+
+* **Primary —** `r if (!is.null(P)) P$name else "Edit primary metro"`: Rent-Burden Index **`r if (!is.null(P)) P$rb_early else "…"`** → **`r if (!is.null(P)) P$rb_latest else "…"`** (Δ `r if (!is.null(P)) P$rb_change else "…"` points; lower is better). Housing growth (instant, z): `r if (!is.null(P)) P$hg_instant else "…"`. Population growth: `r if (!is.null(P)) paste0(P$pop_growth, "%") else "…"`.
+
+* **Co-sponsor —** `r if (!is.null(C0)) C0$name else "Edit co-sponsor metro"`: Rent-Burden Index **`r if (!is.null(C0)) C0$rb_early else "…"`** → **`r if (!is.null(C0)) C0$rb_latest else "…"`** (Δ `r if (!is.null(C0)) C0$rb_change else "…"` points). Housing growth (instant, z): `r if (!is.null(C0)) C0$hg_instant else "…"`. Population growth: `r if (!is.null(C0)) paste0(C0$pop_growth, "%") else "…"`.
+
+**What we're asking:** Sponsor a bill that rewards results—cities unlock multi-year funds when they build more homes and cut rent-burden.
+
+```{r, include=FALSE}
+stopifnot(exists("SCORECARD"))
+library(dplyr); library(stringr)
+
+diag_cols <- c("NAME","rb_early","rb_latest","rb_change","hg_instant","pop_growth_pct")
+
+SCORECARD %>%
+filter(str_detect(NAME, regex("Houston|New York|NY-NJ-PA|Newark", ignore_case = TRUE))) %>%
+select(any_of(diag_cols)) %>%
+print(n = 50)
+```
+
