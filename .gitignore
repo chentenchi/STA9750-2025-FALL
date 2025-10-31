@@ -1,7 +1,30 @@
-.Rproj.user
+# R/RStudio
+.Rproj.user/
 .Rhistory
-.RData
-.Ruserdata
+.DS_Store
+
+# Quarto working folder(s)
+**/.quarto/**
+
+# Data (cache + large files)
+data/**
+
+# knitr/Quarto artifacts
+**/*_cache/**
+**/*_files/**
+**/*_freeze/**
+
+# Common large artifacts (anywhere)
+**/*tsv*
+**/*csv*
+**/*xlsx*
+**/*zip
+**/*pdf
+**/*json
+**/*rds
+
+# Animations
+**/gganim*
 
 /.quarto/
 **/*.quarto_ipynb

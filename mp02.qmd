@@ -35,7 +35,6 @@ cbsa_lu <- INCOME |> distinct(GEOID, NAME) |> mutate(cbsa = as.integer(GEOID))
 #| results: asis
 
 files <- c(
-"00_download_data.R",
 "02_download_tinycensus.R",
 "02_download_newhousingunits.R",
 "02_download_industrycodes.R",
