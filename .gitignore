@@ -11,7 +11,7 @@ data/**
 
 # knitr/Quarto artifacts
 **/*_cache/**
-**/*_files/**
+#**/*_files/**
 **/*_freeze/**
 
 # Common large artifacts (anywhere)
