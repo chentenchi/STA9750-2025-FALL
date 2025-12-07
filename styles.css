@@ -1,0 +1,17 @@
+/* Make inline code (like `httr2`) more legible */
+
+p code,
+li code {
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.95em;
+  padding: 0.15em 0.35em;
+  border-radius: 0.2rem;
+  background-color: #f6f8fa;
+  color: #c7254e;
+}
+
+/* Optional: slightly larger font for code chunks too */
+pre code {
+  font-family: "Source Code Pro", Menlo, Monaco, Consolas, "Liberation Mono", monospace;
+  font-size: 0.9em;
+}

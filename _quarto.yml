@@ -4,17 +4,15 @@ project:
 
 website:
   title: "Introduction"
-  description:
+  description: >
     Course Projects for STA 9750 at Baruch College
-  site-url: "https://chentenchi.github.io/STA9750-2025-FALL/"
+  site-url: "https://chentenchig.github.io/STA9750-2025-FALL/"
   navbar:
     background: primary
     search: false
-    
+
 format:
-  html:
-    theme: slate
-    toc: false
+  html: default
 
 editor:
   mode: source

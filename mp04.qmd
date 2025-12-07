@@ -1,0 +1,688 @@
+---
+title: "STA 9750 – Mini-Project 04"
+author: "Tenchi Chen"
+format:
+  html:
+    theme:
+      light: flatly
+      dark: darkly
+    highlight-style: zenburn
+    code-fold: true
+    code-summary: "Show code"
+    code-tools: true
+    code-line-numbers: true
+    toc: true
+    toc-depth: 2
+    css: styles.css
+execute:
+  echo: true
+  warning: false
+  message: false
+---
+
+```{r}
+library(httr2)
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(readr)
+library(ggplot2)
+library(infer)
+```
+
+
+## Introduction
+
+In this mini–project, I use `httr2` and `rvest` to replicate browser
+requests to the BLS website and acquire two datasets:
+
+1. Seasonally adjusted total nonfarm payroll levels (CES0000000001).
+2. Revisions to the CES nonfarm payroll employment estimates.
+
+The code chunks below show the full workflow from HTTP requests
+to cleaned monthly data frames.
+
+## Task 1: CES Total Nonfarm Payroll Levels
+
+In this section, I reproduce the browser’s POST request to
+`SurveyOutputServlet` using `httr2`, download the HTML table of
+seasonally adjusted total nonfarm payroll levels from 1979–2025,
+and reshape it into a monthly `date` / `level` data frame.
+
+### Task 1.1: Replicate the HTTP request
+
+```{r}
+library(httr2)
+library(rvest)
+
+ces_req <- request("https://data.bls.gov/pdq/SurveyOutputServlet") |>
+  req_method("POST") |>
+  req_headers(
+    "User-Agent" = "chentenchi@gmail.com STA9750 mini-project (R)",
+    "Referer"    = "https://data.bls.gov/pdq/SurveyOutputServlet"
+  ) |>
+  req_body_form(
+    request_action    = "get_data",
+    reformat          = "true",
+    from_results_page = "true",
+    from_year         = "1979",
+    to_year           = "2025",
+    Go.x              = "9",
+    Go.y              = "4",
+    initial_request   = "false",
+    data_tool         = "surveymost",
+    series_id         = "CES0000000001",
+    years_option      = "specific_years"
+  )
+
+ces_resp <- ces_req |>
+  req_perform()
+
+ces_resp  # check for Status: 200
+
+ces_html <- ces_resp |>
+  resp_body_html()
+
+ces_table <- ces_html |>
+  html_element("table") |>
+  html_table(fill = TRUE)
+
+head(ces_table)
+
+```
+
+### Task 1.2: Extract and clean the CES table
+
+```{r}
+ces_table <- ces_html |>
+html_element("table.regular-data") |> # or just html_element("table") if there’s only one
+html_table(fill = TRUE)
+
+head(ces_table)
+```
+
+```{r}
+# reshape CES table to monthly date/level
+ces_monthly <- ces_table |>
+  filter(!is.na(Year), Year != "") |>
+  pivot_longer(
+    cols      = Jan:Dec,
+    names_to  = "month",
+    values_to = "level"
+  ) |>
+  mutate(
+    level = readr::parse_number(level),
+    date  = lubridate::my(paste(month, Year))
+  ) |>
+  filter(
+    !is.na(level),
+    !is.na(date),
+    date <= lubridate::ymd("2025-06-01")
+  ) |>
+  arrange(date) |>
+  select(date, level)
+
+head(ces_monthly)
+```
+
+
+## Task 2: CES Revisions Tables
+
+Here I access the static CES revisions page using `httr2`, extract
+the year-specific revision tables with `rvest`, and build a function
+that returns the monthly revisions for any year. I then apply this
+function from 1979–2025 and construct a data frame with:
+
+- `date` (first day of the month),
+- `original` (first estimate),
+- `final` (third estimate),
+- `revision = final - original`.
+
+### Task 2.1: Download revisions page
+
+```{r}
+library(httr2)
+library(rvest)
+library(dplyr)
+library(tidyr)
+library(lubridate)
+library(readr)
+
+# ---- Task 2: download CES revisions page ----
+rev_req <- request("https://www.bls.gov/web/empsit/cesnaicsrev.htm") |>
+  req_method("GET") |>
+  req_headers(
+    "User-Agent" = "chentenchig@gmail.com STA9750 mini-project (R)",
+    "Referer"    = "https://www.bls.gov/web/empsit/cesnaicsrev.htm"
+  )
+
+rev_resp <- rev_req |>
+  req_perform()
+
+rev_resp   # check Status: 200
+
+rev_html <- rev_resp |>
+  resp_body_html()
+```
+
+```{r}
+# helper: CSS selector for a year table
+table_selector_for_year <- function(year) {
+  paste0("table#", year)
+}
+
+# 2024 
+rev_2024_raw <- rev_html |>
+  html_element(table_selector_for_year(2024)) |>
+  html_table(header = FALSE, fill = TRUE)
+
+head(rev_2024_raw, 15)
+```
+
+### Task 2.2: Extract yearly tables and build function
+
+```{r}
+library(purrr)
+
+# CSS selector for a given year's table: table#2024, table#2023, ...
+table_selector_for_year <- function(year) {
+  paste0("table#", year)
+}
+
+extract_revisions_year <- function(year) {
+  # raw table for that year
+  tbl_raw <- rev_html |>
+    html_element(table_selector_for_year(year)) |>
+    html_table(header = FALSE, fill = TRUE)
+
+  # drop the 3 header rows, then keep the first 12 rows (Jan–Dec)
+  tbl_body <- tbl_raw |>
+    slice(-(1:3)) |>
+    slice(1:12)
+
+  # pick out month, year, original (1st), final (3rd)
+  tbl_clean <- tbl_body |>
+    select(
+      month    = 1,   # X1
+      year     = 2,   # X2
+      original = 3,   # X3 = 1st estimate
+      final    = 5    # X5 = 3rd estimate
+    ) |>
+    mutate(
+      # remove trailing dot from month names (Jan. -> Jan)
+      month    = gsub("\\.", "", month),
+      original = parse_number(original),
+      final    = parse_number(final),
+      revision = final - original,
+      # "1979 Jan" -> 1979-01-01
+      date     = ym(paste(year, month))
+    ) |>
+    select(date, original, final, revision)
+
+  tbl_clean
+}
+
+# test on 2024 like the instructions suggest
+revisions_2024 <- extract_revisions_year(2024)
+revisions_2024
+```
+
+### Task 2.3: Combine years into a single data frame
+
+```{r}
+years <- 1979:2025
+
+ces_revisions <- map_dfr(years, extract_revisions_year)
+
+# keep only through June 2025 as the instructions say
+ces_revisions <- ces_revisions |>
+  filter(date <= ymd("2025-06-01"),
+         !is.na(original),
+         !is.na(final))
+
+head(ces_revisions)
+tail(ces_revisions)
+```
+
+## Task 3: Data Integration and Exploration
+
+### Join the tables + create derived variables
+
+```{r}
+library(dplyr)
+library(ggplot2)
+library(lubridate)
+library(infer)
+
+# Join level and revision data
+ces_joined <- ces_monthly |>
+  left_join(ces_revisions, by = "date") |>
+  mutate(
+    year              = year(date),
+    month_num         = month(date),
+    month_name        = month(date, label = TRUE, abbr = TRUE),
+    abs_revision      = abs(revision),
+    rel_revision_pct  = revision / level * 100,          # revision as % of level
+    abs_rel_rev_pct   = abs(revision) / level * 100,
+    decade            = floor(year / 10) * 10            # 1970s, 1980s, etc.
+  )
+
+glimpse(ces_joined)
+```
+
+```{r}
+# Extra variables for inference
+ces_inf <- ces_joined |>
+  mutate(
+    is_negative   = revision < 0,
+    large_gt1pct  = abs_rel_rev_pct > 1,
+    period_2000   = if_else(year < 2000, "pre_2000", "post_2000"),
+    period_2020   = if_else(year < 2020, "pre_2020", "post_2020")
+  )
+
+glimpse(ces_inf)
+```
+
+
+### Example summary statistics (6+ stats)
+
+#### Overall summaries
+
+```{r}
+overall_stats <- ces_joined |>
+  summarise(
+    n_months           = n(),
+    first_date         = min(date),
+    last_date          = max(date),
+    mean_level         = mean(level, na.rm = TRUE),
+    sd_level           = sd(level, na.rm = TRUE),
+    mean_abs_revision  = mean(abs_revision, na.rm = TRUE),
+    max_up_revision    = max(revision, na.rm = TRUE),
+    max_down_revision  = min(revision, na.rm = TRUE),
+    mean_abs_rel_rev   = mean(abs_rel_rev_pct, na.rm = TRUE)
+  )
+
+overall_stats
+```
+
+#### By decade 
+
+```{r}
+decade_stats <- ces_joined |>
+  group_by(decade) |>
+  summarise(
+    mean_level        = mean(level, na.rm = TRUE),
+    mean_abs_revision = mean(abs_revision, na.rm = TRUE),
+    frac_positive_rev = mean(revision > 0, na.rm = TRUE)
+  )
+
+decade_stats
+```
+
+#### By month-of-year (seasonal pattern in revisions)
+
+```{r}
+month_stats <- ces_joined |>
+  group_by(month_name) |>
+  summarise(
+    mean_abs_revision = mean(abs_revision, na.rm = TRUE),
+    frac_positive_rev = mean(revision > 0, na.rm = TRUE)
+  ) |>
+  arrange(month_name)
+
+month_stats
+```
+
+### Four ggplot visualizations
+
+#### Plot 1 – CES level over time
+
+```{r}
+ggplot(ces_joined, aes(x = date, y = level)) +
+  geom_line() +
+  labs(
+    title = "Total Nonfarm Payroll Employment (Seasonally Adjusted)",
+    x = "Date",
+    y = "Employment Level (thousands)"
+  )
+```
+
+#### Plot 2 – Revisions over time
+
+```{r}
+ggplot(ces_joined, aes(x = date, y = revision)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line() +
+  labs(
+    title = "CES Revisions Over Time (1st vs 3rd Estimate)",
+    x = "Date",
+    y = "Revision (final − original, thousands)"
+  )
+```
+
+#### Plot 3 – Distribution of revisions
+
+```{r}
+ggplot(ces_joined, aes(x = revision)) +
+  geom_histogram(binwidth = 25, boundary = 0, closed = "left") +
+  geom_vline(xintercept = 0, linetype = "dashed") +
+  labs(
+    title = "Distribution of Monthly CES Revisions",
+    x = "Revision (thousands)",
+    y = "Count of Months"
+  )
+```
+
+#### Plot 4 – Average absolute revision by decade
+
+```{r}
+ggplot(decade_stats, aes(x = factor(decade), y = mean_abs_revision)) +
+  geom_col() +
+  labs(
+    title = "Average Absolute CES Revision by Decade",
+    x = "Decade",
+    y = "Mean |Revision| (thousands)"
+  )
+```
+
+### Statistical Analysis with 'infer'
+
+#### Two-sample t-test (using ''t_test')
+
+```{r}
+ces_decades_test <- ces_joined |>
+  filter(year >= 1980, year <= 2019) |>
+  mutate(
+    period = if_else(year < 2000, "1980s_1990s", "2000s_2010s"),
+    abs_rev = abs_revision
+  )
+
+ces_t_test <- ces_decades_test |>
+  t_test(abs_rev ~ period,
+         order = c("1980s_1990s", "2000s_2010s"))
+
+ces_t_test
+```
+
+#### Proportion test (using 'prop_test')
+
+```{r}
+ces_prop_data <- ces_joined |>
+  filter(year >= 1980, year <= 2024) |>
+  mutate(
+    positive = revision > 0,
+    period   = if_else(year < 2000, "pre_2000", "post_2000")
+  )
+
+ces_prop_test <- ces_prop_data |>
+  prop_test(positive ~ period,
+            order = c("post_2000", "pre_2000"))
+
+ces_prop_test
+```
+
+## Task 4 Statistical Inference
+
+### Test 1 – Has the fraction of negative revisions increased post-2000?
+
+```{r}
+# Task 4, Test 1: fraction of negative revisions pre- vs post-2000
+neg_prop_test <- ces_inf |>
+  filter(!is.na(is_negative)) |>
+  prop_test(is_negative ~ period_2000,
+            order = c("post_2000", "pre_2000"))
+
+neg_prop_test
+```
+
+A two-sample proportion test comparing pre-2000 vs post-2000 negative revisions gave a p-value of 0.435 with a 95% CI for the difference of [-0.05, 0.12]. Since the interval includes 0 and the p-value is large, we fail to reject the null hypothesis. There is no clear evidence that the fraction of negative CES revisions changed after 2000.
+
+### Test 2 – Has the average revision changed post-2020?
+
+```{r}
+# Task 4, Test 2: average revision pre- vs post-2020
+rev_t_test <- ces_inf |>
+  filter(!is.na(revision)) |>
+  t_test(revision ~ period_2020,
+         order = c("post_2020", "pre_2020"))
+
+rev_t_test
+```
+
+A two-sample t-test comparing mean revisions pre-2020 vs post-2020 yielded an estimated difference of -12.5 thousand jobs (post-2020 minus pre-2020), with a 95% CI of [-48.1, 23.0] and a p-value of 0.485. Again, the interval spans 0 and the p-value is well above 0.05, so we fail to reject the null hypothesis. The data do not provide strong evidence that the average CES revision changed after 2020.
+
+## Task 5 – Fact Checks of Claims about BLS 
+
+```{r}
+# Add president/party labels and periods
+presidents_party <- tidyr::expand_grid(
+  year  = 1979:2025,
+  month = month.name,
+  president = NA_character_,
+  party     = NA_character_
+) |>
+  mutate(
+    president = case_when(
+      (month == "January")  & (year == 1979) ~ "Carter",
+      (month == "February") & (year == 1981) ~ "Reagan",
+      (month == "February") & (year == 1989) ~ "Bush 41",
+      (month == "February") & (year == 1993) ~ "Clinton",
+      (month == "February") & (year == 2001) ~ "Bush 43",
+      (month == "February") & (year == 2009) ~ "Obama",
+      (month == "February") & (year == 2017) ~ "Trump",
+      (month == "February") & (year == 2021) ~ "Biden",
+      (month == "February") & (year == 2025) ~ "Trump II",
+      TRUE ~ NA_character_
+    )
+  ) |>
+  tidyr::fill(president) |>
+  mutate(
+    party = if_else(president %in% c("Carter", "Clinton", "Obama", "Biden"),
+                    "D", "R")
+  )
+
+ces_pres <- ces_joined |>
+  mutate(
+    month_full      = month(date, label = TRUE, abbr = FALSE),
+    period_election = if_else(date >= as.Date("2024-11-01"),
+                              "post_election", "pre_election"),
+    period_2020     = if_else(year >= 2020, "post_2020", "pre_2020")
+  ) |>
+  # join to add president/party
+  left_join(presidents_party,
+            by = c("year", "month_full" = "month")) |>
+  # now 'president' exists, so we can define biden_term
+  mutate(
+    biden_term = if_else(president == "Biden", "Biden", "Other")
+  )
+```
+
+### Claim 1 (Trump): “Bureau of Labor Statistics employment numbers were rigged when the agency revised them down by almost 900,000 jobs after the 2024 election.”
+
+#### Descriptive Stats
+
+```{r}
+# Stats: largest downward revision and its date
+biggest_down <- ces_pres |>
+  arrange(revision) |>
+  slice(1)
+
+biggest_down
+
+# Stats: sum of revisions after Nov 2024
+post_election_window <- ces_pres |>
+  filter(date >= as.Date("2024-11-01")) |>
+  summarise(
+    n_months        = n(),
+    total_revision  = sum(revision, na.rm = TRUE),
+    mean_revision   = mean(revision, na.rm = TRUE),
+    mean_level      = mean(level, na.rm = TRUE),
+    total_jobs_rev  = total_revision * 1000  # convert "thousands" to jobs
+  )
+
+post_election_window
+
+# Compare pre- vs post-election average revisions
+election_stats <- ces_pres |>
+  group_by(period_election) |>
+  summarise(
+    mean_revision      = mean(revision, na.rm = TRUE),
+    mean_abs_revision  = mean(abs_revision, na.rm = TRUE),
+    frac_negative      = mean(revision < 0, na.rm = TRUE)
+  )
+
+election_stats
+```
+
+#### Hypothesis Test 
+
+##### Two-Sample T-Test
+
+```{r}
+claim1_ttest <- ces_pres |>
+  filter(!is.na(revision)) |>
+  t_test(revision ~ period_election,
+         order = c("post_election", "pre_election"))
+
+claim1_ttest
+```
+
+##### Proportion Test
+
+```{r}
+claim1_prop <- ces_pres |>
+  filter(!is.na(revision)) |>
+  mutate(is_negative = revision < 0) |>
+  prop_test(is_negative ~ period_election,
+            order = c("post_election", "pre_election"))
+
+claim1_prop
+```
+
+#### Visualizations 
+
+##### Revisions over time with election line
+
+```{r}
+ggplot(ces_pres, aes(x = date, y = revision)) +
+  geom_hline(yintercept = 0, linetype = "dashed") +
+  geom_line() +
+  geom_vline(xintercept = as.Date("2024-11-01"),
+             colour = "red", linetype = "dotted") +
+  labs(
+    title = "CES Revisions Over Time with 2024 Election Marker",
+    x = "Date",
+    y = "Revision (thousands of jobs)"
+  )
+```
+
+##### Boxplot pre vs post election
+
+```{r}
+ggplot(ces_pres, aes(x = period_election, y = revision)) +
+  geom_boxplot() +
+  labs(
+    title = "Distribution of CES Revisions Pre- and Post-2024 Election",
+    x = "Period",
+    y = "Revision (thousands of jobs)"
+  )
+```
+
+In the CES data from 1979–2025, the largest single-month downward revision is in March 2020, where employment was revised down by about 672,000 jobs, well before the 2024 election. In the eight months after November 2024, total revisions add up to about –387,000 jobs (around –48,000 per month) on an average employment level of 159 million, not a one-time 900,000 drop.
+
+A two-sample t-test shows that mean revisions are more negative after the election (–48.4k vs +12.4k, difference –60.7k, p ≈ 0.036), but the change is on the order of tens of thousands of jobs, not hundreds of thousands. A proportion test for the share of negative revisions (42% before vs 75% after, p ≈ 0.13) gives no clear evidence of a dramatic shift. Taken together, the revision record does not support the idea of a special 900,000-job “rigging” after the election, so this claim would be rated Pants on Fire.
+
+### Claim 2 (Trump): “The Harris-Biden Administration fraudulently manipulated job statistics and padded the numbers with an extra 818,000 jobs that do not exist, and never did.”
+
+#### Descriptive stats by president / Biden vs others
+
+```{r}
+# Compare Biden term to other presidents
+biden_stats <- ces_pres |>
+  group_by(biden_term) |>
+  summarise(
+    mean_revision      = mean(revision, na.rm = TRUE),
+    mean_abs_revision  = mean(abs_revision, na.rm = TRUE),
+    mean_abs_rel_pct   = mean(abs_rel_rev_pct, na.rm = TRUE),
+    frac_negative      = mean(revision < 0, na.rm = TRUE),
+    n_months           = n()
+  )
+
+biden_stats
+
+# Optional: stats by president
+pres_stats <- ces_pres |>
+  group_by(president) |>
+  summarise(
+    mean_revision      = mean(revision, na.rm = TRUE),
+    mean_abs_revision  = mean(abs_revision, na.rm = TRUE),
+    mean_abs_rel_pct   = mean(abs_rel_rev_pct, na.rm = TRUE)
+  )
+
+pres_stats
+```
+
+#### Hypothesis test – Are revisions different in Biden’s term?
+
+##### T-test
+
+```{r}
+# Test difference in mean revision Biden vs other
+claim2_ttest_rev <- ces_pres |>
+  filter(!is.na(revision)) |>
+  t_test(revision ~ biden_term,
+         order = c("Biden", "Other"))
+
+claim2_ttest_rev
+
+# Test difference in mean absolute percent revision
+claim2_ttest_pct <- ces_pres |>
+  filter(!is.na(abs_rel_rev_pct)) |>
+  t_test(abs_rel_rev_pct ~ biden_term,
+         order = c("Biden", "Other"))
+
+claim2_ttest_pct
+```
+
+##### Proportion Test
+
+```{r}
+claim2_prop <- ces_pres |>
+  mutate(is_negative = revision < 0) |>
+  prop_test(is_negative ~ biden_term,
+            order = c("Biden", "Other"))
+
+claim2_prop
+```
+
+#### Visualizations
+
+##### Absolute revisions by president
+
+```{r}
+ggplot(ces_pres, aes(x = president, y = abs_revision)) +
+  geom_boxplot() +
+  labs(
+    title = "Absolute CES Revisions by President",
+    x = "President",
+    y = "|Revision| (thousands of jobs)"
+  ) +
+  theme(axis.text.x = element_text(angle = 45, hjust = 1))
+```
+
+##### |revision| as % of level: Biden vs others
+
+```{r}
+ggplot(ces_pres, aes(x = biden_term, y = abs_rel_rev_pct)) +
+  geom_boxplot() +
+  labs(
+    title = "Absolute CES Revisions as % of Employment Level",
+    x = "Term",
+    y = "|Revision| as % of level"
+  )
+```
+
+In the CES data, average revisions during the Biden term are about 21,000 jobs compared with 10,600 for all other presidents, and the average absolute revision is 73,600 vs 55,300 jobs. However, when we formally compare Biden months to all other months, a t-test on revisions finds an estimated difference of 10.7 thousand jobs with p ≈ 0.53 and a 95% confidence interval of [−22.8k, 44.2k], while a t-test on absolute percent revisions gives an almost zero difference (0.0004 percentage points, p ≈ 0.96). A proportion test for the share of negative revisions (47.9% under Biden vs 42.0% otherwise, p ≈ 0.52) also shows no statistically clear difference.
+
+The boxplots by president and by term confirm that Biden-era revisions fall well within the historical range and are similar in size relative to the overall level of employment. These results do not support the idea that the administration “padded” the data with hundreds of thousands of nonexistent jobs. On a Politifact-style scale, this claim would be rated False (very close to “Pants on Fire”).
